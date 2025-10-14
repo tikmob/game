@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subway Surfers - UG17 Games</title>
     <meta name="description" content="Play Subway Surfers unblocked on UG17 Games. Run, jump and dash through the subway in this exciting endless runner game.">
-    <meta name="keywords" content="subway surfers, subway surfers game, subway surf subway surf, game subway run, ug17 games, unblocked games">
     <style>
         * {
             margin: 0;
@@ -18,16 +17,12 @@
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .game-header {
             background: rgba(0, 0, 0, 0.8);
             padding: 15px 0;
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
         .container {
@@ -71,75 +66,25 @@
         }
 
         .game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 30px 0;
+            text-align: center;
         }
 
         .game-frame {
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             height: 600px;
-            background: #000;
+            margin: 0 auto;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
+            background: #000;
         }
 
-        #unity-container {
+        #game-iframe {
             width: 100%;
             height: 100%;
-            position: relative;
-        }
-
-        #game {
-            width: 100%;
-            height: 100%;
-        }
-
-        .game-info {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 900px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .game-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #ffd700;
-        }
-
-        .game-description {
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .control-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .control-key {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-weight: bold;
+            border: none;
         }
 
         .loading {
@@ -165,17 +110,46 @@
             to { transform: rotate(360deg); }
         }
 
-        .loading-text {
-            font-size: 1.2rem;
+        .game-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+
+        .game-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .control-key {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
             .game-frame {
                 height: 500px;
-            }
-            
-            .game-title {
-                font-size: 1.5rem;
             }
         }
 
@@ -192,7 +166,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="game-header">
         <div class="container">
             <div class="header-content">
@@ -205,30 +178,26 @@
         </div>
     </header>
 
-    <!-- Game Container -->
     <main class="container">
         <div class="game-container">
             <div class="game-frame">
-                <div id="unity-container">
-                    <!-- سيتم تحميل اللعبة هنا -->
-                    <div class="loading" id="loading">
-                        <div class="loading-spinner"></div>
-                        <div class="loading-text">Loading Subway Surfers...</div>
-                    </div>
-                    <div id="game" style="display: none;">
-                        <!-- سيتم إنشاء عناصر اللعبة هنا -->
-                    </div>
+                <!-- سيتم تحميل اللعبة هنا -->
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <div>Loading Subway Surfers...</div>
                 </div>
+                <iframe 
+                    id="game-iframe"
+                    src="https://html5.gamedistribution.com/rvvASMi/9c14b8b8b3f64a6e812a0a262e2e6e7b/?gd_sdk_referrer_url=https://www.crazygames.com/game/subway-surfers"
+                    style="display: none;"
+                    allow="autoplay; fullscreen"
+                    scrolling="no"
+                ></iframe>
             </div>
 
-            <!-- Game Information -->
             <div class="game-info">
                 <h1 class="game-title">Subway Surfers</h1>
-                <p class="game-description">
-                    Run, jump and dash through the subway in this exciting endless runner game. 
-                    Escape the inspector and his dog, collect coins, power-ups and special items 
-                    as you surf through the subway tracks. How far can you go?
-                </p>
+                <p>Run, jump and dash through the subway in this exciting endless runner game. Escape the inspector and his dog, collect coins, power-ups and special items as you surf through the subway tracks.</p>
                 
                 <div class="controls">
                     <div class="control-item">
@@ -249,110 +218,14 @@
     </main>
 
     <script>
-        // تهيئة إعدادات اللعبة
-        window.config = {
-            loader: 'unity',
-            debug: false,
-            maxRatio: 16 / 9,
-            minRatio: 9 / 16,
-            title: 'Subway Surfers',
-            thumbnail: 'https://ug17.github.io/images/subway-surfers.jpg',
-            numScreenshots: 4,
-            unityVersion: '2019.2.0f1',
-            unityWebglBuildUrl: 'Beijing_2.json',
-            fileSize: 36,
-            cachedDecompressedFileSizes: {
-                'Beijing_2.asm.code.unityweb': 9059136,
-                'Beijing_2.asm.framework.unityweb': 89457,
-                'Beijing_2.asm.memory.unityweb': 1007260,
-                'Beijing_2.data.unityweb': 19343219,
-                'Beijing_2.wasm.code.unityweb': 7338464,
-                'Beijing_2.wasm.framework.unityweb': 93787,
-            },
-        };
-
-        // دالة لتحميل اللعبة
-        function loadGame() {
-            // إخفاء شاشة التحميل
+        // إخفاء شاشة التحميل عند تحميل اللعبة
+        document.getElementById('game-iframe').onload = function() {
             document.getElementById('loading').style.display = 'none';
-            document.getElementById('game').style.display = 'block';
-            
-            // هنا سيتم تحميل محرك Unity واللعبة
-            // هذا مثال مبسط - في الواقع تحتاج لتحميل الملفات الفعلية
-            
-            // محاكاة نجاح التحميل
-            setTimeout(function() {
-                // في التطبيق الحقيقي، هنا سيتم تهيئة Unity
-                console.log('Game loaded successfully');
-                
-                // إضافة Canvas للعبة
-                const gameDiv = document.getElementById('game');
-                const canvas = document.createElement('canvas');
-                canvas.id = 'game-canvas';
-                canvas.style.width = '100%';
-                canvas.style.height = '100%';
-                gameDiv.appendChild(canvas);
-                
-                // رسالة توضيحية (في الواقع ستكون اللعبة الحقيقية)
-                const message = document.createElement('div');
-                message.style.cssText = `
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    text-align: center;
-                    color: white;
-                    font-size: 1.2rem;
-                `;
-                message.innerHTML = `
-                    <h2>Subway Surfers</h2>
-                    <p>Game would be running here</p>
-                    <p>Use arrow keys to play</p>
-                `;
-                gameDiv.appendChild(message);
-                
-            }, 2000);
-        }
-
-        // بدء تحميل اللعبة عند فتح الصفحة
-        window.addEventListener('DOMContentLoaded', function() {
-            // محاكاة وقت التحميل
-            setTimeout(loadGame, 3000);
-            
-            // إضافة مستمعات للأزرار (للتوضيح فقط)
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
-                    e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-                    // في اللعبة الحقيقية، هذا سيتحكم في الشخصية
-                    console.log('Control key pressed:', e.key);
-                }
-            });
-        });
-
-        // إضافة بيانات منظمة لتحسين SEO
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "VideoGame",
-            "name": "Subway Surfers",
-            "description": "Run, jump and dash through the subway in this exciting endless runner game.",
-            "applicationCategory": "Game",
-            "gamePlatform": "Web Browser",
-            "operatingSystem": "Any",
-            "author": {
-                "@type": "Organization",
-                "name": "UG17 Games"
-            },
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-            }
+            document.getElementById('game-iframe').style.display = 'block';
         };
 
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.text = JSON.stringify(structuredData);
-        document.head.appendChild(script);
+        // بدء تحميل اللعبة
+        document.getElementById('game-iframe').style.display = 'block';
     </script>
 </body>
 </html>
