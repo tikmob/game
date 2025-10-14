@@ -599,10 +599,42 @@ let hideTimeout;
 });
 
 </script>
-  
-</body>
-</html>
+    <!-- كود زر التكبير -->
+  <script>
+  const gameFrame = document.querySelector('.game-frame');
+  const zoomBtn = document.createElement('button');
+  zoomBtn.className = 'zoom-btn';
+  zoomBtn.textContent = '⤢';
+  gameFrame.appendChild(zoomBtn);
 
+  // تفعيل أو إلغاء التكبير
+  zoomBtn.addEventListener('click', async () => {
+    if (!document.fullscreenElement) {
+      await gameFrame.requestFullscreen?.();
+      gameFrame.classList.add('fullscreen-css');
+      zoomBtn.classList.add('exit');
+      zoomBtn.textContent = '✕';
+    } else {
+      await document.exitFullscreen?.();
+      gameFrame.classList.remove('fullscreen-css');
+      zoomBtn.classList.remove('exit');
+      zoomBtn.textContent = '⤢';
+    }
+  });
 
+  // جعل الزر أكثر وضوحًا عند حركة اللاعب
+  let hideTimeout;
+  ['mousemove', 'touchstart'].forEach(evt => {
+    gameFrame.addEventListener(evt, () => {
+      if (gameFrame.classList.contains('fullscreen-css')) {
+        gameFrame.classList.add('show-controls');
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          gameFrame.classList.remove('show-controls');
+        }, 2000);
+      }
+    });
+  });
+  </script>
 </body>
 </html>
