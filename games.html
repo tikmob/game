@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subway Surfers - UG17 Games</title>
-    <meta name="description" content="Play Subway Surfers unblocked on UG17 Games. Run, jump and dash through the subway in this exciting endless runner game.">
-    <meta name="keywords" content="subway surfers, subway surfers game, ug17 games, unblocked games, free games">
     <style>
         * {
             margin: 0;
@@ -14,461 +12,70 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            min-height: 100vh;
+            text-align: center;
         }
 
-        .game-header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-content {
+        .header {
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-
         .back-btn {
             background: #6c5ce7;
             color: white;
-            border: none;
             padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-btn:hover {
-            background: #a29bfe;
-            transform: translateY(-2px);
+            border-radius: 5px;
         }
 
         .game-container {
-            padding: 30px 0;
-            text-align: center;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .game-frame {
             width: 100%;
-            max-width: 900px;
             height: 600px;
-            margin: 0 auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background: #000;
-            position: relative;
-            border: 3px solid #ffd700;
-        }
-
-        .game-iframe {
-            width: 100%;
-            height: 100%;
             border: none;
-            background: #000;
+            border-radius: 10px;
+            background: black;
         }
 
-        .loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: #002B50;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 2;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #3CF7DC;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .loading-subtext {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .game-info {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 15px;
-            max-width: 900px;
-            margin: 25px auto 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .game-title {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #ffd700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .game-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-
-        .controls-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .control-item {
-            background: rgba(255, 255, 255, 0.15);
+        .info {
+            background: rgba(255,255,255,0.1);
             padding: 20px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .control-item h3 {
-            color: #ffd700;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .control-key {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 0 4px;
-            font-weight: bold;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
             margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .fullscreen-btn, .reload-btn {
-            background: #00b894;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
-        .reload-btn {
-            background: #6c5ce7;
-        }
-
-        .fullscreen-btn:hover {
-            background: #00d8a7;
-            transform: translateY(-2px);
-        }
-
-        .reload-btn:hover {
-            background: #a29bfe;
-            transform: translateY(-2px);
-        }
-
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .game-frame {
-                height: 500px;
-                max-width: 95%;
-            }
-            
-            .game-title {
-                font-size: 2rem;
-            }
-            
-            .controls-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .game-frame {
-                height: 400px;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .fullscreen-btn, .reload-btn {
-                width: 200px;
-                justify-content: center;
-            }
-        }
-
-        /* تأثيرات إضافية */
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <header class="game-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    <span>🎮</span>
-                    <span>UG17 Games</span>
-                </a>
-                <a href="/" class="back-btn">← Back to Games</a>
-            </div>
+    <div class="header">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <h1>Subway Surfers</h1>
+        <div></div> <!-- spacer -->
+    </div>
+
+    <div class="game-container">
+        <!-- استبدل هذا الرابط برابط اللعبة الحقيقي -->
+        <iframe 
+            src="https://app-362399.games.s3.yandex.net/362399/6ewbnp2pcltorfuqt4inq1c8u7nh1qzc_brotli/index.html" 
+            class="game-frame"
+            allow="autoplay; fullscreen"
+        ></iframe>
+        
+        <div class="info">
+            <h2>Subway Surfers</h2>
+            <p>Run, jump and dash through the subway in this exciting endless runner game!</p>
+            <p><strong>Controls:</strong> Arrow Keys to move and jump</p>
         </div>
-    </header>
-
-    <main class="container">
-        <div class="game-container">
-            <div class="game-frame">
-                <div class="loading" id="loading">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">Loading Subway Surfers</div>
-                    <div class="loading-subtext">Please wait...</div>
-                </div>
-                <iframe 
-                    id="game-iframe"
-                    class="game-iframe"
-                    src="https://app-362399.games.s3.yandex.net/362399/6ewbnp2pcltorfuqt4inq1c8u7nh1qzc_brotli/index.html"
-                    allow="autoplay; fullscreen; gamepad"
-                    scrolling="no"
-                ></iframe>
-            </div>
-
-            <div class="action-buttons">
-                <button class="fullscreen-btn" onclick="toggleFullscreen()">
-                    ⛶ Fullscreen
-                </button>
-                <button class="reload-btn" onclick="reloadGame()">
-                    ↻ Reload Game
-                </button>
-            </div>
-
-            <div class="game-info">
-                <h1 class="game-title pulse">Subway Surfers</h1>
-                <p class="game-description">
-                    Run, jump and dash through the subway in this exciting endless runner game. 
-                    Escape the inspector and his dog, collect coins, power-ups and special items 
-                    as you surf through the subway tracks. How far can you go?
-                </p>
-                
-                <div class="controls-container">
-                    <div class="control-item">
-                        <h3>🎮 Movement Controls</h3>
-                        <p>Use <span class="control-key">←</span> <span class="control-key">→</span> to move left and right</p>
-                        <p>Use <span class="control-key">↑</span> or <span class="control-key">Space</span> to jump</p>
-                        <p>Use <span class="control-key">↓</span> to roll under obstacles</p>
-                    </div>
-                    
-                    <div class="control-item">
-                        <h3>⚡ Power-ups</h3>
-                        <p>Collect coins to buy upgrades</p>
-                        <p>Use hoverboards to avoid crashes</p>
-                        <p>Find mystery boxes for special items</p>
-                        <p>Jetpacks for flying over obstacles</p>
-                    </div>
-                    
-                    <div class="control-item">
-                        <h3>🎯 Game Tips</h3>
-                        <p>Jump over incoming trains</p>
-                        <p>Dodge barriers and obstacles</p>
-                        <p>Collect as many coins as possible</p>
-                        <p>Complete missions for rewards</p>
-                    </div>
-                </div>
-
-                <div class="feature-list">
-                    <div class="feature">
-                        <div class="feature-icon">🏃‍♂️</div>
-                        <div>Endless Running</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🎨</div>
-                        <div>Colorful Graphics</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">⚡</div>
-                        <div>Fast Paced</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🏆</div>
-                        <div>High Score Challenge</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        const iframe = document.getElementById('game-iframe');
-        const loading = document.getElementById('loading');
-
-        // إخفاء شاشة التحميل عند تحميل اللعبة
-        iframe.addEventListener('load', function() {
-            setTimeout(() => {
-                loading.classList.add('hidden');
-            }, 1000);
-        });
-
-        // إعادة تحميل اللعبة
-        function reloadGame() {
-            loading.classList.remove('hidden');
-            iframe.src = iframe.src + '?reload=' + Date.now();
-        }
-
-        // وضع ملء الشاشة
-        function toggleFullscreen() {
-            const gameFrame = document.querySelector('.game-frame');
-            
-            if (!document.fullscreenElement) {
-                if (gameFrame.requestFullscreen) {
-                    gameFrame.requestFullscreen();
-                } else if (gameFrame.webkitRequestFullscreen) {
-                    gameFrame.webkitRequestFullscreen();
-                } else if (gameFrame.msRequestFullscreen) {
-                    gameFrame.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
-        }
-
-        // تغيير حجم الإطار تلقائياً
-        function resizeGameFrame() {
-            const gameFrame = document.querySelector('.game-frame');
-            const container = document.querySelector('.container');
-            const containerWidth = container.offsetWidth - 40;
-            
-            if (containerWidth < 600) {
-                gameFrame.style.height = '400px';
-            } else if (containerWidth < 900) {
-                gameFrame.style.height = '500px';
-            } else {
-                gameFrame.style.height = '600px';
-            }
-        }
-
-        // استدعاء الدالة عند تحميل الصفحة وتغيير حجم النافذة
-        window.addEventListener('load', resizeGameFrame);
-        window.addEventListener('resize', resizeGameFrame);
-
-        // إضافة تأثيرات عند التمرير
-        window.addEventListener('scroll', function() {
-            const gameInfo = document.querySelector('.game-info');
-            const rect = gameInfo.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.8) {
-                gameInfo.style.opacity = '1';
-                gameInfo.style.transform = 'translateY(0)';
-            }
-        });
-
-        // تهيئة تأثيرات CSS
-        document.querySelector('.game-info').style.opacity = '0';
-        document.querySelector('.game-info').style.transform = 'translateY(20px)';
-        document.querySelector('.game-info').style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-
-        setTimeout(() => {
-            document.querySelector('.game-info').style.opacity = '1';
-            document.querySelector('.game-info').style.transform = 'translateY(0)';
-        }, 1000);
-    </script>
+    </div>
 </body>
 </html>
