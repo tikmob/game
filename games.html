@@ -217,48 +217,58 @@
         </div>
     </main>
 
-    <script>
+<script>
   (function() {
     const iframe = document.getElementById('game-iframe');
     const loading = document.getElementById('loading');
+    const titleElement = document.querySelector('.game-title');
 
-    // تأكد أن iframe مخفي حتى يكتمل التحميل
-    iframe.style.display = 'none';
+    // استخرج رابط اللعبة من الـ iframe
+    const gameURL = iframe.getAttribute('src');
 
-    // معالج التحميل
+    // استخرج اسم اللعبة من الرابط (مثلاً: subway-surfers أو كلمة من الرابط)
+    const nameFromURL = gameURL
+      .split('/')
+      .filter(Boolean)
+      .pop()        // آخر جزء من الرابط
+      .replace(/[-_]/g, ' ')  // إزالة الشرطات
+      .replace(/\?.*/, '')    // إزالة الكويري
+      .trim();
+
+    // اجعل أول حرف كبير لاسم اللعبة
+    const formattedName = nameFromURL
+      ? nameFromURL.charAt(0).toUpperCase() + nameFromURL.slice(1)
+      : 'Game';
+
+    // عرض الاسم في العنوان والنص أثناء التحميل
+    titleElement.textContent = formattedName;
+    loading.querySelector('div:last-child').textContent = `Loading ${formattedName}...`;
+
+    // عند اكتمال تحميل اللعبة
     iframe.onload = function() {
-      // أخفِ شاشة التحميل وأظهر الإطار
       loading.style.display = 'none';
       iframe.style.display = 'block';
     };
 
-    // بديل عند فشل التحميل أو بطءه: بعد 8 ثواني نعرض رابط لفتح اللعبة في نافذة جديدة
-    const fallback = setTimeout(function() {
+    // احتياطي: بعد 10 ثوانٍ إن لم تُحمّل اللعبة، أظهر خيار لفتحها في نافذة جديدة
+    const fallback = setTimeout(() => {
       if (loading.style.display !== 'none') {
         loading.innerHTML = `
           <div style="text-align:center;color:#fff;padding:18px;">
             <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
             <div>Game is taking longer than expected.</div>
             <div style="margin-top:10px;">
-              <a href="${iframe.src}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open the game in a new tab</a>
+              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${formattedName} in a new tab</a>
             </div>
           </div>
         `;
-        // إخفاء الإطار إذا لم يُحمّل
-        iframe.style.display = 'none';
       }
-    }, 8000);
+    }, 10000);
 
-    // لو تريد إعادة محاولة أو تبديل src ديناميكياً يمكنك تعديل السطر التالي:
-    // (إذا كان src مُعرّفًا بالفعل في الـ HTML يمكنك تجاهل السطر تحت)
-    // iframe.src = 'https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/';
-
-    // تنظيف المهلة لو تم التحميل بنجاح قبل انتهاء الوقت
-    iframe.addEventListener('load', function() {
-      clearTimeout(fallback);
-    });
+    iframe.addEventListener('load', () => clearTimeout(fallback));
   })();
 </script>
+
 
 </body>
 </html>
