@@ -259,6 +259,18 @@
       </div>
     </div>
   </main>
+// إخفاء الشريط العلوي في وضع العرض الأفقي (Landscape)
+window.addEventListener('orientationchange', () => {
+  const header = document.querySelector('.game-header');
+
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    header.style.display = 'none'; // إخفاء الشريط
+    document.body.requestFullscreen?.(); // يجعل اللعبة Fullscreen إن أمكن
+  } else {
+    header.style.display = 'block'; // إعادة ظهوره عند العودة للوضع العمودي
+    document.exitFullscreen?.(); // الخروج من ملء الشاشة
+  }
+});
 
   <script>
   (function() {
