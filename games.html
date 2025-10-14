@@ -1,256 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subway Surfers - UG17 Games</title>
-    <meta name="description" content="Play Subway Surfers unblocked on UG17 Games. Run, jump and dash through the subway in this exciting endless runner game.">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: white;
-            min-height: 100vh;
-        }
-
-        .game-header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-
-        .back-btn {
-            background: #6c5ce7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .back-btn:hover {
-            background: #a29bfe;
-            transform: translateY(-2px);
-        }
-
-        .game-container {
-            padding: 30px 0;
-            text-align: center;
-        }
-
-        .game-frame {
-            width: 100%;
-            max-width: 800px;
-            height: 600px;
-            margin: 0 auto;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            background: #000;
-        }
-
-        #game-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: #002B50;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #3CF7DC;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .game-info {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 20px auto 0;
-        }
-
-        .game-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #ffd700;
-        }
-
-        .controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .control-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .control-key {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin: 0 5px;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .game-frame {
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .game-frame {
-                height: 400px;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UG17 Games</title>
+  <meta name="description" content="Play the best HTML5 games on UG17 Games. Run, jump and have fun online!">
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      color: white; min-height: 100vh;
+    }
+    .game-header {background: rgba(0,0,0,0.8);padding: 15px 0;backdrop-filter: blur(10px);}
+    .container {max-width: 1200px;margin: 0 auto;padding: 0 20px;}
+    .header-content {display:flex;justify-content:space-between;align-items:center;}
+    .logo {display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:white;text-decoration:none;}
+    .back-btn {background:#6c5ce7;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;}
+    .back-btn:hover {background:#a29bfe;transform:translateY(-2px);}
+    .game-container {padding:30px 0;text-align:center;}
+    .game-frame {width:100%;max-width:800px;height:600px;margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);background:#000;}
+    #game-iframe {width:100%;height:100%;border:none;display:none;}
+    .loading {display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50;}
+    .loading-spinner {width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:#3CF7DC;animation:spin 1s ease-in-out infinite;margin-bottom:20px;}
+    @keyframes spin {to {transform: rotate(360deg);}}
+    .game-info {background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:20px;border-radius:10px;max-width:800px;margin:20px auto 0;}
+    .game-title {font-size:2rem;margin-bottom:10px;color:#ffd700;}
+    .controls {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px;}
+    .control-item {background:rgba(255,255,255,0.1);padding:15px;border-radius:8px;}
+    .control-key {display:inline-block;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:5px;margin:0 5px;font-weight:bold;}
+    @media (max-width:768px){.game-frame{height:500px;}}
+    @media (max-width:480px){.game-frame{height:400px;}.header-content{flex-direction:column;gap:15px;}}
+  </style>
 </head>
 <body>
-    <header class="game-header">
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    <span>🎮</span>
-                    <span>UG17 Games</span>
-                </a>
-                <a href="/" class="back-btn">← Back to Games</a>
-            </div>
+  <header class="game-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="/" class="logo"><span>🎮</span><span>UG17 Games</span></a>
+        <a href="/" class="back-btn">← Back to Games</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="game-container">
+      <div class="game-frame">
+        <!-- شاشة التحميل -->
+        <div class="loading" id="loading">
+          <div class="loading-spinner"></div>
+          <div>Loading Game...</div>
         </div>
-    </header>
 
-    <main class="container">
-        <div class="game-container">
-            <div class="game-frame">
-                <!-- سيتم تحميل اللعبة هنا -->
-                <div class="loading" id="loading">
-                    <div class="loading-spinner"></div>
-                    <div>Loading Subway Surfers...</div>
-                </div>
-                <iframe 
-  src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
-  width="800" height="600" 
-  scrolling="none" 
-  frameborder="0">
-</iframe>
+        <!-- اللعبة -->
+        <iframe 
+          id="game-iframe"
+          src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
+          allow="autoplay; fullscreen"
+          scrolling="no">
+        </iframe>
+      </div>
 
-            </div>
-
-            <div class="game-info">
-                <h1 class="game-title">Subway Surfers</h1>
-                <p>Run, jump and dash through the subway in this exciting endless runner game. Escape the inspector and his dog, collect coins, power-ups and special items as you surf through the subway tracks.</p>
-                
-                <div class="controls">
-                    <div class="control-item">
-                        <h3>Movement</h3>
-                        <p>Use <span class="control-key">←</span> <span class="control-key">→</span> to move left and right</p>
-                        <p>Use <span class="control-key">↑</span> to jump</p>
-                        <p>Use <span class="control-key">↓</span> to roll</p>
-                    </div>
-                    <div class="control-item">
-                        <h3>Power-ups</h3>
-                        <p>Collect coins to buy power-ups</p>
-                        <p>Use hoverboards to avoid crashes</p>
-                        <p>Find mystery boxes for special items</p>
-                    </div>
-                </div>
-            </div>
+      <div class="game-info">
+        <h1 class="game-title">Loading...</h1>
+        <p>Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on UG17 Games.</p>
+        
+        <div class="controls">
+          <div class="control-item">
+            <h3>How to Play</h3>
+            <p>Use <span class="control-key">←</span> <span class="control-key">→</span> to move.</p>
+            <p>Press <span class="control-key">↑</span> to jump and <span class="control-key">↓</span> to slide.</p>
+          </div>
+          <div class="control-item">
+            <h3>Tips</h3>
+            <p>Collect coins to unlock characters.</p>
+            <p>Avoid obstacles and stay alive!</p>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 
-<script>
+  <script>
   (function() {
     const iframe = document.getElementById('game-iframe');
     const loading = document.getElementById('loading');
     const titleElement = document.querySelector('.game-title');
 
-    // استخرج رابط اللعبة من الـ iframe
+    // رابط اللعبة من iframe
     const gameURL = iframe.getAttribute('src');
 
-    // استخرج اسم اللعبة من الرابط (مثلاً: subway-surfers أو كلمة من الرابط)
-    const nameFromURL = gameURL
-      .split('/')
-      .filter(Boolean)
-      .pop()        // آخر جزء من الرابط
-      .replace(/[-_]/g, ' ')  // إزالة الشرطات
-      .replace(/\?.*/, '')    // إزالة الكويري
-      .trim();
+    // استخراج اسم اللعبة من الرابط تلقائياً
+    let nameFromURL = '';
+    try {
+      const urlParts = new URL(gameURL);
+      const path = urlParts.pathname.split('/').filter(Boolean);
+      nameFromURL = path[path.length - 2] || 'Game';
+    } catch {
+      nameFromURL = 'Game';
+    }
 
-    // اجعل أول حرف كبير لاسم اللعبة
     const formattedName = nameFromURL
-      ? nameFromURL.charAt(0).toUpperCase() + nameFromURL.slice(1)
-      : 'Game';
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
 
-    // عرض الاسم في العنوان والنص أثناء التحميل
+    // تحديث اسم اللعبة في الصفحة
     titleElement.textContent = formattedName;
     loading.querySelector('div:last-child').textContent = `Loading ${formattedName}...`;
 
-    // عند اكتمال تحميل اللعبة
+    // عند تحميل اللعبة
     iframe.onload = function() {
       loading.style.display = 'none';
       iframe.style.display = 'block';
     };
 
-    // احتياطي: بعد 10 ثوانٍ إن لم تُحمّل اللعبة، أظهر خيار لفتحها في نافذة جديدة
+    // في حال تأخر التحميل
     const fallback = setTimeout(() => {
       if (loading.style.display !== 'none') {
         loading.innerHTML = `
@@ -267,8 +131,6 @@
 
     iframe.addEventListener('load', () => clearTimeout(fallback));
   })();
-</script>
-
-
+  </script>
 </body>
 </html>
