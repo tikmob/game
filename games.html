@@ -218,14 +218,47 @@
     </main>
 
     <script>
-        // إخفاء شاشة التحميل عند تحميل اللعبة
-        document.getElementById('game-iframe').onload = function() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('game-iframe').style.display = 'block';
-        };
+  (function() {
+    const iframe = document.getElementById('game-iframe');
+    const loading = document.getElementById('loading');
 
-        // بدء تحميل اللعبة
-        document.getElementById('game-iframe').style.display = 'block';
-    </script>
+    // تأكد أن iframe مخفي حتى يكتمل التحميل
+    iframe.style.display = 'none';
+
+    // معالج التحميل
+    iframe.onload = function() {
+      // أخفِ شاشة التحميل وأظهر الإطار
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+    };
+
+    // بديل عند فشل التحميل أو بطءه: بعد 8 ثواني نعرض رابط لفتح اللعبة في نافذة جديدة
+    const fallback = setTimeout(function() {
+      if (loading.style.display !== 'none') {
+        loading.innerHTML = `
+          <div style="text-align:center;color:#fff;padding:18px;">
+            <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
+            <div>Game is taking longer than expected.</div>
+            <div style="margin-top:10px;">
+              <a href="${iframe.src}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open the game in a new tab</a>
+            </div>
+          </div>
+        `;
+        // إخفاء الإطار إذا لم يُحمّل
+        iframe.style.display = 'none';
+      }
+    }, 8000);
+
+    // لو تريد إعادة محاولة أو تبديل src ديناميكياً يمكنك تعديل السطر التالي:
+    // (إذا كان src مُعرّفًا بالفعل في الـ HTML يمكنك تجاهل السطر تحت)
+    // iframe.src = 'https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/';
+
+    // تنظيف المهلة لو تم التحميل بنجاح قبل انتهاء الوقت
+    iframe.addEventListener('load', function() {
+      clearTimeout(fallback);
+    });
+  })();
+</script>
+
 </body>
 </html>
