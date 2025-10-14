@@ -380,5 +380,145 @@
   })();
   </script>
   <script>window.scrollTo(0,0);</script>
+  <script>
+(function() {
+  const zoomBtn = document.getElementById('zoom-btn');
+  const gameFrame = document.querySelector('.game-frame');
+  const iframe = document.getElementById('game-iframe');
+  const header = document.querySelector('.game-header');
+
+  let isExpanded = false;
+  let usingBrowserFS = false; // true إذا دخلنا fullscreen حقيقي
+
+  // helper: enter "CSS fullscreen" fallback
+  function enterCssFullscreen() {
+    gameFrame.classList.add('fullscreen-css');
+    header?.style && (header.style.display = 'none');
+    // prevent body scroll
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    isExpanded = true;
+    zoomBtn.classList.add('exit');
+    zoomBtn.textContent = '✕';
+  }
+
+  function exitCssFullscreen() {
+    gameFrame.classList.remove('fullscreen-css');
+    header?.style && (header.style.display = '');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    isExpanded = false;
+    zoomBtn.classList.remove('exit');
+    zoomBtn.textContent = '⤢';
+  }
+
+  // try to request browser fullscreen on the gameFrame element
+  async function enterBrowserFullscreen() {
+    const el = gameFrame;
+    if (!el) return false;
+    const request = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (!request) return false;
+    try {
+      await request.call(el);
+      usingBrowserFS = true;
+      isExpanded = true;
+      zoomBtn.classList.add('exit');
+      zoomBtn.textContent = '✕';
+      // hide header just in case
+      header?.style && (header.style.display = 'none');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function exitBrowserFullscreen() {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (!exit) return false;
+    try {
+      await exit.call(document);
+      usingBrowserFS = false;
+      isExpanded = false;
+      zoomBtn.classList.remove('exit');
+      zoomBtn.textContent = '⤢';
+      header?.style && (header.style.display = '');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // main toggle
+  async function toggleExpand() {
+    if (!isExpanded) {
+      // try browser fullscreen first
+      const ok = await enterBrowserFullscreen();
+      if (!ok) {
+        // fallback to CSS fullscreen
+        enterCssFullscreen();
+      }
+    } else {
+      // if we used browser fullscreen, exit it
+      if (usingBrowserFS) {
+        await exitBrowserFullscreen();
+      }
+      // ensure CSS fullscreen is removed
+      if (gameFrame.classList.contains('fullscreen-css')) exitCssFullscreen();
+    }
+  }
+
+  // handle fullscreenchange events (user pressed ESC etc.)
+  function onFullscreenChange() {
+    const fsElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    if (!fsElement) {
+      // left browser fullscreen
+      usingBrowserFS = false;
+      // restore header if not in css fullscreen
+      if (!gameFrame.classList.contains('fullscreen-css')) {
+        header?.style && (header.style.display = '');
+        isExpanded = false;
+        zoomBtn.classList.remove('exit');
+        zoomBtn.textContent = '⤢';
+      }
+    } else {
+      // entered browser fullscreen
+      usingBrowserFS = true;
+      isExpanded = true;
+      header?.style && (header.style.display = 'none');
+      zoomBtn.classList.add('exit');
+      zoomBtn.textContent = '✕';
+    }
+  }
+
+  // attach events
+  zoomBtn.addEventListener('click', toggleExpand);
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  document.addEventListener('msfullscreenchange', onFullscreenChange);
+
+  // exit with ESC key fallback for CSS fullscreen
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
+      exitCssFullscreen();
+    }
+  });
+
+  // If user rotates device while in CSS fullscreen, ensure height is updated
+  window.addEventListener('orientationchange', () => {
+    if (gameFrame.classList.contains('fullscreen-css')) {
+      // small delay to allow resize
+      setTimeout(() => {
+        // nothing special needed — CSS uses vw/vh — but we reflow iframe
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+      }, 300);
+    }
+  });
+
+  // Accessibility: long-press on mobile could open context menu — prevent default touch-hold on button
+  zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+})();
+</script>
+
 </body>
 </html>
