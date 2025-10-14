@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UG17 Games</title>
-  <meta name="description" content="Play the best HTML5 games on UG17 Games. Run, jump and have fun online!">
+  <title>Subway Surfers - UG17 Games</title>
+  <meta name="description" content="Play Subway Surfers unblocked on UG17 Games. Run, jump and dash through the subway in this exciting endless runner game.">
   <style>
     * {margin:0;padding:0;box-sizing:border-box;}
     body {
@@ -46,16 +46,15 @@
   <main class="container">
     <div class="game-container">
       <div class="game-frame">
-        <!-- شاشة التحميل -->
         <div class="loading" id="loading">
           <div class="loading-spinner"></div>
           <div>Loading Game...</div>
         </div>
 
-        <!-- اللعبة -->
+        <!-- 👇 غيّر فقط هذا الرابط لأي لعبة من GameMonetize -->
         <iframe 
           id="game-iframe"
-          src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
+          src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
           allow="autoplay; fullscreen"
           scrolling="no">
         </iframe>
@@ -87,26 +86,29 @@
     const loading = document.getElementById('loading');
     const titleElement = document.querySelector('.game-title');
 
-    // رابط اللعبة من iframe
-    const gameURL = iframe.getAttribute('src');
+    // الحصول على عنوان اللعبة من <title> الصفحة
+    const defaultTitle = document.title.split('-')[0].trim();
 
-    // استخراج اسم اللعبة من الرابط تلقائياً
+    // محاولة استخراج الاسم من الرابط
+    const gameURL = iframe.getAttribute('src');
     let nameFromURL = '';
+
     try {
       const urlParts = new URL(gameURL);
-      const path = urlParts.pathname.split('/').filter(Boolean);
-      nameFromURL = path[path.length - 2] || 'Game';
+      const segments = urlParts.pathname.split('/').filter(Boolean);
+      nameFromURL = segments[segments.length - 2] || '';
     } catch {
-      nameFromURL = 'Game';
+      nameFromURL = '';
     }
 
-    const formattedName = nameFromURL
-      .replace(/[-_]/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
+    // إذا لم يوجد اسم بالرابط، استخدم العنوان الافتراضي
+    const finalName = nameFromURL
+      ? nameFromURL.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+      : defaultTitle || 'Game';
 
-    // تحديث اسم اللعبة في الصفحة
-    titleElement.textContent = formattedName;
-    loading.querySelector('div:last-child').textContent = `Loading ${formattedName}...`;
+    // تحديث الاسم في الواجهة
+    titleElement.textContent = finalName;
+    loading.querySelector('div:last-child').textContent = `Loading ${finalName}...`;
 
     // عند تحميل اللعبة
     iframe.onload = function() {
@@ -122,7 +124,7 @@
             <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
             <div>Game is taking longer than expected.</div>
             <div style="margin-top:10px;">
-              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${formattedName} in a new tab</a>
+              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${finalName} in a new tab</a>
             </div>
           </div>
         `;
