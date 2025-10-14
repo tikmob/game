@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+لا ادري ماذا حدث زر الازلة يظهر مرتين فوق بعض <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -314,7 +314,7 @@
           title="Free HTML5 Game - FreePlayHub">
         </iframe>
         <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
-
+<button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
 
       </div>
 
@@ -562,6 +562,9 @@
   // Accessibility: long-press on mobile could open context menu — prevent default touch-hold on button
   zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
 })();
+    // زر تكبير الشاشة
+const gameFrame = document.querySelector('.game-frame');
+const iframe = document.getElementById('game-iframe');
 
 // إنشاء زر التكبير
 const zoomBtn = document.createElement('button');
