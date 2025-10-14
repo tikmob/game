@@ -12,146 +12,92 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
   <meta property="og:url" content="https://tikmob.github.io/game">
-  
-  <style>
-    * {margin:0;padding:0;box-sizing:border-box;}
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-      color: white; min-height: 100vh;
-      line-height: 1.6;
-    }
-    .game-header {
-      background: rgba(0,0,0,0.8);
-      padding: 15px 0;
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .container {max-width: 1200px;margin: 0 auto;padding: 0 20px;}
-    .header-content {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .logo {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size:1.5rem;
-      font-weight:700;
-      color:white;
-      text-decoration:none;
-    }
-    .back-btn {
-      background:#6c5ce7;
-      color:white;
-      border:none;
-      padding:10px 20px;
-      border-radius:5px;
-      cursor:pointer;
-      font-weight:600;
-      transition:all .3s;
-      text-decoration:none;
-      display:inline-block;
-    }
-    .back-btn:hover {
-      background:#a29bfe;
-      transform:translateY(-2px);
-    }
 
-    .game-container {padding:30px 0;text-align:center;}
-    .game-frame {
-      position: relative;
-      width:100%;
-      max-width:800px;
-      height:80vh;
-      margin:0 auto;
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,0.5);
-      background:#000;
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);
+      color:white;min-height:100vh;line-height:1.6;
     }
-    #game-iframe {
-      width:100%;
-      height:100%;
-      border:none;
-      display:none;
+    .game-header{
+      background:rgba(0,0,0,0.8);
+      padding:15px 0;
+      backdrop-filter:blur(10px);
+      position:sticky;
+      top:0;
+      z-index:100;
     }
-    .loading {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      height:100%;
+    .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+    .header-content{display:flex;justify-content:space-between;align-items:center;}
+    .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:white;text-decoration:none;}
+    .back-btn{
+      background:#6c5ce7;color:white;border:none;padding:10px 20px;border-radius:5px;
+      cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;
+    }
+    .back-btn:hover{background:#a29bfe;transform:translateY(-2px);}
+    .game-container{padding:30px 0;text-align:center;}
+    .game-frame{
+      width:100%;max-width:800px;height:80vh;margin:0 auto;
+      border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);background:#000;
+      position:relative;
+    }
+    #game-iframe{width:100%;height:100%;border:none;display:none;}
+    .loading{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;
       background:#002B50;
     }
-    .loading-spinner {
-      width:50px;height:50px;
-      border:5px solid rgba(255,255,255,0.3);
-      border-top-color:#3CF7DC;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-      margin-bottom:20px;
+    .loading-spinner{
+      width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);
+      border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;
     }
-    @keyframes spin {to {transform: rotate(360deg);}}
-
-    /* زر التكبير */
-    .zoom-btn {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      z-index: 20;
-      opacity: 0.8;
+    @keyframes spin{to{transform:rotate(360deg);}}
+    
+    /* زر التكبير في منتصف الأعلى */
+    .zoom-btn{
+      position:absolute;
+      top:10px;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      border:none;
+      width:36px;
+      height:36px;
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,0.4);
+      z-index:50;
+      transition:background .2s ease;
     }
-    .zoom-btn:hover {opacity: 1;}
-    .zoom-btn.exit {
-      background: rgba(255,0,0,0.7);
-      border-radius: 50%;
-      font-size: 20px;
-      width: 46px;
-      height: 46px;
-      opacity: 0.5;
-    }
-
+    .zoom-btn:hover{background:rgba(0,0,0,0.8);}
+    .zoom-btn.exit{background:rgba(255,0,0,0.7);}
+    
     /* وضع ملء الشاشة */
-    .fullscreen-css {
-      position: fixed !important;
-      top:0; left:0;
-      width:100vw !important;
-      height:100vh !important;
-      z-index:2147483647;
-      background:#000;
+    .game-frame.fullscreen-css{
+      position:fixed;top:0;left:0;width:100vw!important;height:100vh!important;
+      z-index:2147483647;background:#000;border-radius:0;
     }
-
-    .fullscreen-css ~ .game-info,
-    .fullscreen-css ~ .seo-content,
-    .fullscreen-css ~ header,
-    .fullscreen-css ~ footer {
-      display:none !important;
-    }
-
-    @media (max-width:768px){
-      .game-frame{height:70vh;}
-    }
+    .game-frame.fullscreen-css ~ .game-info,
+    .game-frame.fullscreen-css ~ .seo-content,
+    .game-frame.fullscreen-css ~ header,
+    .game-frame.fullscreen-css ~ footer{display:none!important;}
+    
+    .game-info{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:20px;border-radius:10px;max-width:800px;margin:20px auto 0;}
+    .game-title{font-size:2rem;margin-bottom:10px;color:#ffd700;}
+    
+    @media(max-width:768px){.game-frame{height:70vh;}}
   </style>
 </head>
 <body>
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://tikmob.github.io/game" class="logo">
-          <span>🎮</span><span>FreePlayHub</span>
-        </a>
+        <a href="https://tikmob.github.io/game" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
         <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
       </div>
     </div>
@@ -165,7 +111,9 @@
           <div>Loading Game...</div>
         </div>
         <iframe id="game-iframe" src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" allow="autoplay; fullscreen"></iframe>
+        <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
       </div>
+
       <div class="game-info">
         <h2 class="game-title">Loading...</h2>
         <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
@@ -174,83 +122,66 @@
   </main>
 
   <script>
-  // اسم اللعبة وتحديث التحميل
-  (function() {
-    const iframe = document.getElementById('game-iframe');
-    const loading = document.getElementById('loading');
-    const title = document.querySelector('.game-title');
-    const gameURL = iframe.src;
-
-    let name = '';
-    try {
-      const path = new URL(gameURL).pathname.split('/').filter(Boolean);
-      name = path[path.length - 2] || 'HTML5 Game';
-    } catch { name = 'HTML5 Game'; }
-
-    name = name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    title.textContent = name;
-    loading.querySelector('div:last-child').textContent = `Loading ${name}...`;
-    document.title = `${name} - FreePlayHub`;
-
-    iframe.onload = () => {
-      loading.style.display = 'none';
-      iframe.style.display = 'block';
-    };
+  // تحديث اسم اللعبة ديناميكياً
+  (function(){
+    const iframe=document.getElementById('game-iframe');
+    const loading=document.getElementById('loading');
+    const title=document.querySelector('.game-title');
+    const gameURL=iframe.src;
+    let name;
+    try{
+      const path=new URL(gameURL).pathname.split('/').filter(Boolean);
+      name=path[path.length-2]||'HTML5 Game';
+    }catch{name='HTML5 Game';}
+    name=name.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+    title.textContent=name;
+    loading.querySelector('div:last-child').textContent=`Loading ${name}...`;
+    document.title=`${name} - FreePlayHub`;
+    iframe.onload=()=>{loading.style.display='none';iframe.style.display='block';};
   })();
 
-  // زر التكبير والتصغير
-  (function() {
-   
-    zoomBtn.className = 'zoom-btn';
-    zoomBtn.textContent = '⤢';
-    frame.appendChild(zoomBtn);
+  // زر التكبير
+  (function(){
+    const btn=document.getElementById('zoom-btn');
+    const frame=document.querySelector('.game-frame');
+    const header=document.querySelector('.game-header');
+    let expanded=false,usingFS=false;
 
-    let expanded = false, hideTimeout;
-
-    async function enterFullscreen() {
-      const req = frame.requestFullscreen || frame.webkitRequestFullscreen;
-      if (req) {
-        try { await req.call(frame); return true; } catch { return false; }
-      }
+    async function enterFS(){
+      const req=frame.requestFullscreen||frame.webkitRequestFullscreen;
+      if(req){try{await req.call(frame);usingFS=true;return true;}catch{return false;}}
       return false;
     }
-
-    async function exitFullscreen() {
-      const exit = document.exitFullscreen || document.webkitExitFullscreen;
-      if (exit) await exit.call(document);
+    async function exitFS(){
+      const exit=document.exitFullscreen||document.webkitExitFullscreen;
+      if(exit){try{await exit.call(document);}catch{}}
+      usingFS=false;
     }
-
-    function cssExpand() {
+    function cssExpand(){
       frame.classList.add('fullscreen-css');
-      header.style.display = 'none';
-      zoomBtn.classList.add('exit');
-      zoomBtn.textContent = '✕';
-      expanded = true;
+      header.style.display='none';
+      btn.classList.add('exit');
+      btn.textContent='✕';
+      expanded=true;
     }
-
-    function cssExit() {
+    function cssExit(){
       frame.classList.remove('fullscreen-css');
-      header.style.display = '';
-      zoomBtn.classList.remove('exit');
-      zoomBtn.textContent = '⤢';
-      expanded = false;
+      header.style.display='';
+      btn.classList.remove('exit');
+      btn.textContent='⤢';
+      expanded=false;
     }
-
-    zoomBtn.addEventListener('click', async () => {
-      if (!expanded) {
-        const ok = await enterFullscreen();
-        if (!ok) cssExpand();
-      } else {
-        await exitFullscreen();
+    btn.addEventListener('click',async()=>{
+      if(!expanded){
+        const ok=await enterFS();
+        if(!ok)cssExpand();
+      }else{
+        if(usingFS)await exitFS();
         cssExit();
       }
     });
-
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) cssExit();
-    });
-
-    
+    document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)cssExit();});
+  })();
   </script>
 </body>
 </html>
