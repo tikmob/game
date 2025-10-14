@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreePlayHub - Play Free Online HTML5 Games</title>
-  <meta name="description" content="Play the best free online HTML5 games on FreePlayHub. No installation required! Enjoy arcade games, multiplayer browser games, and fun web games for kids.">
-  <meta name="keywords" content="free html5 games, play online games, browser games, no install games, unblocked fun games">
+  <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
+  <meta name="description" content="Play the best free online HTML5 games on FreePlayHub. No installation required! Enjoy arcade games, multiplayer browser games, and fun web games for kids. Play instantly on any device without downloads or ads.">
+  <meta name="keywords" content="free online html5 games, no install browser games, play online arcade games, fun web games for kids, multiplayer browser games, best casual games online, new html5 games 2025, top free browser games, unblocked fun games, play free browser games online, best html5 games 2025, fun browser games to play, play games without download, play games online for free without ads, free unblocked browser games, play free online games on pc, play free mobile browser games, play instant games online">
+  
+  <!-- Open Graph Meta Tags -->
   <meta name="robots" content="index, follow">
-
+  <meta property="og:title" content="FreePlayHub - Play Free Online HTML5 Games Instantly">
+  <meta property="og:description" content="Enjoy free browser games without downloads or ads. Play instantly on PC, mobile, or tablet!">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
+  <meta property="og:url" content="https://tikmob.github.io/game">
+  
   <style>
     * {margin:0;padding:0;box-sizing:border-box;}
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-      color: white;
-      min-height: 100vh;
+      color: white; min-height: 100vh;
       line-height: 1.6;
     }
     .game-header {
@@ -56,10 +62,11 @@
       background:#a29bfe;
       transform:translateY(-2px);
     }
-
-    .game-container {padding:30px 0;text-align:center;}
+    .game-container {
+      padding:30px 0;
+      text-align:center;
+    }
     .game-frame {
-      position: relative;
       width:100%;
       max-width:800px;
       height:80vh;
@@ -84,53 +91,92 @@
       background:#002B50;
     }
     .loading-spinner {
-      width:50px;height:50px;
+      width:50px;
+      height:50px;
       border:5px solid rgba(255,255,255,0.3);
-      border-top-color:#3CF7DC;
       border-radius:50%;
-      animation:spin 1s linear infinite;
+      border-top-color:#3CF7DC;
+      animation:spin 1s ease-in-out infinite;
       margin-bottom:20px;
     }
     @keyframes spin {to {transform: rotate(360deg);}}
-
-    /* زر التكبير */
-    .zoom-btn {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: none;
-      padding: 10px 15px;
+    .game-info {
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      padding:20px;
+      border-radius:10px;
+      max-width:800px;
+      margin:20px auto 0;
+    }
+    .game-title {
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#ffd700;
+    }
+    .game-description {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .feature-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
       border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      z-index: 20;
-      opacity: 0.8;
+      text-align: left;
     }
-    .zoom-btn:hover {opacity: 1;}
-    .zoom-btn.exit {
-      background: rgba(255,0,0,0.7);
-      border-radius: 50%;
-      font-size: 20px;
-      width: 46px;
-      height: 46px;
-      opacity: 0.5;
+    .feature-item h3 {
+      color: #3CF7DC;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-
-    /* وضع ملء الشاشة */
-    .fullscreen-css {
-      position: fixed !important;
-      top:0; left:0;
-      width:100vw !important;
-      height:100vh !important;
-      z-index:2147483647;
-      background:#000;
+    .seo-content {
+      margin-top: 40px;
+      padding: 25px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      text-align: left;
     }
-
+    .seo-content h1 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    .seo-content p {
+      margin-bottom: 15px;
+    }
+    .game-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    @media (max-height: 500px) {
+  .game-frame { height: 400px; }
+}
+    .category-tag {
+      background: rgba(108, 92, 231, 0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
     @media (max-width:768px){
       .game-frame{height:70vh;}
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width:480px){
+      .game-frame{height:60vh;}
+      .header-content{flex-direction:column;gap:15px;}
+      .game-title {font-size: 1.5rem;}
+      .seo-content h1 {font-size: 1.5rem;}
     }
   </style>
 </head>
@@ -138,7 +184,10 @@
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://tikmob.github.io/game" class="logo">🎮 FreePlayHub</a>
+        <a href="https://tikmob.github.io/game" class="logo">
+          <span>🎮</span>
+          <span>FreePlayHub</span>
+        </a>
         <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
       </div>
     </div>
@@ -147,97 +196,127 @@
   <main class="container">
     <div class="game-container">
       <div class="game-frame">
+        <!-- شاشة التحميل -->
         <div class="loading" id="loading">
           <div class="loading-spinner"></div>
           <div>Loading Game...</div>
         </div>
-        <iframe id="game-iframe" src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" allow="autoplay; fullscreen"></iframe>
+
+        <!-- اللعبة -->
+        <iframe 
+          id="game-iframe"
+          src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
+          allow="autoplay; fullscreen"
+          scrolling="no"
+          title="Free HTML5 Game - FreePlayHub">
+        </iframe>
       </div>
-      <h2 class="game-title" style="margin-top:20px;">Loading...</h2>
+
+      <div class="game-info">
+        <h2 class="game-title">Loading...</h2>
+        <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
+        
+        <div class="features">
+          <div class="feature-item">
+            <h3>🚀 Instant Play</h3>
+            <p>No downloads or installations required. Play directly in your browser on any device.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🎯 Free & Accessible</h3>
+            <p>All games are completely free to play with no registration required.</p>
+          </div>
+          <div class="feature-item">
+            <h3>📱 Cross-Platform</h3>
+            <p>Play on PC, tablet, or mobile - our HTML5 games work everywhere.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🌟 Premium Quality</h3>
+            <p>Experience the best HTML5 games with smooth performance and great graphics.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- محتوى SEO -->
+      <div class="seo-content">
+        <h1>Play Free Online HTML5 Games on FreePlayHub</h1>
+        <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Whether you're looking for exciting arcade games, fun web games for kids, or engaging multiplayer browser games, we have something for everyone.</p>
+        
+        <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere. All our games are completely free to play with no annoying ads interrupting your gaming experience.</p>
+        
+        <p>At FreePlayHub, we're committed to providing the best casual games online that you can play instantly without registration. Our collection includes action-packed adventures, challenging puzzles, thrilling racing games, and much more. Whether you're on your PC at home or using your mobile browser on the go, our games deliver premium entertainment without the hassle of installations or downloads.</p>
+        
+        <div class="game-categories">
+          <span class="category-tag">HTML5 Games</span>
+          <span class="category-tag">Browser Games</span>
+          <span class="category-tag">No Install Games</span>
+          <span class="category-tag">Arcade Games</span>
+          <span class="category-tag">Kids Games</span>
+          <span class="category-tag">Multiplayer Games</span>
+          <span class="category-tag">Casual Games</span>
+          <span class="category-tag">Unblocked Games</span>
+          <span class="category-tag">Free Games Online</span>
+        </div>
+      </div>
     </div>
   </main>
 
   <script>
-  // 🔹 تحميل اللعبة وتغيير الاسم تلقائيًا
   (function() {
     const iframe = document.getElementById('game-iframe');
     const loading = document.getElementById('loading');
-    const title = document.querySelector('.game-title');
-    const gameURL = iframe.src;
+    const titleElement = document.querySelector('.game-title');
 
-    let name = '';
+    // رابط اللعبة من iframe
+    const gameURL = iframe.getAttribute('src');
+
+    // استخراج اسم اللعبة من الرابط تلقائياً
+    let nameFromURL = '';
     try {
-      const path = new URL(gameURL).pathname.split('/').filter(Boolean);
-      name = path[path.length - 2] || 'HTML5 Game';
-    } catch { name = 'HTML5 Game'; }
+      const urlParts = new URL(gameURL);
+      const path = urlParts.pathname.split('/').filter(Boolean);
+      nameFromURL = path[path.length - 2] || 'Game';
+    } catch {
+      nameFromURL = 'Game';
+    }
 
-    name = name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    title.textContent = name;
-    loading.querySelector('div:last-child').textContent = `Loading ${name}...`;
-    document.title = `${name} - FreePlayHub`;
+    const formattedName = nameFromURL
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
 
-    iframe.onload = () => {
+    // Fallback إذا كان الاسم غير معروف
+    const displayName = formattedName === 'Game' ? 'Free HTML5 Game' : formattedName;
+
+    // تحديث اسم اللعبة في الصفحة
+    titleElement.textContent = displayName;
+    loading.querySelector('div:last-child').textContent = `Loading ${displayName}...`;
+
+    // تحديث عنوان الصفحة
+    document.title = `${displayName} - Free Online HTML5 Game | FreePlayHub`;
+
+    // عند تحميل اللعبة
+    iframe.onload = function() {
       loading.style.display = 'none';
       iframe.style.display = 'block';
     };
+
+    // في حال تأخر التحميل
+    const fallback = setTimeout(() => {
+      if (loading.style.display !== 'none') {
+        loading.innerHTML = `
+          <div style="text-align:center;color:#fff;padding:18px;">
+            <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
+            <div>Game is taking longer than expected.</div>
+            <div style="margin-top:10px;">
+              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${displayName} in a new tab</a>
+            </div>
+          </div>
+        `;
+      }
+    }, 10000);
+
+    iframe.addEventListener('load', () => clearTimeout(fallback));
   })();
   </script>
-
-  <script>
-  // 🔹 نظام التكبير والتصغير
-  (function() {
-    const frame = document.querySelector('.game-frame');
-    const header = document.querySelector('.game-header');
-    const zoomBtn = document.createElement('button');
-    zoomBtn.className = 'zoom-btn';
-    zoomBtn.textContent = '⤢';
-    frame.appendChild(zoomBtn);
-
-    let expanded = false;
-
-    async function enterFullscreen() {
-      const request = frame.requestFullscreen || frame.webkitRequestFullscreen;
-      if (request) {
-        try { await request.call(frame); return true; } catch { return false; }
-      }
-      return false;
-    }
-
-    async function exitFullscreen() {
-      const exit = document.exitFullscreen || document.webkitExitFullscreen;
-      if (exit) await exit.call(document);
-    }
-
-    function cssExpand() {
-      frame.classList.add('fullscreen-css');
-      header.style.display = 'none';
-      zoomBtn.classList.add('exit');
-      zoomBtn.textContent = '✕';
-      expanded = true;
-    }
-
-    function cssExit() {
-      frame.classList.remove('fullscreen-css');
-      header.style.display = '';
-      zoomBtn.classList.remove('exit');
-      zoomBtn.textContent = '⤢';
-      expanded = false;
-    }
-
-    zoomBtn.addEventListener('click', async () => {
-      if (!expanded) {
-        const ok = await enterFullscreen();
-        if (!ok) cssExpand();
-      } else {
-        await exitFullscreen();
-        cssExit();
-      }
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement) cssExit();
-    });
-  })();
-  </script>
+  <script>window.scrollTo(0,0);</script>
 </body>
 </html>
