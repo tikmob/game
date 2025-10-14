@@ -237,6 +237,51 @@
       .game-title {font-size: 1.5rem;}
       .seo-content h1 {font-size: 1.5rem;}
     }
+    /* زر التكبير */
+.zoom-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  z-index: 20;
+  opacity: 0.6;
+}
+.zoom-btn:hover { opacity: 1; }
+
+/* عند تفعيل fullscreen نحرك الزر للأعلى ونخفيه افتراضيًا */
+.game-frame.fullscreen-css .zoom-btn.exit {
+  top: 10px;
+  right: 10px;
+  bottom: auto;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  font-size: 22px;
+  width: 45px;
+  height: 45px;
+  opacity: 0; /* مخفي افتراضيًا */
+  transition: opacity 0.4s ease;
+}
+
+/* عند تمرير الماوس أو لمس الشاشة يظهر الزر */
+.game-frame.fullscreen-css.show-controls .zoom-btn.exit {
+  opacity: 1;
+}
+
+/* تحسين على الوضع الأفقي للهاتف */
+@media (orientation: landscape) {
+  .game-frame.fullscreen-css .zoom-btn.exit {
+    top: 8px;
+    right: 8px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -518,6 +563,45 @@
   // Accessibility: long-press on mobile could open context menu — prevent default touch-hold on button
   zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
 })();
+    // زر تكبير الشاشة
+const gameFrame = document.querySelector('.game-frame');
+const iframe = document.getElementById('game-iframe');
+
+// إنشاء زر التكبير
+const zoomBtn = document.createElement('button');
+zoomBtn.className = 'zoom-btn';
+zoomBtn.textContent = '⤢';
+gameFrame.appendChild(zoomBtn);
+
+// تفعيل/إلغاء التكبير
+zoomBtn.addEventListener('click', async () => {
+  if (!document.fullscreenElement) {
+    await gameFrame.requestFullscreen?.();
+    gameFrame.classList.add('fullscreen-css');
+    zoomBtn.classList.add('exit');
+    zoomBtn.textContent = '✕';
+  } else {
+    await document.exitFullscreen?.();
+    gameFrame.classList.remove('fullscreen-css');
+    zoomBtn.classList.remove('exit');
+    zoomBtn.textContent = '⤢';
+  }
+});
+
+// جعل الزر يظهر فقط عند تحريك الماوس أو لمس الشاشة
+let hideTimeout;
+['mousemove', 'touchstart'].forEach(evt => {
+  gameFrame.addEventListener(evt, () => {
+    if (gameFrame.classList.contains('fullscreen-css')) {
+      gameFrame.classList.add('show-controls');
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        gameFrame.classList.remove('show-controls');
+      }, 2500); // يختفي بعد 2.5 ثانية من عدم الحركة
+    }
+  });
+});
+
 </script>
 
 </body>
