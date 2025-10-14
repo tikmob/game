@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
+  <!-- ... باقي الhead بدون تغيير ... -->
+  
+  <style>
+    /* الأنماط الحالية بدون تغيير */
+  </style>
+</head>
+<body>
+  <!-- ... باقي الbody بدون تغيير ... -->
+
+  <script>
+  (function() {
+    const iframe = document.getElementById('game-iframe');
+    const loading = document.getElementById('loading');
+    const titleElement = document.querySelector('.game-title');
+
+    // كود التحميل الحالي - اتركه كما هو
+    const gameURL = iframe.getAttribute('src');
+    // ... باقي كود التحميل ...
+
+    iframe.onload = function() {
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+    };
+
+    const fallback = setTimeout(() => {
+      if (loading.style.display !== 'none') {
+        loading.innerHTML = `
+          <div style="text-align:center;color:#fff;padding:18px;">
+            <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
+            <div>Game is taking longer than expected.</div>
+            <div style="margin-top:10px;">
+              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${displayName} in a new tab</a>
+            </div>
+          </div>
+        `;
+      }
+    }, 10000);
+
+    iframe.addEventListener('load', () => clearTimeout(fallback));
+  })();
+  </script>
+
+  <script>window.scrollTo(0,0);</script>
+
+  <!-- كود زر التكبير الأساسي - اتركه كما هو -->
+  <script>
+(function() {
+  const zoomBtn = document.getElementById('zoom-btn');
+  const gameFrame = document.querySelector('.game-frame');
+  const iframe = document.getElementById('game-iframe');
+  const header = document.querySelector('.game-header');
+
+  let isExpanded = false;
+  let usingBrowserFS = false;
+
+  function enterCssFullscreen() {
+    gameFrame.classList.add('fullscreen-css');
+    header?.style && (header.style.display = 'none');
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    isExpanded = true;
+    zoomBtn.classList.add('exit');
+    zoomBtn.textContent = '✕';
+  }
+
+  function exitCssFullscreen() {
+    gameFrame.classList.remove('fullscreen-css');
+    header?.style && (header.style.display = '');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    isExpanded = false;
+    zoomBtn.classList.remove('exit');
+    zoomBtn.textContent = '⤢';
+  }
+
+  async function enterBrowserFullscreen() {
+    const el = gameFrame;
+    if (!el) return false;
+    const request = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (!request) return false;
+    try {
+      await request.call(el);
+      usingBrowserFS = true;
+      isExpanded = true;
+      zoomBtn.classList.add('exit');
+      zoomBtn.textContent = '✕';
+      header?.style && (header.style.display = 'none');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function exitBrowserFullscreen() {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (!exit) return false;
+    try {
+      await exit.call(document);
+      usingBrowserFS = false;
+      isExpanded = false;
+      zoomBtn.classList.remove('exit');
+      zoomBtn.textContent = '⤢';
+      header?.style && (header.style.display = '');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function toggleExpand() {
+    if (!isExpanded) {
+      const ok = await enterBrowserFullscreen();
+      if (!ok) {
+        enterCssFullscreen();
+      }
+    } else {
+      if (usingBrowserFS) {
+        await exitBrowserFullscreen();
+      }
+      if (gameFrame.classList.contains('fullscreen-css')) exitCssFullscreen();
+    }
+  }
+
+  function onFullscreenChange() {
+    const fsElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    if (!fsElement) {
+      usingBrowserFS = false;
+      if (!gameFrame.classList.contains('fullscreen-css')) {
+        header?.style && (header.style.display = '');
+        isExpanded = false;
+        zoomBtn.classList.remove('exit');
+        zoomBtn.textContent = '⤢';
+      }
+    } else {
+      usingBrowserFS = true;
+      isExpanded = true;
+      header?.style && (header.style.display = 'none');
+      zoomBtn.classList.add('exit');
+      zoomBtn.textContent = '✕';
+    }
+  }
+
+  zoomBtn.addEventListener('click', toggleExpand);
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  document.addEventListener('msfullscreenchange', onFullscreenChange);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
+      exitCssFullscreen();
+    }
+  });
+
+  window.addEventListener('orientationchange', () => {
+    if (gameFrame.classList.contains('fullscreen-css')) {
+      setTimeout(() => {
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+      }, 300);
+    }
+  });
+
+  zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+})();
+  </script>
+
+  <!-- احذف الكودين التاليين تماماً - هما المسببان للتكرار -->
+</body>
+</html>
