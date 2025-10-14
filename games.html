@@ -80,59 +80,56 @@
     </div>
   </main>
 
-  <script>
-  (function() {
-    const iframe = document.getElementById('game-iframe');
-    const loading = document.getElementById('loading');
-    const titleElement = document.querySelector('.game-title');
+<script>
+(function() {
+  const iframe = document.getElementById('game-iframe');
+  const loading = document.getElementById('loading');
+  const titleElement = document.querySelector('.game-title');
 
-    // الحصول على عنوان اللعبة من <title> الصفحة
-    const defaultTitle = document.title.split('-')[0].trim();
+  // نحاول جلب الاسم من data-title أو من عنوان الصفحة أو من الرابط
+  const gameURL = iframe.getAttribute('src');
+  const dataTitle = iframe.dataset.title?.trim();
+  const pageTitle = document.title.split('-')[0].trim();
 
-    // محاولة استخراج الاسم من الرابط
-    const gameURL = iframe.getAttribute('src');
-    let nameFromURL = '';
+  let nameFromURL = '';
+  try {
+    const urlParts = new URL(gameURL);
+    const segments = urlParts.pathname.split('/').filter(Boolean);
+    nameFromURL = segments[segments.length - 2] || '';
+  } catch {
+    nameFromURL = '';
+  }
 
-    try {
-      const urlParts = new URL(gameURL);
-      const segments = urlParts.pathname.split('/').filter(Boolean);
-      nameFromURL = segments[segments.length - 2] || '';
-    } catch {
-      nameFromURL = '';
-    }
+  const finalName = dataTitle ||
+    (nameFromURL ? nameFromURL.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : pageTitle || 'Game');
 
-    // إذا لم يوجد اسم بالرابط، استخدم العنوان الافتراضي
-    const finalName = nameFromURL
-      ? nameFromURL.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-      : defaultTitle || 'Game';
+  // تحديث الواجهة
+  titleElement.textContent = finalName;
+  loading.querySelector('div:last-child').textContent = `Loading ${finalName}...`;
 
-    // تحديث الاسم في الواجهة
-    titleElement.textContent = finalName;
-    loading.querySelector('div:last-child').textContent = `Loading ${finalName}...`;
+  iframe.onload = function() {
+    loading.style.display = 'none';
+    iframe.style.display = 'block';
+  };
 
-    // عند تحميل اللعبة
-    iframe.onload = function() {
-      loading.style.display = 'none';
-      iframe.style.display = 'block';
-    };
-
-    // في حال تأخر التحميل
-    const fallback = setTimeout(() => {
-      if (loading.style.display !== 'none') {
-        loading.innerHTML = `
-          <div style="text-align:center;color:#fff;padding:18px;">
-            <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
-            <div>Game is taking longer than expected.</div>
-            <div style="margin-top:10px;">
-              <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${finalName} in a new tab</a>
-            </div>
+  // في حال تأخر التحميل
+  const fallback = setTimeout(() => {
+    if (loading.style.display !== 'none') {
+      loading.innerHTML = `
+        <div style="text-align:center;color:#fff;padding:18px;">
+          <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
+          <div>Game is taking longer than expected.</div>
+          <div style="margin-top:10px;">
+            <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${finalName} in a new tab</a>
           </div>
-        `;
-      }
-    }, 10000);
+        </div>
+      `;
+    }
+  }, 10000);
 
-    iframe.addEventListener('load', () => clearTimeout(fallback));
-  })();
-  </script>
+  iframe.addEventListener('load', () => clearTimeout(fallback));
+})();
+</script>
+
 </body>
 </html>
