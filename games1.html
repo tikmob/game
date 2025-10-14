@@ -6,7 +6,7 @@
   <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
   <meta name="description" content="Play the best free online HTML5 games on FreePlayHub. No installation required! Enjoy arcade games, multiplayer browser games, and fun web games for kids. Play instantly on any device without downloads or ads.">
   <meta name="keywords" content="free online html5 games, no install browser games, play online arcade games, fun web games for kids, multiplayer browser games, best casual games online, new html5 games 2025, top free browser games, unblocked fun games, play free browser games online, best html5 games 2025, fun browser games to play, play games without download, play games online for free without ads, free unblocked browser games, play free online games on pc, play free mobile browser games, play instant games online">
-
+  
   <!-- Open Graph Meta Tags -->
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="FreePlayHub - Play Free Online HTML5 Games Instantly">
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
   <meta property="og:url" content="https://tikmob.github.io/game">
-
+  
   <style>
     /* زر التكبير */
 .zoom-btn {
@@ -281,13 +281,6 @@
   }
 }
 
-/* ✅ إضافة CSS لوضع الزر في منتصف الأعلى */
-.zoom-btn.top-center {
-  top: 8px;
-  right: 50%;
-  bottom: auto;
-  transform: translateX(50%);
-}
   </style>
 </head>
 <body>
@@ -321,14 +314,14 @@
           title="Free HTML5 Game - FreePlayHub">
         </iframe>
         <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
-<button id="zoom-btn" class="zoom-btn top-center" aria-label="Toggle fullscreen">⤢</button>
+<button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
 
       </div>
 
       <div class="game-info">
         <h2 class="game-title">Loading...</h2>
         <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
-
+        
         <div class="features">
           <div class="feature-item">
             <h3>🚀 Instant Play</h3>
@@ -348,16 +341,16 @@
           </div>
         </div>
       </div>
-
+      
       <!-- محتوى SEO -->
       <div class="seo-content">
         <h1>Play Free Online HTML5 Games on FreePlayHub</h1>
         <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Whether you're looking for exciting arcade games, fun web games for kids, or engaging multiplayer browser games, we have something for everyone.</p>
-
+        
         <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere. All our games are completely free to play with no annoying ads interrupting your gaming experience.</p>
-
+        
         <p>At FreePlayHub, we're committed to providing the best casual games online that you can play instantly without registration. Our collection includes action-packed adventures, challenging puzzles, thrilling racing games, and much more. Whether you're on your PC at home or using your mobile browser on the go, our games deliver premium entertainment without the hassle of installations or downloads.</p>
-
+        
         <div class="game-categories">
           <span class="category-tag">HTML5 Games</span>
           <span class="category-tag">Browser Games</span>
@@ -394,17 +387,17 @@
 
     const formattedName = nameFromURL
       .replace(/[-_]/g, ' ')
-      .replace(/\w/g, c => c.toUpperCase());
+      .replace(/\b\w/g, c => c.toUpperCase());
 
     // Fallback إذا كان الاسم غير معروف
     const displayName = formattedName === 'Game' ? 'Free HTML5 Game' : formattedName;
 
     // تحديث اسم اللعبة في الصفحة
     titleElement.textContent = displayName;
-    loading.querySelector('div:last-child').textContent = `Loading ${displayName}...`;
+    loading.querySelector('div:last-child').textContent = Loading ${displayName}...;
 
     // تحديث عنوان الصفحة
-    document.title = `${displayName} - Free Online HTML5 Game | FreePlayHub`;
+    document.title = ${displayName} - Free Online HTML5 Game | FreePlayHub;
 
     // عند تحميل اللعبة
     iframe.onload = function() {
@@ -415,7 +408,7 @@
     // في حال تأخر التحميل
     const fallback = setTimeout(() => {
       if (loading.style.display !== 'none') {
-        loading.innerHTML = `
+        loading.innerHTML = 
           <div style="text-align:center;color:#fff;padding:18px;">
             <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
             <div>Game is taking longer than expected.</div>
@@ -423,7 +416,7 @@
               <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${displayName} in a new tab</a>
             </div>
           </div>
-        `;
+        ;
       }
     }, 10000);
 
@@ -648,77 +641,3 @@ let hideTimeout;
   </script>
 </body>
 </html>
-
-<!-- الإضافات (أُضيفت دون حذف أو تغيير أي سطر من الكود الأصلي) -->
-<style>
-/* إضافة CSS لاستخدام top-center على الأزرار الموجودة */
-.zoom-btn.top-center {
-  top: 8px !important;
-  right: 50% !important;
-  bottom: auto !important;
-  transform: translateX(50%) !important;
-}
-</style>
-
-<script>
-/* إضافة عنوان فرعي وروابط داخلية داخل .seo-content إذا لم تكن موجودة */
-(function(){
-  try {
-    const seo = document.querySelector('.seo-content');
-    if (seo) {
-      // إضافة H2 لو غير موجود
-      if (!seo.querySelector('h2')) {
-        const h2 = document.createElement('h2');
-        h2.textContent = 'Why Choose FreePlayHub?';
-        // أدخل H2 بعد H1 إن وجد، وإلا في بداية الـseo
-        const h1 = seo.querySelector('h1');
-        if (h1 && h1.nextSibling) {
-          h1.parentNode.insertBefore(h2, h1.nextSibling);
-        } else {
-          seo.insertBefore(h2, seo.firstChild);
-        }
-      }
-
-      // إضافة روابط داخلية صغيرة إذا لم تكن موجودة
-      if (!seo.querySelector('.related-links')) {
-        const div = document.createElement('div');
-        div.className = 'related-links';
-        div.style.marginTop = '20px';
-        div.innerHTML = '<a href="/game/arcade.html" style="color:#3CF7DC;">Arcade Games</a> • <a href="/game/kids.html" style="color:#3CF7DC;">Kids Games</a> • <a href="/game/multiplayer.html" style="color:#3CF7DC;">Multiplayer Games</a>';
-        seo.appendChild(div);
-      }
-    }
-  } catch(e) { console.warn('SEO additions failed', e); }
-})();
-</script>
-
-<script>
-/* lazy-load للـiframe بعد اكتمال تحميل الصفحة */
-window.addEventListener('load', function(){
-  try {
-    const iframe = document.getElementById('game-iframe');
-    if (iframe) {
-      const src = iframe.getAttribute('src');
-      // لو كانت القيمة غير فارغة نعيد تعيينها (بعض المتصفحات لا تعيد تحميل src لو كانت موجودة)
-      if (src) {
-        iframe.setAttribute('src', src);
-      }
-    }
-  } catch(e){ console.warn('iframe lazy-load failed', e); }
-});
-
-/* إضافة صنف top-center لزر التكبير إن كان موجوداً (دون تعديل السطر الأصلي) */
-document.addEventListener('DOMContentLoaded', function(){
-  try {
-    // نضيف الصنف إلى كل زر موجود يمتلك id="zoom-btn" أو الصنف zoom-btn
-    const byId = document.getElementById('zoom-btn');
-    if (byId && !byId.classList.contains('top-center')) {
-      byId.classList.add('top-center');
-    }
-    const btns = document.querySelectorAll('.zoom-btn');
-    btns.forEach(b=>{
-      if (!b.classList.contains('top-center')) b.classList.add('top-center');
-    });
-  } catch(e){console.warn(e);}
-});
-</script>
