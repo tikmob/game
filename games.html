@@ -23,6 +23,9 @@
             background: rgba(0, 0, 0, 0.8);
             padding: 15px 0;
             backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .container {
@@ -79,9 +82,10 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             background: #000;
+            position: relative;
         }
 
-        #game-iframe {
+        .game-iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -94,6 +98,16 @@
             justify-content: center;
             height: 100%;
             background: #002B50;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+        }
+
+        .loading.hidden {
+            display: none;
         }
 
         .loading-spinner {
@@ -147,6 +161,22 @@
             font-weight: bold;
         }
 
+        .fullscreen-btn {
+            background: #00b894;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            background: #00d8a7;
+        }
+
         @media (max-width: 768px) {
             .game-frame {
                 height: 500px;
@@ -181,19 +211,20 @@
     <main class="container">
         <div class="game-container">
             <div class="game-frame">
-                <!-- سيتم تحميل اللعبة هنا -->
                 <div class="loading" id="loading">
                     <div class="loading-spinner"></div>
                     <div>Loading Subway Surfers...</div>
                 </div>
                 <iframe 
                     id="game-iframe"
+                    class="game-iframe"
                     src="https://html5.gamedistribution.com/82f6fa2fa66c47b3a0f2b0543cbdfc43/"
-                    style="display: none;"
                     allow="autoplay; fullscreen"
                     scrolling="no"
                 ></iframe>
             </div>
+
+            <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
 
             <div class="game-info">
                 <h1 class="game-title">Subway Surfers</h1>
@@ -218,14 +249,66 @@
     </main>
 
     <script>
-        // إخفاء شاشة التحميل عند تحميل اللعبة
-        document.getElementById('game-iframe').onload = function() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('game-iframe').style.display = 'block';
-        };
+        const iframe = document.getElementById('game-iframe');
+        const loading = document.getElementById('loading');
 
-        // بدء تحميل اللعبة
-        document.getElementById('game-iframe').style.display = 'block';
+        // إخفاء شاشة التحميل عند تحميل اللعبة
+        iframe.addEventListener('load', function() {
+            loading.classList.add('hidden');
+        });
+
+        // إظهار شاشة التحميل إذا كان هناك خطأ
+        iframe.addEventListener('error', function() {
+            loading.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">⚠️</div>
+                    <div>Failed to load game</div>
+                    <button onclick="location.reload()" style="background: #6c5ce7; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px; cursor: pointer;">Retry</button>
+                </div>
+            `;
+        });
+
+        // وضع ملء الشاشة
+        function toggleFullscreen() {
+            const gameFrame = document.querySelector('.game-frame');
+            
+            if (!document.fullscreenElement) {
+                if (gameFrame.requestFullscreen) {
+                    gameFrame.requestFullscreen();
+                } else if (gameFrame.webkitRequestFullscreen) {
+                    gameFrame.webkitRequestFullscreen();
+                } else if (gameFrame.msRequestFullscreen) {
+                    gameFrame.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // تغيير حجم الإطار تلقائياً
+        function resizeGameFrame() {
+            const gameFrame = document.querySelector('.game-frame');
+            const container = document.querySelector('.container');
+            const containerWidth = container.offsetWidth - 40; // ناقص الـ padding
+            
+            if (containerWidth < 800) {
+                gameFrame.style.maxWidth = '100%';
+                gameFrame.style.height = '400px';
+            } else {
+                gameFrame.style.maxWidth = '800px';
+                gameFrame.style.height = '600px';
+            }
+        }
+
+        // استدعاء الدالة عند تحميل الصفحة وتغيير حجم النافذة
+        window.addEventListener('load', resizeGameFrame);
+        window.addEventListener('resize', resizeGameFrame);
     </script>
 </body>
 </html>
