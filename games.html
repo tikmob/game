@@ -3,42 +3,179 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreePlayHub</title>
-  <meta name="description" content="Play the best HTML5 games on UG17 Games. Run, jump and have fun online!">
+  <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
+  <meta name="description" content="Play the best free online HTML5 games on FreePlayHub. No installation required! Enjoy arcade games, multiplayer browser games, and fun web games for kids. Play instantly on any device without downloads or ads.">
+  <meta name="keywords" content="free online html5 games, no install browser games, play online arcade games, fun web games for kids, multiplayer browser games, best casual games online, new html5 games 2025, top free browser games, unblocked fun games, play free browser games online, best html5 games 2025, fun browser games to play, play games without download, play games online for free without ads, free unblocked browser games, play free online games on pc, play free mobile browser games, play instant games online">
   <style>
     * {margin:0;padding:0;box-sizing:border-box;}
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
       color: white; min-height: 100vh;
+      line-height: 1.6;
     }
-    .game-header {background: rgba(0,0,0,0.8);padding: 15px 0;backdrop-filter: blur(10px);}
+    .game-header {
+      background: rgba(0,0,0,0.8);
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
     .container {max-width: 1200px;margin: 0 auto;padding: 0 20px;}
-    .header-content {display:flex;justify-content:space-between;align-items:center;}
-    .logo {display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:700;color:white;text-decoration:none;}
-    .back-btn {background:#6c5ce7;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:all .3s;text-decoration:none;display:inline-block;}
-    .back-btn:hover {background:#a29bfe;transform:translateY(-2px);}
-    .game-container {padding:30px 0;text-align:center;}
-    .game-frame {width:100%;max-width:800px;height:600px;margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5);background:#000;}
-    #game-iframe {width:100%;height:100%;border:none;display:none;}
-    .loading {display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:#002B50;}
-    .loading-spinner {width:50px;height:50px;border:5px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:#3CF7DC;animation:spin 1s ease-in-out infinite;margin-bottom:20px;}
+    .header-content {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:1.5rem;
+      font-weight:700;
+      color:white;
+      text-decoration:none;
+    }
+    .back-btn {
+      background:#6c5ce7;
+      color:white;
+      border:none;
+      padding:10px 20px;
+      border-radius:5px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .3s;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .back-btn:hover {
+      background:#a29bfe;
+      transform:translateY(-2px);
+    }
+    .game-container {
+      padding:30px 0;
+      text-align:center;
+    }
+    .game-frame {
+      width:100%;
+      max-width:800px;
+      height:600px;
+      margin:0 auto;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      background:#000;
+    }
+    #game-iframe {
+      width:100%;
+      height:100%;
+      border:none;
+      display:none;
+    }
+    .loading {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100%;
+      background:#002B50;
+    }
+    .loading-spinner {
+      width:50px;
+      height:50px;
+      border:5px solid rgba(255,255,255,0.3);
+      border-radius:50%;
+      border-top-color:#3CF7DC;
+      animation:spin 1s ease-in-out infinite;
+      margin-bottom:20px;
+    }
     @keyframes spin {to {transform: rotate(360deg);}}
-    .game-info {background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:20px;border-radius:10px;max-width:800px;margin:20px auto 0;}
-    .game-title {font-size:2rem;margin-bottom:10px;color:#ffd700;}
-    .controls {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:20px;}
-    .control-item {background:rgba(255,255,255,0.1);padding:15px;border-radius:8px;}
-    .control-key {display:inline-block;background:rgba(0,0,0,0.5);padding:5px 10px;border-radius:5px;margin:0 5px;font-weight:bold;}
-    @media (max-width:768px){.game-frame{height:500px;}}
-    @media (max-width:480px){.game-frame{height:400px;}.header-content{flex-direction:column;gap:15px;}}
+    .game-info {
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      padding:20px;
+      border-radius:10px;
+      max-width:800px;
+      margin:20px auto 0;
+    }
+    .game-title {
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#ffd700;
+    }
+    .game-description {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .feature-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .feature-item h3 {
+      color: #3CF7DC;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .seo-content {
+      margin-top: 40px;
+      padding: 25px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      text-align: left;
+    }
+    .seo-content h2 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    .seo-content p {
+      margin-bottom: 15px;
+    }
+    .game-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .category-tag {
+      background: rgba(108, 92, 231, 0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    @media (max-width:768px){
+      .game-frame{height:500px;}
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width:480px){
+      .game-frame{height:400px;}
+      .header-content{flex-direction:column;gap:15px;}
+      .game-title {font-size: 1.5rem;}
+    }
   </style>
 </head>
 <body>
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://tikmob.github.io/game" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
-        <a href="https://tikmob.github.io/game" class="back-btn">← Back to Site</a>
+        <a href="https://tikmob.github.io/game" class="logo">
+          <span>🎮</span>
+          <span>FreePlayHub</span>
+        </a>
+        <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
       </div>
     </div>
   </header>
@@ -57,25 +194,54 @@
           id="game-iframe"
           src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
           allow="autoplay; fullscreen"
-          scrolling="no">
+          scrolling="no"
+          title="Free HTML5 Game - FreePlayHub">
         </iframe>
       </div>
 
       <div class="game-info">
         <h1 class="game-title">Loading...</h1>
-        <p>Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on UG17 Games.</p>
+        <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
         
-        <div class="controls">
-          <div class="control-item">
-            <h3>How to Play</h3>
-            <p>Use <span class="control-key">←</span> <span class="control-key">→</span> to move.</p>
-            <p>Press <span class="control-key">↑</span> to jump and <span class="control-key">↓</span> to slide.</p>
+        <div class="features">
+          <div class="feature-item">
+            <h3>🚀 Instant Play</h3>
+            <p>No downloads or installations required. Play directly in your browser on any device.</p>
           </div>
-          <div class="control-item">
-            <h3>Tips</h3>
-            <p>Collect coins to unlock characters.</p>
-            <p>Avoid obstacles and stay alive!</p>
+          <div class="feature-item">
+            <h3>🎯 Free & Accessible</h3>
+            <p>All games are completely free to play with no registration required.</p>
           </div>
+          <div class="feature-item">
+            <h3>📱 Cross-Platform</h3>
+            <p>Play on PC, tablet, or mobile - our HTML5 games work everywhere.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🌟 Premium Quality</h3>
+            <p>Experience the best HTML5 games with smooth performance and great graphics.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- محتوى SEO -->
+      <div class="seo-content">
+        <h2>Play Free Online HTML5 Games on FreePlayHub</h2>
+        <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Whether you're looking for exciting arcade games, fun web games for kids, or engaging multiplayer browser games, we have something for everyone.</p>
+        
+        <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere. All our games are completely free to play with no annoying ads interrupting your gaming experience.</p>
+        
+        <p>At FreePlayHub, we're committed to providing the best casual games online that you can play instantly without registration. Our collection includes action-packed adventures, challenging puzzles, thrilling racing games, and much more. Whether you're on your PC at home or using your mobile browser on the go, our games deliver premium entertainment without the hassle of installations or downloads.</p>
+        
+        <div class="game-categories">
+          <span class="category-tag">HTML5 Games</span>
+          <span class="category-tag">Browser Games</span>
+          <span class="category-tag">No Install Games</span>
+          <span class="category-tag">Arcade Games</span>
+          <span class="category-tag">Kids Games</span>
+          <span class="category-tag">Multiplayer Games</span>
+          <span class="category-tag">Casual Games</span>
+          <span class="category-tag">Unblocked Games</span>
+          <span class="category-tag">Free Games Online</span>
         </div>
       </div>
     </div>
@@ -107,6 +273,9 @@
     // تحديث اسم اللعبة في الصفحة
     titleElement.textContent = formattedName;
     loading.querySelector('div:last-child').textContent = `Loading ${formattedName}...`;
+
+    // تحديث عنوان الصفحة
+    document.title = `${formattedName} - Free Online HTML5 Game | FreePlayHub`;
 
     // عند تحميل اللعبة
     iframe.onload = function() {
