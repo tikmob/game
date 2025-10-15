@@ -57,7 +57,7 @@
       transition:all .3s;
       text-decoration:none;
       display:inline-block;
-      font-size: 14px; /* تحسين حجم الخط للجوال */
+      font-size: 14px;
     }
     .back-btn:hover {
       background:#a29bfe;
@@ -187,7 +187,7 @@
       text-decoration: underline;
     }
     
-    /* زر التكبير - تعريف واحد فقط */
+    /* زر التكبير */
     .zoom-btn {
       position: absolute;
       right: 12px;
@@ -213,7 +213,7 @@
       background: rgba(0,0,0,0.8); 
     }
 
-    /* الحالة الموسعة (CSS fallback) */
+    /* الحالة الموسعة */
     .game-frame.fullscreen-css {
       position: fixed;
       top: 0;
@@ -224,11 +224,11 @@
       border-radius: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
-      z-index: 2147483647; /* أعلى z-index ممكن */
+      z-index: 2147483647;
       background: #000;
     }
 
-    /* عندما نضع .fullscreen-css نخفي عناصر الصفحة التي قد تبقى ظاهرة */
+    /* إخفاء العناصر الأخرى عند التكبير */
     .game-frame.fullscreen-css ~ .game-info,
     .game-frame.fullscreen-css ~ .seo-content,
     .game-frame.fullscreen-css ~ header,
@@ -243,7 +243,7 @@
       height: 100% !important;
     }
 
-    /* زر الخروج في الزوايا عند ملء الشاشة الحقيقية (لـbrowser fullscreen) */
+    /* زر الخروج */
     .zoom-btn.exit { 
       background: rgba(255,0,0,0.85); 
       top: 10px;
@@ -253,12 +253,12 @@
       transition: opacity 0.3s ease;
     }
 
-    /* عندما يلمس أو يحرك المستخدم الماوس */
+    /* عند تحريك الماوس */
     .game-frame.fullscreen-css.show-controls .zoom-btn.exit {
-      opacity: 0.9; /* تظهر بوضوح مؤقتًا */
+      opacity: 0.9;
     }
 
-    /* مستطيل الإعلان */
+    /* مستطيل الإعلان - تم التصحيح */
     .ad-container {
       position: fixed;
       bottom: 20px;
@@ -266,26 +266,26 @@
       transform: translateX(-50%);
       width: 728px;
       max-width: 90vw;
-      background: rgba(0, 0, 0, 0.85);
-      border-radius: 8px;
-      padding: 15px;
-      z-index: 2147483646; /* أقل بقليل من z-index اللعبة */
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 12px;
+      padding: 20px;
+      z-index: 2147483646;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 215, 0, 0.3);
       display: none;
-      transition: opacity 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .ad-container.visible {
       display: block;
-      animation: fadeInUp 0.5s ease;
+      animation: slideInUp 0.5s ease forwards;
     }
 
-    @keyframes fadeInUp {
+    @keyframes slideInUp {
       from {
         opacity: 0;
-        transform: translate(-50%, 20px);
+        transform: translate(-50%, 100px);
       }
       to {
         opacity: 1;
@@ -297,7 +297,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      gap: 20px;
     }
 
     .ad-text {
@@ -308,58 +308,78 @@
     .ad-title {
       font-weight: bold;
       color: #ffd700;
-      margin-bottom: 5px;
-      font-size: 16px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .ad-description {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.9);
       font-size: 14px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .ad-close-btn {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       color: white;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 16px;
-      transition: all 0.2s ease;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
     }
 
     .ad-close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
       transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .ad-action-btn {
-      background: #6c5ce7;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
       font-size: 14px;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
     }
 
     .ad-action-btn:hover {
-      background: #a29bfe;
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+    }
+
+    .ad-badge {
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      background: #ff4757;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
     }
 
     @media (max-height: 500px) {
       .game-frame { height: 400px; }
       .ad-container {
         bottom: 10px;
-        padding: 10px;
+        padding: 15px;
       }
     }
     
@@ -371,6 +391,7 @@
       .ad-content {
         flex-direction: column;
         text-align: center;
+        gap: 15px;
       }
       .ad-text {
         text-align: center;
@@ -384,7 +405,11 @@
       .seo-content h1 {font-size: 1.5rem;}
       .ad-container {
         width: 95vw;
-        padding: 12px;
+        padding: 15px;
+      }
+      .ad-action-btn {
+        padding: 8px 16px;
+        font-size: 13px;
       }
     }
     
@@ -395,21 +420,6 @@
       }
     }
   </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "FreePlayHub",
-  "url": "https://tikmob.github.io/game",
-  "description": "Play free online HTML5 browser games instantly without download or ads.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://tikmob.github.io/game/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
-
 </head>
 <body>
   <header class="game-header">
@@ -441,7 +451,7 @@
           scrolling="no"
           title="Free HTML5 Game - FreePlayHub">
         </iframe>
-        <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
+        <!-- زر التكبير -->
         <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
       </div>
 
@@ -501,15 +511,16 @@
     </div>
   </main>
 
-  <!-- مستطيل الإعلان -->
+  <!-- مستطيل الإعلان - تم التصحيح -->
   <div class="ad-container" id="adContainer">
+    <div class="ad-badge">AD</div>
     <div class="ad-content">
       <div class="ad-text">
-        <div class="ad-title">🎮 Discover More Games!</div>
-        <div class="ad-description">Explore our collection of 100+ free HTML5 games. No downloads, no ads, just pure fun!</div>
+        <div class="ad-title">🎮 Discover More Amazing Games!</div>
+        <div class="ad-description">Explore our collection of 100+ free HTML5 games. No downloads, no registration, just pure gaming fun!</div>
       </div>
-      <div style="display: flex; gap: 10px; align-items: center;">
-        <a href="https://tikmob.github.io/game" class="ad-action-btn">Browse Games</a>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <a href="https://tikmob.github.io/game" class="ad-action-btn">Browse All Games</a>
         <button class="ad-close-btn" id="adCloseBtn">✕</button>
       </div>
     </div>
@@ -578,7 +589,7 @@
       iframe.addEventListener('load', () => clearTimeout(fallback));
     })();
     
-    // كود زر التكبير والإعلان
+    // كود زر التكبير والإعلان - تم التصحيح
     (function() {
       const zoomBtn = document.getElementById('zoom-btn');
       const gameFrame = document.querySelector('.game-frame');
@@ -588,191 +599,197 @@
       const adCloseBtn = document.getElementById('adCloseBtn');
 
       let isExpanded = false;
-      let usingBrowserFS = false; // true إذا دخلنا fullscreen حقيقي
-      let adShown = false;
+      let usingBrowserFS = false;
+      let adTimeout;
 
-      // إظهار الإعلان
+      // إظهار الإعلان - تم التصحيح
       function showAd() {
-        if (!adShown) {
-          adContainer.classList.add('visible');
-          adShown = true;
-          
-          // إخفاء الإعلان تلقائياً بعد 10 ثوانٍ
-          setTimeout(() => {
-            if (adContainer.classList.contains('visible')) {
-              hideAd();
-            }
-          }, 10000);
-        }
+        console.log('Showing ad...'); // للتتبع
+        adContainer.classList.add('visible');
+        
+        // إخفاء الإعلان تلقائياً بعد 8 ثوانٍ
+        clearTimeout(adTimeout);
+        adTimeout = setTimeout(() => {
+          hideAd();
+        }, 8000);
       }
 
-      // إخفاء الإعلان
+      // إخفاء الإعلان - تم التصحيح
       function hideAd() {
+        console.log('Hiding ad...'); // للتتبع
         adContainer.classList.remove('visible');
+        clearTimeout(adTimeout);
       }
 
-      // helper: enter "CSS fullscreen" fallback
+      // الدخول في وضع CSS fullscreen
       function enterCssFullscreen() {
+        console.log('Entering CSS fullscreen');
         gameFrame.classList.add('fullscreen-css');
-        header?.style && (header.style.display = 'none');
-        // prevent body scroll
+        if (header) header.style.display = 'none';
+        
+        // منع التمرير
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
+        
         isExpanded = true;
         zoomBtn.classList.add('exit');
         zoomBtn.textContent = '✕';
         
-        // إظهار الإعلان بعد تأخير قصير
-        setTimeout(showAd, 1000);
+        // إظهار الإعلان بعد تأخير قصير - تم التصحيح
+        setTimeout(showAd, 500);
       }
 
+      // الخروج من وضع CSS fullscreen
       function exitCssFullscreen() {
+        console.log('Exiting CSS fullscreen');
         gameFrame.classList.remove('fullscreen-css');
-        header?.style && (header.style.display = '');
+        if (header) header.style.display = '';
+        
+        // إعادة التمرير
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
+        
         isExpanded = false;
         zoomBtn.classList.remove('exit');
         zoomBtn.textContent = '⤢';
         
-        // إخفاء الإعلان عند الخروج من وضع التكبير
+        // إخفاء الإعلان
         hideAd();
       }
 
-      // try to request browser fullscreen on the gameFrame element
+      // الدخول في وضع browser fullscreen
       async function enterBrowserFullscreen() {
         const el = gameFrame;
         if (!el) return false;
+        
         const request = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
         if (!request) return false;
+        
         try {
           await request.call(el);
           usingBrowserFS = true;
           isExpanded = true;
           zoomBtn.classList.add('exit');
           zoomBtn.textContent = '✕';
-          // hide header just in case
-          header?.style && (header.style.display = 'none');
           
-          // إظهار الإعلان بعد تأخير قصير
-          setTimeout(showAd, 1000);
+          if (header) header.style.display = 'none';
+          
+          // إظهار الإعلان بعد تأخير قصير - تم التصحيح
+          setTimeout(showAd, 500);
           return true;
         } catch (e) {
+          console.error('Fullscreen error:', e);
           return false;
         }
       }
 
+      // الخروج من وضع browser fullscreen
       async function exitBrowserFullscreen() {
         const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
         if (!exit) return false;
+        
         try {
           await exit.call(document);
           usingBrowserFS = false;
           isExpanded = false;
           zoomBtn.classList.remove('exit');
           zoomBtn.textContent = '⤢';
-          header?.style && (header.style.display = '');
           
-          // إخفاء الإعلان عند الخروج من وضع التكبير
+          if (header) header.style.display = '';
+          
+          // إخفاء الإعلان
           hideAd();
           return true;
         } catch (e) {
+          console.error('Exit fullscreen error:', e);
           return false;
         }
       }
 
-      // main toggle
+      // التبديل بين وضع التكبير والعادي
       async function toggleExpand() {
         if (!isExpanded) {
-          // try browser fullscreen first
+          // محاولة الدخول في وضع browser fullscreen أولاً
           const ok = await enterBrowserFullscreen();
           if (!ok) {
-            // fallback to CSS fullscreen
+            // استخدام CSS fullscreen كبديل
             enterCssFullscreen();
           }
         } else {
-          // if we used browser fullscreen, exit it
+          // الخروج من وضع التكبير
           if (usingBrowserFS) {
             await exitBrowserFullscreen();
           }
-          // ensure CSS fullscreen is removed
-          if (gameFrame.classList.contains('fullscreen-css')) exitCssFullscreen();
+          // التأكد من الخروج من وضع CSS fullscreen أيضاً
+          if (gameFrame.classList.contains('fullscreen-css')) {
+            exitCssFullscreen();
+          }
         }
       }
 
-      // handle fullscreenchange events (user pressed ESC etc.)
+      // التعامل مع تغييرات وضع fullscreen
       function onFullscreenChange() {
         const fsElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        
         if (!fsElement) {
-          // left browser fullscreen
+          // الخروج من وضع browser fullscreen
           usingBrowserFS = false;
-          // restore header if not in css fullscreen
-          if (!gameFrame.classList.contains('fullscreen-css')) {
-            header?.style && (header.style.display = '');
-            isExpanded = false;
-            zoomBtn.classList.remove('exit');
-            zoomBtn.textContent = '⤢';
-          }
+          isExpanded = false;
+          zoomBtn.classList.remove('exit');
+          zoomBtn.textContent = '⤢';
           
-          // إخفاء الإعلان عند الخروج من وضع التكبير
+          if (header) header.style.display = '';
+          
+          // إخفاء الإعلان
           hideAd();
         } else {
-          // entered browser fullscreen
+          // الدخول في وضع browser fullscreen
           usingBrowserFS = true;
           isExpanded = true;
-          header?.style && (header.style.display = 'none');
+          if (header) header.style.display = 'none';
           zoomBtn.classList.add('exit');
           zoomBtn.textContent = '✕';
           
           // إظهار الإعلان بعد تأخير قصير
-          setTimeout(showAd, 1000);
+          setTimeout(showAd, 500);
         }
       }
 
-      // إغلاق الإعلان عند النقر على زر الإغلاق
-      adCloseBtn.addEventListener('click', hideAd);
-
-      // attach events
+      // إرفاق الأحداث - تم التصحيح
       zoomBtn.addEventListener('click', toggleExpand);
       document.addEventListener('fullscreenchange', onFullscreenChange);
       document.addEventListener('webkitfullscreenchange', onFullscreenChange);
       document.addEventListener('msfullscreenchange', onFullscreenChange);
 
-      // exit with ESC key fallback for CSS fullscreen
+      // إغلاق الإعلان عند النقر على زر الإغلاق
+      adCloseBtn.addEventListener('click', hideAd);
+
+      // الخروج باستخدام زر ESC
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
-          exitCssFullscreen();
+        if (e.key === 'Escape') {
+          if (gameFrame.classList.contains('fullscreen-css')) {
+            exitCssFullscreen();
+          }
         }
       });
 
-      // If user rotates device while in CSS fullscreen, ensure height is updated
-      window.addEventListener('orientationchange', () => {
-        if (gameFrame.classList.contains('fullscreen-css')) {
-          // small delay to allow resize
-          setTimeout(() => {
-            // nothing special needed — CSS uses vw/vh — but we reflow iframe
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-          }, 300);
-        }
-      });
-
-      // Accessibility: long-press on mobile could open context menu — prevent default touch-hold on button
-      zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
-      
-      // جعل الزر يظهر فقط عند تحريك الماوس أو لمس الشاشة
-      let hideTimeout;
+      // إظهار/إخفاء عناصر التحكم عند تحريك الماوس
+      let hideControlsTimeout;
       ['mousemove', 'touchstart'].forEach(evt => {
         gameFrame.addEventListener(evt, () => {
           if (gameFrame.classList.contains('fullscreen-css')) {
             gameFrame.classList.add('show-controls');
-            clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(() => {
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(() => {
               gameFrame.classList.remove('show-controls');
-            }, 2500); // يختفي بعد 2.5 ثانية من عدم الحركة
+            }, 2500);
           }
         });
       });
+
+      // اختبار: إظهار الإعلان يدوياً للتحقق من عمله
+      console.log('Ad system initialized');
+      
     })();
     
     window.scrollTo(0,0);
