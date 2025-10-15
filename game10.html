@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreePlayHub - Play Free Online HTML5 Games | No Install Browser Games</title>
+  <meta name="description" content="Play the best free online HTML5 games on FreePlayHub. No installation required! Enjoy arcade games, multiplayer browser games, and fun web games for kids. Play instantly on any device without downloads or ads.">
+  <meta name="keywords" content="free online html5 games, no install browser games, play online arcade games, fun web games for kids, multiplayer browser games, best casual games online, new html5 games 2025, top free browser games, unblocked fun games, play free browser games online, best html5 games 2025, fun browser games to play, play games without download, play games online for free without ads, free unblocked browser games, play free online games on pc, play free mobile browser games, play instant games online">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="FreePlayHub - Play Free Online HTML5 Games Instantly">
+  <meta property="og:description" content="Enjoy free browser games without downloads or ads. Play instantly on PC, mobile, or tablet!">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
+  <meta property="og:url" content="https://tikmob.github.io/game">
+  
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      color: white; min-height: 100vh;
+      line-height: 1.6;
+    }
+    .game-header {
+      background: rgba(0,0,0,0.8);
+      padding: 15px 0;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container {max-width: 1200px;margin: 0 auto;padding: 0 20px;}
+    .header-content {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:1.5rem;
+      font-weight:700;
+      color:white;
+      text-decoration:none;
+    }
+    .back-btn {
+      background:#6c5ce7;
+      color:white;
+      border:none;
+      padding:10px 20px;
+      border-radius:5px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .3s;
+      text-decoration:none;
+      display:inline-block;
+      font-size: 14px; /* تحسين حجم الخط للجوال */
+    }
+    .back-btn:hover {
+      background:#a29bfe;
+      transform:translateY(-2px);
+    }
+    .game-container {
+      padding:30px 0;
+      text-align:center;
+    }
+    .game-frame {
+      width:100%;
+      max-width:800px;
+      height:80vh;
+      margin:0 auto;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      background:#000;
+      position: relative;
+    }
+    #game-iframe {
+      width:100%;
+      height:100%;
+      border:none;
+      display:none;
+    }
+    .loading {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100%;
+      background:#002B50;
+    }
+    .loading-spinner {
+      width:50px;
+      height:50px;
+      border:5px solid rgba(255,255,255,0.3);
+      border-radius:50%;
+      border-top-color:#3CF7DC;
+      animation:spin 1s ease-in-out infinite;
+      margin-bottom:20px;
+    }
+    @keyframes spin {to {transform: rotate(360deg);}}
+    .game-info {
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      padding:20px;
+      border-radius:10px;
+      max-width:800px;
+      margin:20px auto 0;
+    }
+    .game-title {
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#ffd700;
+    }
+    .game-description {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .feature-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .feature-item h3 {
+      color: #3CF7DC;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .seo-content {
+      margin-top: 40px;
+      padding: 25px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      text-align: left;
+    }
+    .seo-content h1 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    .seo-content h2 {
+      color: #3CF7DC;
+      margin: 25px 0 15px;
+      font-size: 1.5rem;
+    }
+    .seo-content p {
+      margin-bottom: 15px;
+    }
+    .game-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .category-tag {
+      background: rgba(108, 92, 231, 0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .related-links {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+    .related-links a {
+      color: #3CF7DC;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    .related-links a:hover {
+      color: #ffd700;
+      text-decoration: underline;
+    }
+    
+    /* زر التكبير - تعريف واحد فقط */
+    .zoom-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 9999;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      cursor:pointer;
+      backdrop-filter: blur(4px);
+      transition: transform .15s ease, background .15s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+    .zoom-btn:hover { 
+      transform: translateY(-3px); 
+      background: rgba(0,0,0,0.8); 
+    }
+
+    /* الحالة الموسعة (CSS fallback) */
+    .game-frame.fullscreen-css {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100% !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      z-index: 2147483647; /* أعلى z-index ممكن */
+      background: #000;
+    }
+
+    /* عندما نضع .fullscreen-css نخفي عناصر الصفحة التي قد تبقى ظاهرة */
+    .game-frame.fullscreen-css ~ .game-info,
+    .game-frame.fullscreen-css ~ .seo-content,
+    .game-frame.fullscreen-css ~ header,
+    .game-frame.fullscreen-css ~ footer {
+      display: none !important;
+    }
+
+    /* أثناء التكبير، ضع الـiframe ظاهراً */
+    .game-frame.fullscreen-css #game-iframe {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* زر الخروج في الزوايا عند ملء الشاشة الحقيقية (لـbrowser fullscreen) */
+    .zoom-btn.exit { 
+      background: rgba(255,0,0,0.85); 
+      top: 10px;
+      right: 10px;
+      bottom: auto;
+      opacity: 0.35;
+      transition: opacity 0.3s ease;
+    }
+
+    /* عندما يلمس أو يحرك المستخدم الماوس */
+    .game-frame.fullscreen-css.show-controls .zoom-btn.exit {
+      opacity: 0.9; /* تظهر بوضوح مؤقتًا */
+    }
+
+    @media (max-height: 500px) {
+      .game-frame { height: 400px; }
+    }
+    
+    @media (max-width:768px){
+      .game-frame{height:70vh;}
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width:480px){
+      .game-frame{height:60vh;}
+      .header-content{flex-direction:column;gap:15px;}
+      .game-title {font-size: 1.5rem;}
+      .seo-content h1 {font-size: 1.5rem;}
+    }
+    
+    @media (orientation: landscape) {
+      .game-frame.fullscreen-css .zoom-btn.exit {
+        top: 8px;
+        right: 8px;
+      }
+      /* الصندوق الخارجي */
+#ad-banner {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* نفس عرض اللعبة */
+  margin: 10px auto 0;
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+  z-index: 99;
+}
+
+/* زر الإغلاق */
+#ad-banner .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+#ad-banner .close-btn:hover {
+  background: rgba(255,255,255,0.4);
+}
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FreePlayHub",
+  "url": "https://tikmob.github.io/game",
+  "description": "Play free online HTML5 browser games instantly without download or ads.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tikmob.github.io/game/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+</head>
+<body>
+  <header class="game-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="https://tikmob.github.io/game" class="logo">
+          <span>🎮</span>
+          <span>FreePlayHub</span>
+        </a>
+        <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="game-container">
+      <div class="game-frame">
+        <!-- شاشة التحميل -->
+        <div class="loading" id="loading">
+          <div class="loading-spinner"></div>
+          <div>Loading Game...</div>
+        </div>
+
+        <!-- اللعبة -->
+        <iframe 
+          id="game-iframe"
+          src="https://sybogame.com/games/subway-surfers-winter-holiday/?v=20250613155811" 
+          allow="autoplay; fullscreen"
+          scrolling="no"
+          title="Free HTML5 Game - FreePlayHub">
+        </iframe>
+        <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
+        <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
+      </div>
+      <div id="ad-banner">
+  <button class="close-btn" onclick="document.getElementById('ad-banner').style.display='none'">×</button>
+  <!-- ضع هنا كود إعلانك أو صورة -->
+  <a href="https://your-ad-link.com" target="_blank" style="color:#fff; text-decoration:none;">
+    🔥 Check out this awesome game offer! 🔥
+  </a>
+</div>
+
+      <div class="game-info">
+        <h2 class="game-title">Loading...</h2>
+        <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
+        
+        <div class="features">
+          <div class="feature-item">
+            <h3>🚀 Instant Play</h3>
+            <p>No downloads or installations required. Play directly in your browser on any device.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🎯 Free & Accessible</h3>
+            <p>All games are completely free to play with no registration required.</p>
+          </div>
+          <div class="feature-item">
+            <h3>📱 Cross-Platform</h3>
+            <p>Play on PC, tablet, or mobile - our HTML5 games work everywhere.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🌟 Premium Quality</h3>
+            <p>Experience the best HTML5 games with smooth performance and great graphics.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- محتوى SEO -->
+      <div class="seo-content">
+        <h1>Play Free Online HTML5 Games on FreePlayHub</h1>
+        <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Whether you're looking for exciting arcade games, fun web games for kids, or engaging multiplayer browser games, we have something for everyone.</p>
+        
+        <h2>Why Choose FreePlayHub?</h2>
+        
+        <p>Our platform specializes in HTML5 games that load quickly and run smoothly without any downloads. Enjoy our carefully curated selection of new HTML5 games for 2025, including the top free browser games and unblocked fun games that you can play anytime, anywhere. All our games are completely free to play with no annoying ads interrupting your gaming experience.</p>
+        
+        <p>At FreePlayHub, we're committed to providing the best casual games online that you can play instantly without registration. Our collection includes action-packed adventures, challenging puzzles, thrilling racing games, and much more. Whether you're on your PC at home or using your mobile browser on the go, our games deliver premium entertainment without the hassle of installations or downloads.</p>
+        
+        <div class="game-categories">
+          <span class="category-tag">HTML5 Games</span>
+          <span class="category-tag">Browser Games</span>
+          <span class="category-tag">No Install Games</span>
+          <span class="category-tag">Arcade Games</span>
+          <span class="category-tag">Kids Games</span>
+          <span class="category-tag">Multiplayer Games</span>
+          <span class="category-tag">Casual Games</span>
+          <span class="category-tag">Unblocked Games</span>
+          <span class="category-tag">Free Games Online</span>
+        </div>
+        
+        <div class="related-links">
+          <a href="/game/arcade.html">Arcade Games</a> •
+          <a href="/game/kids.html">Kids Games</a> •
+          <a href="/game/multiplayer.html">Multiplayer</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // تحسين LCP - تحميل iframe بعد تحميل الصفحة بالكامل
+    window.addEventListener("load", ()=> {
+      document.getElementById('game-iframe').src = document.getElementById('game-iframe').getAttribute('src');
+    });
+    
+    // كود تحميل اللعبة واسمها
+    (function() {
+      const iframe = document.getElementById('game-iframe');
+      const loading = document.getElementById('loading');
+      const titleElement = document.querySelector('.game-title');
+
+      // رابط اللعبة من iframe
+      const gameURL = iframe.getAttribute('src');
+
+      // استخراج اسم اللعبة من الرابط تلقائياً
+      let nameFromURL = '';
+      try {
+        const urlParts = new URL(gameURL);
+        const path = urlParts.pathname.split('/').filter(Boolean);
+        nameFromURL = path[path.length - 2] || 'Game';
+      } catch {
+        nameFromURL = 'Game';
+      }
+
+      const formattedName = nameFromURL
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+
+      // Fallback إذا كان الاسم غير معروف
+      const displayName = formattedName === 'Game' ? 'Free HTML5 Game' : formattedName;
+
+      // تحديث اسم اللعبة في الصفحة
+      titleElement.textContent = displayName;
+      loading.querySelector('div:last-child').textContent = `Loading ${displayName}...`;
+
+      // تحديث عنوان الصفحة
+      document.title = `${displayName} - Free Online HTML5 Game | FreePlayHub`;
+
+      // عند تحميل اللعبة
+      iframe.onload = function() {
+        loading.style.display = 'none';
+        iframe.style.display = 'block';
+      };
+
+      // في حال تأخر التحميل
+      const fallback = setTimeout(() => {
+        if (loading.style.display !== 'none') {
+          loading.innerHTML = `
+            <div style="text-align:center;color:#fff;padding:18px;">
+              <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,0.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite;"></div>
+              <div>Game is taking longer than expected.</div>
+              <div style="margin-top:10px;">
+                <a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline;">Open ${displayName} in a new tab</a>
+              </div>
+            </div>
+          `;
+        }
+      }, 10000);
+
+      iframe.addEventListener('load', () => clearTimeout(fallback));
+    })();
+    
+    // كود زر التكبير - واحد فقط
+    (function() {
+      const zoomBtn = document.getElementById('zoom-btn');
+      const gameFrame = document.querySelector('.game-frame');
+      const iframe = document.getElementById('game-iframe');
+      const header = document.querySelector('.game-header');
+
+      let isExpanded = false;
+      let usingBrowserFS = false; // true إذا دخلنا fullscreen حقيقي
+
+      // helper: enter "CSS fullscreen" fallback
+      function enterCssFullscreen() {
+        gameFrame.classList.add('fullscreen-css');
+        header?.style && (header.style.display = 'none');
+        // prevent body scroll
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        isExpanded = true;
+        zoomBtn.classList.add('exit');
+        zoomBtn.textContent = '✕';
+      }
+
+      function exitCssFullscreen() {
+        gameFrame.classList.remove('fullscreen-css');
+        header?.style && (header.style.display = '');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        isExpanded = false;
+        zoomBtn.classList.remove('exit');
+        zoomBtn.textContent = '⤢';
+      }
+
+      // try to request browser fullscreen on the gameFrame element
+      async function enterBrowserFullscreen() {
+        const el = gameFrame;
+        if (!el) return false;
+        const request = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+        if (!request) return false;
+        try {
+          await request.call(el);
+          usingBrowserFS = true;
+          isExpanded = true;
+          zoomBtn.classList.add('exit');
+          zoomBtn.textContent = '✕';
+          // hide header just in case
+          header?.style && (header.style.display = 'none');
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      async function exitBrowserFullscreen() {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+        if (!exit) return false;
+        try {
+          await exit.call(document);
+          usingBrowserFS = false;
+          isExpanded = false;
+          zoomBtn.classList.remove('exit');
+          zoomBtn.textContent = '⤢';
+          header?.style && (header.style.display = '');
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // main toggle
+      async function toggleExpand() {
+        if (!isExpanded) {
+          // try browser fullscreen first
+          const ok = await enterBrowserFullscreen();
+          if (!ok) {
+            // fallback to CSS fullscreen
+            enterCssFullscreen();
+          }
+        } else {
+          // if we used browser fullscreen, exit it
+          if (usingBrowserFS) {
+            await exitBrowserFullscreen();
+          }
+          // ensure CSS fullscreen is removed
+          if (gameFrame.classList.contains('fullscreen-css')) exitCssFullscreen();
+        }
+      }
+
+      // handle fullscreenchange events (user pressed ESC etc.)
+      function onFullscreenChange() {
+        const fsElement = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        if (!fsElement) {
+          // left browser fullscreen
+          usingBrowserFS = false;
+          // restore header if not in css fullscreen
+          if (!gameFrame.classList.contains('fullscreen-css')) {
+            header?.style && (header.style.display = '');
+            isExpanded = false;
+            zoomBtn.classList.remove('exit');
+            zoomBtn.textContent = '⤢';
+          }
+        } else {
+          // entered browser fullscreen
+          usingBrowserFS = true;
+          isExpanded = true;
+          header?.style && (header.style.display = 'none');
+          zoomBtn.classList.add('exit');
+          zoomBtn.textContent = '✕';
+        }
+      }
+
+      // attach events
+      zoomBtn.addEventListener('click', toggleExpand);
+      document.addEventListener('fullscreenchange', onFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+      document.addEventListener('msfullscreenchange', onFullscreenChange);
+
+      // exit with ESC key fallback for CSS fullscreen
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
+          exitCssFullscreen();
+        }
+      });
+
+      // If user rotates device while in CSS fullscreen, ensure height is updated
+      window.addEventListener('orientationchange', () => {
+        if (gameFrame.classList.contains('fullscreen-css')) {
+          // small delay to allow resize
+          setTimeout(() => {
+            // nothing special needed — CSS uses vw/vh — but we reflow iframe
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+          }, 300);
+        }
+      });
+
+      // Accessibility: long-press on mobile could open context menu — prevent default touch-hold on button
+      zoomBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+      
+      // جعل الزر يظهر فقط عند تحريك الماوس أو لمس الشاشة
+      let hideTimeout;
+      ['mousemove', 'touchstart'].forEach(evt => {
+        gameFrame.addEventListener(evt, () => {
+          if (gameFrame.classList.contains('fullscreen-css')) {
+            gameFrame.classList.add('show-controls');
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+              gameFrame.classList.remove('show-controls');
+            }, 2500); // يختفي بعد 2.5 ثانية من عدم الحركة
+          }
+        });
+      });
+    })();
+    
+    window.scrollTo(0,0);
+  </script>
+</body>
+</html>
