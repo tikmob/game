@@ -258,14 +258,122 @@
       opacity: 0.9; /* تظهر بوضوح مؤقتًا */
     }
 
+    /* مستطيل الإعلان */
+    .ad-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 728px;
+      max-width: 90vw;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      padding: 15px;
+      z-index: 2147483646; /* أقل بقليل من z-index اللعبة */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .ad-container.visible {
+      display: block;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .ad-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .ad-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .ad-title {
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .ad-description {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .ad-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .ad-close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .ad-action-btn {
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .ad-action-btn:hover {
+      background: #a29bfe;
+      transform: translateY(-2px);
+    }
+
     @media (max-height: 500px) {
       .game-frame { height: 400px; }
+      .ad-container {
+        bottom: 10px;
+        padding: 10px;
+      }
     }
     
     @media (max-width:768px){
       .game-frame{height:70vh;}
       .features {
         grid-template-columns: 1fr;
+      }
+      .ad-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .ad-text {
+        text-align: center;
       }
     }
     
@@ -274,6 +382,10 @@
       .header-content{flex-direction:column;gap:15px;}
       .game-title {font-size: 1.5rem;}
       .seo-content h1 {font-size: 1.5rem;}
+      .ad-container {
+        width: 95vw;
+        padding: 12px;
+      }
     }
     
     @media (orientation: landscape) {
@@ -281,43 +393,6 @@
         top: 8px;
         right: 8px;
       }
-      /* إعلان عائم فوق اللعبة */
-#fullscreen-ad {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 10px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
-  z-index: 99999;
-  display: none; /* لا يظهر إلا أثناء fullscreen */
-}
-
-#fullscreen-ad a {
-  color: #fff;
-  text-decoration: none;
-}
-
-#fullscreen-ad .close-btn {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  background: rgba(255,255,255,0.2);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-}
-#fullscreen-ad .close-btn:hover {
-  background: rgba(255,255,255,0.4);
-}
     }
   </style>
   <script type="application/ld+json">
@@ -369,10 +444,6 @@
         <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
         <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
       </div>
-      <div id="fullscreen-ad">
-  <button class="close-btn" onclick="document.getElementById('fullscreen-ad').style.display='none'">×</button>
-  🎮 <a href="https://your-ad-link.com" target="_blank">Play more free games here!</a>
-</div>
 
       <div class="game-info">
         <h2 class="game-title">Loading...</h2>
@@ -429,6 +500,20 @@
       </div>
     </div>
   </main>
+
+  <!-- مستطيل الإعلان -->
+  <div class="ad-container" id="adContainer">
+    <div class="ad-content">
+      <div class="ad-text">
+        <div class="ad-title">🎮 Discover More Games!</div>
+        <div class="ad-description">Explore our collection of 100+ free HTML5 games. No downloads, no ads, just pure fun!</div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="https://tikmob.github.io/game" class="ad-action-btn">Browse Games</a>
+        <button class="ad-close-btn" id="adCloseBtn">✕</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // تحسين LCP - تحميل iframe بعد تحميل الصفحة بالكامل
@@ -493,15 +578,38 @@
       iframe.addEventListener('load', () => clearTimeout(fallback));
     })();
     
-    // كود زر التكبير - واحد فقط
+    // كود زر التكبير والإعلان
     (function() {
       const zoomBtn = document.getElementById('zoom-btn');
       const gameFrame = document.querySelector('.game-frame');
       const iframe = document.getElementById('game-iframe');
       const header = document.querySelector('.game-header');
+      const adContainer = document.getElementById('adContainer');
+      const adCloseBtn = document.getElementById('adCloseBtn');
 
       let isExpanded = false;
       let usingBrowserFS = false; // true إذا دخلنا fullscreen حقيقي
+      let adShown = false;
+
+      // إظهار الإعلان
+      function showAd() {
+        if (!adShown) {
+          adContainer.classList.add('visible');
+          adShown = true;
+          
+          // إخفاء الإعلان تلقائياً بعد 10 ثوانٍ
+          setTimeout(() => {
+            if (adContainer.classList.contains('visible')) {
+              hideAd();
+            }
+          }, 10000);
+        }
+      }
+
+      // إخفاء الإعلان
+      function hideAd() {
+        adContainer.classList.remove('visible');
+      }
 
       // helper: enter "CSS fullscreen" fallback
       function enterCssFullscreen() {
@@ -513,6 +621,9 @@
         isExpanded = true;
         zoomBtn.classList.add('exit');
         zoomBtn.textContent = '✕';
+        
+        // إظهار الإعلان بعد تأخير قصير
+        setTimeout(showAd, 1000);
       }
 
       function exitCssFullscreen() {
@@ -523,6 +634,9 @@
         isExpanded = false;
         zoomBtn.classList.remove('exit');
         zoomBtn.textContent = '⤢';
+        
+        // إخفاء الإعلان عند الخروج من وضع التكبير
+        hideAd();
       }
 
       // try to request browser fullscreen on the gameFrame element
@@ -539,6 +653,9 @@
           zoomBtn.textContent = '✕';
           // hide header just in case
           header?.style && (header.style.display = 'none');
+          
+          // إظهار الإعلان بعد تأخير قصير
+          setTimeout(showAd, 1000);
           return true;
         } catch (e) {
           return false;
@@ -555,6 +672,9 @@
           zoomBtn.classList.remove('exit');
           zoomBtn.textContent = '⤢';
           header?.style && (header.style.display = '');
+          
+          // إخفاء الإعلان عند الخروج من وضع التكبير
+          hideAd();
           return true;
         } catch (e) {
           return false;
@@ -593,6 +713,9 @@
             zoomBtn.classList.remove('exit');
             zoomBtn.textContent = '⤢';
           }
+          
+          // إخفاء الإعلان عند الخروج من وضع التكبير
+          hideAd();
         } else {
           // entered browser fullscreen
           usingBrowserFS = true;
@@ -600,8 +723,14 @@
           header?.style && (header.style.display = 'none');
           zoomBtn.classList.add('exit');
           zoomBtn.textContent = '✕';
+          
+          // إظهار الإعلان بعد تأخير قصير
+          setTimeout(showAd, 1000);
         }
       }
+
+      // إغلاق الإعلان عند النقر على زر الإغلاق
+      adCloseBtn.addEventListener('click', hideAd);
 
       // attach events
       zoomBtn.addEventListener('click', toggleExpand);
@@ -648,32 +777,5 @@
     
     window.scrollTo(0,0);
   </script>
-  <script>
-// إعلان الواجهة
-const ad = document.getElementById('fullscreen-ad');
-const gameFrame = document.querySelector('.game-frame');
-
-// مراقبة دخول fullscreen الحقيقي
-document.addEventListener('fullscreenchange', () => {
-  if (document.fullscreenElement) {
-    ad.style.display = 'block';
-  } else if (!gameFrame.classList.contains('fullscreen-css')) {
-    ad.style.display = 'none';
-  }
-});
-
-// مراقبة fullscreen-css (عبر كلاس CSS)
-const observer = new MutationObserver(() => {
-  if (gameFrame.classList.contains('fullscreen-css')) {
-    ad.style.display = 'block';
-  } else {
-    ad.style.display = 'none';
-  }
-});
-
-// نبدأ المراقبة
-observer.observe(gameFrame, { attributes: true, attributeFilter: ['class'] });
-</script>
-
 </body>
 </html>
