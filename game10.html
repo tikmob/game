@@ -649,17 +649,31 @@
     window.scrollTo(0,0);
   </script>
   <script>
-// رصد دخول وخروج fullscreen
+// إعلان الواجهة
+const ad = document.getElementById('fullscreen-ad');
+const gameFrame = document.querySelector('.game-frame');
+
+// مراقبة دخول fullscreen الحقيقي
 document.addEventListener('fullscreenchange', () => {
-  const ad = document.getElementById('fullscreen-ad');
   if (document.fullscreenElement) {
-    // اللعبة في وضع ملء الشاشة ✅
     ad.style.display = 'block';
-  } else {
-    // خرج من ملء الشاشة ❌
+  } else if (!gameFrame.classList.contains('fullscreen-css')) {
     ad.style.display = 'none';
   }
 });
+
+// مراقبة fullscreen-css (عبر كلاس CSS)
+const observer = new MutationObserver(() => {
+  if (gameFrame.classList.contains('fullscreen-css')) {
+    ad.style.display = 'block';
+  } else {
+    ad.style.display = 'none';
+  }
+});
+
+// نبدأ المراقبة
+observer.observe(gameFrame, { attributes: true, attributeFilter: ['class'] });
 </script>
+
 </body>
 </html>
