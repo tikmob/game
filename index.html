@@ -732,5 +732,44 @@
         script.text = JSON.stringify(structuredData);
         document.head.appendChild(script);
     </script>
+    <script>
+  // 1) نُحَكّم سلوك النقر داخل البطاقات بحيث:
+  //    - إذا نقر المستخدم على زر .play-btn: يتم الانتقال لِـ href الخاص به (الافتراضي).
+  //    - إذا نقر المستخدم في أي مكان آخر من البطاقة: نأخُذ href من زر .play-btn وننتقل إليه.
+  //    - هذا يمنع أي استخدام خاطئ لـ data-game أو روابط مختلفة.
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.game-card').forEach(card => {
+      const playBtn = card.querySelector('a.play-btn');
+
+      // إذا لم يوجد زر لعب داخل البطاقة فلا نفعل شيئاً
+      if (!playBtn) return;
+
+      // منع أي متصرف افتراضي سابق (إذا كان هناك مستمع قديم يقرأ data-game بصورة خاطئة،
+      // فهذا السطر لن يزيله لكنه يوفر سلوكاً صحيحاً فوقه)
+      card.addEventListener('click', function (e) {
+        // لو النقر على زر الـ play نفسه دعه يتصرف افتراضياً
+        if (e.target.closest('a.play-btn')) {
+          // نمنع تكرار التنقل لو كان هناك مستمع آخر بالخطأ:
+          // ولكن عادة نترك الافتراضي ليعمل (أو يمكنك وضع e.stopPropagation() هنا لو أردت).
+          return;
+        }
+        // خلاف ذلك — انتقل للرابط الصحيح المستخرج من الزر
+        const href = playBtn.getAttribute('href');
+        if (href) {
+          // استخدام assign بدل setting location.href للحفاظ على السجل الطبيعي
+          window.location.assign(href);
+        }
+      });
+
+      // خيار ثانوي: إذا أردت أن تتجنّب أي تداخل مع مستمعات أخرى على الزر،
+      // أضف stopPropagation على الزر نفسه:
+      playBtn.addEventListener('click', function (e) {
+        e.stopPropagation(); // يمنع وصول الحدث لمستمع .game-card
+        // الافتراضي لعنصر الـ <a> سيأخذ المستخدم للرابط
+      });
+    });
+  });
+</script>
 </body>
 </html>
