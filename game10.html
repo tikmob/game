@@ -281,39 +281,41 @@
         top: 8px;
         right: 8px;
       }
-      /* الصندوق الخارجي */
-#ad-banner {
-  position: relative;
-  width: 100%;
-  max-width: 800px; /* نفس عرض اللعبة */
-  margin: 10px auto 0;
-  background: #222;
-  color: white;
+      /* إعلان عائم فوق اللعبة */
+#fullscreen-ad {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
   text-align: center;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   font-family: Arial, sans-serif;
-  z-index: 99;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+  z-index: 99999;
+  display: none; /* لا يظهر إلا أثناء fullscreen */
 }
 
-/* زر الإغلاق */
-#ad-banner .close-btn {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  background: rgba(255,255,255,0.2);
+#fullscreen-ad a {
   color: #fff;
+  text-decoration: none;
+}
+
+#fullscreen-ad .close-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: rgba(255,255,255,0.2);
+  color: white;
   border: none;
   border-radius: 50%;
   width: 22px;
   height: 22px;
-  font-size: 14px;
-  line-height: 22px;
   cursor: pointer;
 }
-
-#ad-banner .close-btn:hover {
+#fullscreen-ad .close-btn:hover {
   background: rgba(255,255,255,0.4);
 }
     }
@@ -359,7 +361,7 @@
         <!-- اللعبة -->
         <iframe 
           id="game-iframe"
-          src="https://sybogame.com/games/subway-surfers-winter-holiday/?v=20250613155811" 
+          src="https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/" 
           allow="autoplay; fullscreen"
           scrolling="no"
           title="Free HTML5 Game - FreePlayHub">
@@ -367,12 +369,9 @@
         <!-- زر التكبير داخل إطار اللعبة (ضعه مباشرة بعد iframe) -->
         <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
       </div>
-      <div id="ad-banner">
-  <button class="close-btn" onclick="document.getElementById('ad-banner').style.display='none'">×</button>
-  <!-- ضع هنا كود إعلانك أو صورة -->
-  <a href="https://your-ad-link.com" target="_blank" style="color:#fff; text-decoration:none;">
-    🔥 Check out this awesome game offer! 🔥
-  </a>
+      <div id="fullscreen-ad">
+  <button class="close-btn" onclick="document.getElementById('fullscreen-ad').style.display='none'">×</button>
+  🎮 <a href="https://your-ad-link.com" target="_blank">Play more free games here!</a>
 </div>
 
       <div class="game-info">
@@ -649,5 +648,18 @@
     
     window.scrollTo(0,0);
   </script>
+  <script>
+// رصد دخول وخروج fullscreen
+document.addEventListener('fullscreenchange', () => {
+  const ad = document.getElementById('fullscreen-ad');
+  if (document.fullscreenElement) {
+    // اللعبة في وضع ملء الشاشة ✅
+    ad.style.display = 'block';
+  } else {
+    // خرج من ملء الشاشة ❌
+    ad.style.display = 'none';
+  }
+});
+</script>
 </body>
 </html>
