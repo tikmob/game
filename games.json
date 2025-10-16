@@ -4,7 +4,7 @@
     "title": "Subway Surfers",
     "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
     "genre": "Running",
-    "thumbnail": "images/subway-surfers.jpg",
+    "thumbnail": "https://tikmob.github.io/game/images/1.jpg",
     "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
   },
   {
@@ -12,7 +12,7 @@
     "title": "Fireboy and Watergirl",
     "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
     "genre": "Puzzle",
-    "thumbnail": "images/fireboy-watergirl.jpg",
+    "thumbnail": "https://tikmob.github.io/game/images/2.jpg",
     "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
   }
 ]
