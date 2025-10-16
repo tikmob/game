@@ -294,11 +294,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector(".game-title").textContent = game.title;
     document.querySelector(".game-description").textContent = game.description;
 
-    // تحديث iframe
+    // تحميل اللعبة
+    iframe.style.display = "none";
+    loading.style.display = "flex";
     iframe.src = game.iframe;
 
-    // عند تحميل اللعبة فعليًا، أخفِ شاشة التحميل وأظهر الإطار
     iframe.onload = () => {
+      // عند تحميل اللعبة فعليًا، أخفِ شاشة التحميل وأظهر الإطار
       loading.style.display = "none";
       iframe.style.display = "block";
     };
@@ -314,6 +316,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 });
 </script>
+
 
 
 </body>
