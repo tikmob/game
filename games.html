@@ -265,5 +265,42 @@
 
     window.scrollTo(0,0);
   </script>
+  <script>
+async function loadGame() {
+  const params = new URLSearchParams(window.location.search);
+  const gameId = params.get('game');
+  if (!gameId) {
+    document.title = "FreePlayHub - Play Free Online Games";
+    document.querySelector('.game-title').textContent = "Choose a game to play!";
+    return;
+  }
+
+  const response = await fetch('games.json');
+  const games = await response.json();
+  const game = games.find(g => g.id === gameId);
+
+  if (!game) {
+    document.querySelector('.game-title').textContent = "Game not found!";
+    return;
+  }
+
+  // تحديث العنوان والوصف
+  document.title = `${game.title} - FreePlayHub`;
+  document.querySelector('.game-title').textContent = game.title;
+  document.querySelector('.game-description').textContent = game.description;
+
+  // تحديث iframe
+  const iframe = document.getElementById('game-frame');
+  iframe.src = game.iframe;
+
+  // تحديث meta tags
+  document.querySelector('meta[name="description"]').setAttribute("content", game.description);
+  document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
+  document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
+  document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
+}
+loadGame();
+</script>
+
 </body>
 </html>
