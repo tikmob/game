@@ -274,41 +274,39 @@
 
     window.scrollTo(0,0);
   </script>
-  <main id="game-container"></main>
-
 <script>
 async function loadGame() {
   const params = new URLSearchParams(window.location.search);
-  const gameName = params.get("game");
+  const gameId = params.get("game");
 
-  if (!gameName) {
-    document.getElementById("game-container").innerHTML = "<h2>Select a game from the list.</h2>";
-    return;
-  }
+  if (!gameId) return;
 
   try {
     const response = await fetch("games.json");
     const games = await response.json();
-    const game = games.find(g => g.name.toLowerCase() === gameName.toLowerCase());
+    const game = games.find(g => g.id === gameId);
 
     if (!game) {
-      document.getElementById("game-container").innerHTML = "<h2>Game not found.</h2>";
+      document.querySelector(".game-title").textContent = "Game not found!";
       return;
     }
 
-    document.getElementById("game-container").innerHTML = `
-      <h1>${game.title}</h1>
-      <iframe src="${game.url}" width="100%" height="600" style="border:none;" allowfullscreen></iframe>
-    `;
+    // تحديث المعلومات
+    document.title = `${game.title} - FreePlayHub`;
+    document.querySelector(".game-title").textContent = game.title;
+    document.querySelector(".game-description").textContent = game.description;
+    document.querySelector("#game-iframe").src = game.iframe;
+    document.querySelector('meta[name="description"]').setAttribute("content", game.description);
+    document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
+    document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
+    document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
   } catch (err) {
-    console.error(err);
-    document.getElementById("game-container").innerHTML = "<h2>Error loading game data.</h2>";
+    console.error("Error loading game:", err);
   }
 }
 
 loadGame();
 </script>
-
 
 
 </body>
