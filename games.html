@@ -298,7 +298,7 @@ async function loadGame() {
   document.querySelector('.game-title').textContent = game.title;
   document.querySelector('.game-description').textContent = game.description;
 
-  // تحديث iframe
+  // ✅ تحديث iframe الصحيح
   const iframe = document.getElementById('game-iframe');
   iframe.src = game.iframe;
 
@@ -310,6 +310,7 @@ async function loadGame() {
 }
 loadGame();
 </script>
+
 
 </body>
 </html>
