@@ -10,8 +10,8 @@
   <meta property="og:title" content="FreePlayHub - Play Free Online HTML5 Games Instantly">
   <meta property="og:description" content="Enjoy free browser games without downloads or ads. Play instantly on PC, mobile, or tablet!">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
-  <meta property="og:url" content="https://tikmob.github.io/game">
+  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg ">
+  <meta property="og:url" content="https://tikmob.github.io/game ">
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -59,14 +59,14 @@
 
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
+    "@context":"https://schema.org ",
     "@type":"WebSite",
     "name":"FreePlayHub",
-    "url":"https://tikmob.github.io/game",
+    "url":"https://tikmob.github.io/game ",
     "description":"Play free online HTML5 browser games instantly without download or ads.",
     "potentialAction":{
       "@type":"SearchAction",
-      "target":"https://tikmob.github.io/game/search?q={search_term_string}",
+      "target":"https://tikmob.github.io/game/search?q= {search_term_string}",
       "query-input":"required name=search_term_string"
     }
   }
@@ -77,8 +77,8 @@
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://tikmob.github.io/game" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
-        <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
+        <a href="https://tikmob.github.io/game " class="logo"><span>🎮</span><span>FreePlayHub</span></a>
+        <a href="https://tikmob.github.io/game " class="back-btn">← Back to All Games</a>
       </div>
     </div>
   </header>
@@ -93,8 +93,8 @@
             <button onclick="document.getElementById('ad-banner').style.display='none'" style="background:#ff4444;color:#fff;border:none;padding:3px 7px;border-radius:3px;cursor:pointer;font-size:11px;line-height:1">✕</button>
           </div>
           <div style="margin-top:6px;text-align:center">
-            <a href="https://google.com" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center;">
-  <img src="https://tikmob.github.io/game/images/ads.png" alt="Ad" style="width:100%;max-width:800px;height:auto;display:block;margin:0 auto">
+            <a href="https://google.com " target="_blank" rel="noopener noreferrer" style="display: block; text-align: center;">
+  <img src="https://tikmob.github.io/game/images/ads.png " alt="Ad" style="width:100%;max-width:800px;height:auto;display:block;margin:0 auto">
 </a>
           </div>
         </div>
@@ -275,46 +275,66 @@
     window.scrollTo(0,0);
   </script>
 <script>
-document.addEventListener("DOMContentLoaded", async function () {
-  const params = new URLSearchParams(window.location.search);
-  const gameId = params.get("game");
-
-  if (!gameId) {
-    document.title = "FreePlayHub - Play Free Online Games";
-    document.querySelector('.game-title').textContent = "Choose a game to play!";
-    return;
-  }
+async function loadGame() {
+  const params  = new URLSearchParams(window.location.search);
+  const gameId  = params.get("game");
+  if (!gameId) return;          // لا يوجد لعبة في الرابط
 
   try {
-    const response = await fetch("games.json");
-    const games = await response.json();
-    const game = games.find(g => g.id === gameId);
+    const res   = await fetch("games.json");
+    const games = await res.json();
+    const game  = games.find(g => g.id === gameId);
 
-    if (!game) {
+    if (!game) {          // اللعبة غير موجودة
       document.querySelector(".game-title").textContent = "Game not found!";
+      document.getElementById("loading").style.display  = "none";
       return;
     }
 
-    // تحديث العنوان والوصف
+    // تحديث الميتا والعنوان
     document.title = `${game.title} - FreePlayHub`;
-    document.querySelector(".game-title").textContent = game.title;
+    document.querySelector(".game-title").textContent       = game.title;
     document.querySelector(".game-description").textContent = game.description;
-
-    // تحديث iframe
-    const iframe = document.getElementById("game-iframe");
-    iframe.src = game.iframe;
-
-    // تحديث الميتا
     document.querySelector('meta[name="description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
     document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
-  } catch (error) {
-    console.error("Error loading game:", error);
+
+    // وضع الرابط في الـ iframe
+    const iframe       = document.getElementById("game-iframe");
+    const loadingDiv   = document.getElementById("loading");
+
+    iframe.onload = () => {
+      loadingDiv.style.display = "none";
+      iframe.style.display     = "block";
+    };
+    iframe.src = game.iframe;
+
+    // احتياطي: إذا لم تشتغل اللعبة خلال 10 ثوانٍ أظهر رابطاً يفتحها في تاب جديد
+    setTimeout(() => {
+      if (loadingDiv.style.display !== "none") {
+        loadingDiv.innerHTML =
+         `<div style="text-align:center;color:#fff;padding:18px">
+            <div class="loading-spinner" style="margin:0 auto 12px"></div>
+            <div>Game is taking longer than expected.</div>
+            <div style="margin-top:10px">
+              <a href="${game.iframe}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">
+                Open ${game.title} in a new tab
+              </a>
+            </div>
+          </div>`;
+      }
+    }, 10000);
+
+  } catch (err) {
+    console.error("Error loading game:", err);
   }
-});
+}
+
+// استدعِ الدالة مباشرة عند تحميل الصفحة
+loadGame();
 </script>
 
 
 </body>
-</html>
+</html> 
