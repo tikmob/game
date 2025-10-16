@@ -51,9 +51,85 @@
     .game-frame.fullscreen-css #game-iframe{display:block!important;width:100%!important;height:100%!important}
     .zoom-btn.exit{background:rgba(255,0,0,.85);top:10px;right:10px;bottom:auto;opacity:.35;transition:opacity .3s ease}
     .game-frame.fullscreen-css.show-controls .zoom-btn.exit{opacity:.9}
+
+    /* قسم الألعاب المقترحة */
+    .suggested-games {
+      margin-top: 50px;
+      padding: 30px 0;
+      border-top: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .suggested-games h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #ffd700;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    
+    .game-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    
+    .game-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    }
+    
+    .game-card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+    }
+    
+    .game-card-content {
+      padding: 20px;
+    }
+    
+    .game-card-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ffd700;
+    }
+    
+    .game-card-description {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      opacity: 0.9;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .game-card-genre {
+      display: inline-block;
+      background: rgba(108,92,231,0.7);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
     @media (max-height:500px){.game-frame{height:400px}}
-    @media (max-width:768px){.game-frame{height:70vh}.features{grid-template-columns:1fr}}
-    @media (max-width:480px){.game-frame{height:60vh}.header-content{flex-direction:column;gap:15px}.game-title{font-size:1.5rem}.seo-content h1{font-size:1.5rem}}
+    @media (max-width:768px){.game-frame{height:70vh}.features{grid-template-columns:1fr}.games-grid{grid-template-columns:repeat(auto-fill, minmax(250px, 1fr))}}
+    @media (max-width:480px){.game-frame{height:60vh}.header-content{flex-direction:column;gap:15px}.game-title{font-size:1.5rem}.seo-content h1{font-size:1.5rem}.games-grid{grid-template-columns:1fr}}
     @media (orientation:landscape){.game-frame.fullscreen-css .zoom-btn.exit{top:8px;right:8px}}
   </style>
 
@@ -121,6 +197,14 @@
         </div>
       </div>
 
+      <!-- قسم الألعاب المقترحة -->
+      <section class="suggested-games" id="suggested-games">
+        <h2>🎮 Suggested Games You Might Like</h2>
+        <div class="games-grid" id="suggested-games-grid">
+          <!-- سيتم ملؤه تلقائياً بالجافاسكريبت -->
+        </div>
+      </section>
+
       <div class="seo-content">
         <h1>Play Free Online HTML5 Games on FreePlayHub</h1>
         <p>Welcome to FreePlayHub, your ultimate destination for the best free online HTML5 games! Our collection features a wide variety of browser games that require no installation and work seamlessly on any device. Whether you're looking for exciting arcade games, fun web games for kids, or engaging multiplayer browser games, we have something for everyone.</p>
@@ -153,6 +237,38 @@
         "genre": "Puzzle",
         "thumbnail": "images/fireboy-watergirl.jpg",
         "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
+      },
+      {
+        "id": "minecraft-classic",
+        "title": "Minecraft Classic",
+        "description": "Build and explore in this classic version of the popular sandbox game!",
+        "genre": "Sandbox",
+        "thumbnail": "images/minecraft-classic.jpg",
+        "iframe": "https://html5.gamemonetize.com/minecraft-classic/"
+      },
+      {
+        "id": "slope",
+        "title": "Slope",
+        "description": "Navigate a ball through a challenging 3D course with gravity and speed!",
+        "genre": "Racing",
+        "thumbnail": "images/slope.jpg",
+        "iframe": "https://html5.gamemonetize.com/slope-game/"
+      },
+      {
+        "id": "geometry-dash",
+        "title": "Geometry Dash",
+        "description": "Jump and fly your way through danger in this rhythm-based action platformer!",
+        "genre": "Platformer",
+        "thumbnail": "images/geometry-dash.jpg",
+        "iframe": "https://html5.gamemonetize.com/geometry-dash/"
+      },
+      {
+        "id": "stickman-hook",
+        "title": "Stickman Hook",
+        "description": "Swing like a spider with your rope through tricky stickman levels!",
+        "genre": "Physics",
+        "thumbnail": "images/stickman-hook.jpg",
+        "iframe": "https://html5.gamemonetize.com/stickman-hook/"
       }
     ];
 
@@ -181,9 +297,13 @@
         // تحديث البيانات بناءً على اللعبة المحددة
         updateGameInfo(game);
         loadGameIframe(game.iframe);
+        // عرض الألعاب المقترحة (باستثناء اللعبة الحالية)
+        displaySuggestedGames(game.id);
       } else {
         // إذا لم يتم العثور على اللعبة
         showGameNotFound();
+        // عرض الألعاب المقترحة عشوائياً
+        displaySuggestedGames();
       }
     }
 
@@ -197,6 +317,8 @@
       const defaultGame = gamesData[0];
       loadGameIframe(defaultGame.iframe);
       updateGameInfo(defaultGame);
+      // عرض الألعاب المقترحة (باستثناء اللعبة الحالية)
+      displaySuggestedGames(defaultGame.id);
     }
 
     // دالة لتحديث معلومات اللعبة
@@ -276,6 +398,45 @@
           <a href="https://tikmob.github.io/game" style="color:#3CF7DC;text-decoration:underline">Return to Games List</a>
         </div>
       </div>`;
+    }
+
+    // دالة لعرض الألعاب المقترحة
+    function displaySuggestedGames(currentGameId = null) {
+      const suggestedGamesGrid = document.getElementById('suggested-games-grid');
+      
+      // تصفية الألعاب (إزالة اللعبة الحالية)
+      let availableGames = gamesData.filter(game => game.id !== currentGameId);
+      
+      // إذا لم يكن هناك ألعاب كافية، نعرض جميع الألعاب
+      if (availableGames.length < 3) {
+        availableGames = gamesData;
+      }
+      
+      // خلط الألعاب عشوائياً
+      const shuffledGames = [...availableGames].sort(() => 0.5 - Math.random());
+      
+      // اختيار 4 ألعاب عشوائية
+      const selectedGames = shuffledGames.slice(0, 4);
+      
+      // إنشاء HTML للألعاب المقترحة
+      let gamesHTML = '';
+      
+      selectedGames.forEach(game => {
+        gamesHTML += `
+          <div class="game-card" onclick="window.location.href='?game=${game.id}'">
+            <div class="game-card-image">
+              ${game.thumbnail ? `<img src="${game.thumbnail}" alt="${game.title}" style="width:100%;height:100%;object-fit:cover">` : '🎮'}
+            </div>
+            <div class="game-card-content">
+              <h3 class="game-card-title">${game.title}</h3>
+              <p class="game-card-description">${game.description}</p>
+              <span class="game-card-genre">${game.genre}</span>
+            </div>
+          </div>
+        `;
+      });
+      
+      suggestedGamesGrid.innerHTML = gamesHTML;
     }
 
     // تحميل بيانات اللعبة عند تحميل الصفحة
