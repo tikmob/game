@@ -1,0 +1,18 @@
+[
+  {
+    "id": "subway-surfers",
+    "title": "Subway Surfers",
+    "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
+    "genre": "Running",
+    "thumbnail": "images/subway-surfers.jpg",
+    "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
+  },
+  {
+    "id": "fireboy-watergirl",
+    "title": "Fireboy and Watergirl",
+    "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
+    "genre": "Puzzle",
+    "thumbnail": "images/fireboy-watergirl.jpg",
+    "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
+  }
+]
