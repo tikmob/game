@@ -4,23 +4,31 @@
     "title": "Subway Surfers",
     "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
     "genre": "Running",
-    "thumbnail": "https://tikmob.github.io/game/images/1.jpg",
+    "thumbnail": "images/subway-surfers.jpg",
     "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
   },
   {
     "id": "fireboy-watergirl",
-    "title": "Prado Car Parking Simulator Game",
-    "description": "Experience the next level of luxury driving with Prado Car Parking Simulator. Step into a world where precision meets performance, offering an authentic and immersive parking adventure crafted for SUV lovers and driving perfectionists. Master your skills behind the wheel of high-end Prado vehicles as you navigate through realistic environments, complex parking missions, and smooth controls that test your accuracy, focus, and timing. This isn’t just another car game — it’s a complete driving simulator that challenges you to park like a pro.",
-    "genre": "Adventure", "Racing",
-    "thumbnail": "https://tikmob.github.io/game/images/2.jpg",
+    "title": "Fireboy and Watergirl",
+    "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
+    "genre": "Puzzle",
+    "thumbnail": "images/fireboy-watergirl.jpg",
     "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
   },
   {
-    "id": "prado-car-parking-simulator-game",
-    "title": "Prado Car Parking Simulator Game",
-    "description": "Experience the next level of luxury driving with Prado Car Parking Simulator. Step into a world where precision meets performance, offering an authentic and immersive parking adventure crafted for SUV lovers and driving perfectionists. Master your skills behind the wheel of high-end Prado vehicles as you navigate through realistic environments, complex parking missions, and smooth controls that test your accuracy, focus, and timing. This isn’t just another car game — it’s a complete driving simulator that challenges you to park like a pro.",
-    "genre": "Adventure", "Racing",
-    "thumbnail": "https://tikmob.github.io/game/images/2.jpg",
-    "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
+    "id": "minecraft-classic",
+    "title": "Minecraft Classic",
+    "description": "Build and explore in this classic version of the popular sandbox game!",
+    "genre": "Sandbox",
+    "thumbnail": "images/minecraft-classic.jpg",
+    "iframe": "https://html5.gamemonetize.com/minecraft-classic/"
+  },
+  {
+    "id": "slope",
+    "title": "Slope",
+    "description": "Navigate a ball through a challenging 3D course with gravity and speed!",
+    "genre": "Racing",
+    "thumbnail": "images/slope.jpg",
+    "iframe": "https://html5.gamemonetize.com/slope-game/"
   }
 ]
