@@ -148,19 +148,7 @@
     // تحسين LCP
     window.addEventListener("load",()=>{document.getElementById('game-iframe').src=document.getElementById('game-iframe').getAttribute('src')});
 
-    // تحميل اللعبة واسمها
-    (function(){
-      const iframe=document.getElementById('game-iframe'),loading=document.getElementById('loading'),titleElement=document.querySelector('.game-title');
-      const gameURL=iframe.getAttribute('src');
-      let nameFromURL='';
-      try{const path=new URL(gameURL).pathname.split('/').filter(Boolean);nameFromURL=path[path.length-2]||'Game'}catch{nameFromURL='Game'}
-      const displayName=nameFromURL.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase())==='Game'?'Free HTML5 Game':nameFromURL.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-      titleElement.textContent=displayName;loading.querySelector('div:last-child').textContent=`Loading ${displayName}...`;
-      document.title=`${displayName} - Free Online HTML5 Game | FreePlayHub`;
-      iframe.onload=function(){loading.style.display='none';iframe.style.display='block'};
-      const fallback=setTimeout(()=>{if(loading.style.display!=='none')loading.innerHTML=`<div style="text-align:center;color:#fff;padding:18px"><div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite"></div><div>Game is taking longer than expected.</div><div style="margin-top:10px"><a href="${gameURL}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">Open ${displayName} in a new tab</a></div></div>`},10000);
-      iframe.addEventListener('load',()=>clearTimeout(fallback));
-    })();
+    
 
     // زر التكبير
     (function(){
