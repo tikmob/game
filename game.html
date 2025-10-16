@@ -275,11 +275,15 @@
     window.scrollTo(0,0);
   </script>
 <script>
-async function loadGame() {
+document.addEventListener("DOMContentLoaded", async function () {
   const params = new URLSearchParams(window.location.search);
   const gameId = params.get("game");
 
-  if (!gameId) return;
+  if (!gameId) {
+    document.title = "FreePlayHub - Play Free Online Games";
+    document.querySelector('.game-title').textContent = "Choose a game to play!";
+    return;
+  }
 
   try {
     const response = await fetch("games.json");
@@ -291,21 +295,24 @@ async function loadGame() {
       return;
     }
 
-    // تحديث المعلومات
+    // تحديث العنوان والوصف
     document.title = `${game.title} - FreePlayHub`;
     document.querySelector(".game-title").textContent = game.title;
     document.querySelector(".game-description").textContent = game.description;
-    document.querySelector("#game-iframe").src = game.iframe;
+
+    // تحديث iframe
+    const iframe = document.getElementById("game-iframe");
+    iframe.src = game.iframe;
+
+    // تحديث الميتا
     document.querySelector('meta[name="description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
     document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
-  } catch (err) {
-    console.error("Error loading game:", err);
+  } catch (error) {
+    console.error("Error loading game:", error);
   }
-}
-
-loadGame();
+});
 </script>
 
 
