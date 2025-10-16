@@ -102,7 +102,7 @@
         <!-- شاشة التحميل -->
         <div class="loading" id="loading">
           <div class="loading-spinner"></div>
-          <div>Loading Game...</div>
+          <div id="loading-text">Loading Game...</div>
         </div>
 
         <!-- اللعبة -->
@@ -136,13 +136,25 @@
   </main>
 
   <script>
-    // تحسين LCP
-    window.addEventListener("load",()=>{
-      const iframe = document.getElementById('game-iframe');
-      if(iframe.src) {
-        iframe.src = iframe.src;
+    // بيانات الألعاب مباشرة في الصفحة لتجنب مشاكل CORS
+    const gamesData = [
+      {
+        "id": "subway-surfers",
+        "title": "Subway Surfers",
+        "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
+        "genre": "Running",
+        "thumbnail": "images/subway-surfers.jpg",
+        "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
+      },
+      {
+        "id": "fireboy-watergirl",
+        "title": "Fireboy and Watergirl",
+        "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
+        "genre": "Puzzle",
+        "thumbnail": "images/fireboy-watergirl.jpg",
+        "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
       }
-    });
+    ];
 
     // دالة لاستخراج معاملات URL
     function getUrlParameter(name) {
@@ -153,50 +165,49 @@
     }
 
     // دالة لتحميل وتحميل بيانات اللعبة
-    async function loadGameData() {
+    function loadGameData() {
       const gameId = getUrlParameter('game');
+      
       if (!gameId) {
         // إذا لم يتم تحديد لعبة، نستخدم الافتراضي
-        document.getElementById('game-title').textContent = 'Free HTML5 Game';
-        document.title = 'Free Online HTML5 Game | FreePlayHub';
+        setDefaultGame();
         return;
       }
 
-      try {
-        // تحميل ملف JSON للألعاب
-        const response = await fetch('games.json');
-        const games = await response.json();
-        
-        // البحث عن اللعبة المطلوبة
-        const game = games.find(g => g.id === gameId);
-        
-        if (game) {
-          // تحديث البيانات بناءً على اللعبة المحددة
-          document.getElementById('game-title').textContent = game.title;
-          document.getElementById('game-description').textContent = game.description;
-          document.title = `${game.title} - Free Online HTML5 Game | FreePlayHub`;
-          
-          const iframe = document.getElementById('game-iframe');
-          iframe.src = game.iframe;
-          
-          // تحديث شاشة التحميل
-          const loading = document.getElementById('loading');
-          loading.querySelector('div:last-child').textContent = `Loading ${game.title}...`;
-          
-          // تحديث وصف الصفحة للسيو
-          updateMetaDescription(game);
-        } else {
-          // إذا لم يتم العثور على اللعبة
-          document.getElementById('game-title').textContent = 'Game Not Found';
-          document.getElementById('game-description').textContent = 'The requested game could not be found. Please check the URL or return to the main page.';
-          document.title = 'Game Not Found | FreePlayHub';
-        }
-      } catch (error) {
-        console.error('Error loading game data:', error);
-        document.getElementById('game-title').textContent = 'Error Loading Game';
-        document.getElementById('game-description').textContent = 'There was an error loading the game data. Please try again later.';
-        document.title = 'Error | FreePlayHub';
+      // البحث عن اللعبة المطلوبة
+      const game = gamesData.find(g => g.id === gameId);
+      
+      if (game) {
+        // تحديث البيانات بناءً على اللعبة المحددة
+        updateGameInfo(game);
+        loadGameIframe(game.iframe);
+      } else {
+        // إذا لم يتم العثور على اللعبة
+        showGameNotFound();
       }
+    }
+
+    // دالة لتعيين اللعبة الافتراضية
+    function setDefaultGame() {
+      document.getElementById('game-title').textContent = 'Free HTML5 Game';
+      document.getElementById('game-description').textContent = 'Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.';
+      document.title = 'Free Online HTML5 Game | FreePlayHub';
+      
+      // استخدام لعبة افتراضية إذا لم يتم تحديد واحدة
+      const defaultGame = gamesData[0];
+      loadGameIframe(defaultGame.iframe);
+      updateGameInfo(defaultGame);
+    }
+
+    // دالة لتحديث معلومات اللعبة
+    function updateGameInfo(game) {
+      document.getElementById('game-title').textContent = game.title;
+      document.getElementById('game-description').textContent = game.description;
+      document.getElementById('loading-text').textContent = `Loading ${game.title}...`;
+      document.title = `${game.title} - Free Online HTML5 Game | FreePlayHub`;
+      
+      // تحديث وصف الصفحة للسيو
+      updateMetaDescription(game);
     }
 
     // دالة لتحديث وصف الصفحة للسيو
@@ -213,28 +224,62 @@
       }
     }
 
-    // تحميل بيانات اللعبة عند تحميل الصفحة
-    document.addEventListener('DOMContentLoaded', loadGameData);
-
-    // تحميل اللعبة
-    (function(){
+    // دالة لتحميل الإطار
+    function loadGameIframe(gameUrl) {
       const iframe = document.getElementById('game-iframe');
       const loading = document.getElementById('loading');
       
+      // إعادة تعيين الإطار أولاً
+      iframe.style.display = 'none';
+      loading.style.display = 'flex';
+      
+      // تعيين مصدر اللعبة بعد تأخير بسيط
+      setTimeout(() => {
+        iframe.src = gameUrl;
+      }, 100);
+      
+      // إعداد مستمع حدث تحميل الإطار
       iframe.onload = function() {
         loading.style.display = 'none';
         iframe.style.display = 'block';
       };
       
+      // بديل في حالة فشل التحميل
       const fallback = setTimeout(() => {
         if (loading.style.display !== 'none') {
           const gameTitle = document.getElementById('game-title').textContent;
-          loading.innerHTML = `<div style="text-align:center;color:#fff;padding:18px"><div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite"></div><div>Game is taking longer than expected.</div><div style="margin-top:10px"><a href="${iframe.src}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">Open ${gameTitle} in a new tab</a></div></div>`;
+          loading.innerHTML = `<div style="text-align:center;color:#fff;padding:18px">
+            <div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite"></div>
+            <div>Game is taking longer than expected.</div>
+            <div style="margin-top:10px">
+              <a href="${gameUrl}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">Open ${gameTitle} in a new tab</a>
+            </div>
+          </div>`;
         }
-      }, 10000);
+      }, 15000);
       
       iframe.addEventListener('load', () => clearTimeout(fallback));
-    })();
+    }
+
+    // دالة لعرض رسالة عدم العثور على اللعبة
+    function showGameNotFound() {
+      document.getElementById('game-title').textContent = 'Game Not Found';
+      document.getElementById('game-description').textContent = 'The requested game could not be found. Please check the URL or return to the main page.';
+      document.getElementById('loading-text').textContent = 'Game Not Found';
+      document.title = 'Game Not Found | FreePlayHub';
+      
+      const loading = document.getElementById('loading');
+      loading.innerHTML = `<div style="text-align:center;color:#fff;padding:18px">
+        <div style="font-size:3rem;margin-bottom:15px">❌</div>
+        <div>Game Not Found</div>
+        <div style="margin-top:10px">
+          <a href="https://tikmob.github.io/game" style="color:#3CF7DC;text-decoration:underline">Return to Games List</a>
+        </div>
+      </div>`;
+    }
+
+    // تحميل بيانات اللعبة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', loadGameData);
 
     // زر التكبير
     (function(){
