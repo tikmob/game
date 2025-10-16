@@ -263,64 +263,44 @@
     window.scrollTo(0,0);
   </script>
 <script>
-async function loadGame() {
-  const params  = new URLSearchParams(window.location.search);
-  const gameId  = params.get("game");
-  if (!gameId) return;          // لا يوجد لعبة في الرابط
+document.addEventListener("DOMContentLoaded", async function () {
+  const params = new URLSearchParams(window.location.search);
+  const gameId = params.get("game");
+
+  if (!gameId) {
+    document.title = "FreePlayHub - Play Free Online Games";
+    document.querySelector('.game-title').textContent = "Choose a game to play!";
+    return;
+  }
 
   try {
-    const res   = await fetch("games.json");
-    const games = await res.json();
-    const game  = games.find(g => g.id === gameId);
+    const response = await fetch("games.json");
+    const games = await response.json();
+    const game = games.find(g => g.id === gameId);
 
-    if (!game) {          // اللعبة غير موجودة
+    if (!game) {
       document.querySelector(".game-title").textContent = "Game not found!";
-      document.getElementById("loading").style.display  = "none";
       return;
     }
 
-    // تحديث الميتا والعنوان
+    // تحديث العنوان والوصف
     document.title = `${game.title} - FreePlayHub`;
-    document.querySelector(".game-title").textContent       = game.title;
+    document.querySelector(".game-title").textContent = game.title;
     document.querySelector(".game-description").textContent = game.description;
+
+    // تحديث iframe
+    const iframe = document.getElementById("game-iframe");
+    iframe.src = game.iframe;
+
+    // تحديث الميتا
     document.querySelector('meta[name="description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
     document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
     document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
-
-    // وضع الرابط في الـ iframe
-    const iframe       = document.getElementById("game-iframe");
-    const loadingDiv   = document.getElementById("loading");
-
-    iframe.onload = () => {
-      loadingDiv.style.display = "none";
-      iframe.style.display     = "block";
-    };
-    iframe.src = game.iframe;
-
-    // احتياطي: إذا لم تشتغل اللعبة خلال 10 ثوانٍ أظهر رابطاً يفتحها في تاب جديد
-    setTimeout(() => {
-      if (loadingDiv.style.display !== "none") {
-        loadingDiv.innerHTML =
-         `<div style="text-align:center;color:#fff;padding:18px">
-            <div class="loading-spinner" style="margin:0 auto 12px"></div>
-            <div>Game is taking longer than expected.</div>
-            <div style="margin-top:10px">
-              <a href="${game.iframe}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">
-                Open ${game.title} in a new tab
-              </a>
-            </div>
-          </div>`;
-      }
-    }, 10000);
-
-  } catch (err) {
-    console.error("Error loading game:", err);
+  } catch (error) {
+    console.error("Error loading game:", error);
   }
-}
-
-// استدعِ الدالة مباشرة عند تحميل الصفحة
-loadGame();
+});
 </script>
 
 
