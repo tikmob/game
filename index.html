@@ -352,21 +352,6 @@
             background: #e84393;
         }
 
-        /* Reset Stats Button */
-        .reset-stats-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            z-index: 100;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -399,11 +384,6 @@
 
             .nav-menu.active {
                 display: block;
-            }
-
-            .reset-stats-btn {
-                bottom: 70px;
-                right: 10px;
             }
         }
 
@@ -457,16 +437,6 @@
         </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Popular Games (Auto-generated) -->
-        <section>
-            <h2 class="section-title">Popular Games</h2>
-            <div class="games-grid" id="popularGamesGrid">
-                <!-- سيتم ملؤه تلقائياً بالجافاسكريبت -->
-            </div>
-        </section>
-
         <!-- Categories -->
         <section>
             <h2 class="section-title">Game Categories</h2>
@@ -484,70 +454,10 @@
 
         <!-- More Games -->
         <section>
-            <h2 class="section-title">All Games</h2>
+            <h2 class="section-title">Games</h2>
             <div class="games-grid" id="moreGamesGrid">
-                <!-- Game 1 -->
-                <div class="game-card" data-game="subway-surfers" data-category="action adventure">
-                    <img src="https://ug17.github.io/images/subway-surfers.jpg" alt="Subway Surfers Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Subway Surfers</h3>
-                        <p class="game-description">Run, jump and dash through the subway in this exciting endless runner game.</p>
-                        <a href="/play/subway-surfers" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 2 -->
-                <div class="game-card" data-game="geometry-dash" data-category="action arcade">
-                    <img src="https://ug17.github.io/images/geometry-dash.jpg" alt="Geometry Dash Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Geometry Dash</h3>
-                        <p class="game-description">Jump and fly your way through danger in this rhythm-based action game.</p>
-                        <a href="/play/geometry-dash" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 3 -->
-                <div class="game-card" data-game="cookie-clicker" data-category="strategy puzzle">
-                    <img src="https://ug17.github.io/images/cookie-clicker.jpg" alt="Cookie Clicker Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Cookie Clicker</h3>
-                        <p class="game-description">Bake cookies, buy upgrades and become the ultimate cookie baker in this addictive idle game.</p>
-                        <a href="/play/cookie-clicker" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 4 -->
-                <div class="game-card" data-game="slope" data-category="racing arcade">
-                    <img src="https://ug17.github.io/images/slope.jpg" alt="Slope Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Slope</h3>
-                        <p class="game-description">Navigate a ball down a steep slope in this fast-paced 3D running game.</p>
-                        <a href="/play/slope" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 5 -->
-                <div class="game-card" data-game="retro-bowl" data-category="sports strategy">
-                    <img src="https://ug17.github.io/images/retro-bowl.jpg" alt="Retro Bowl Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Retro Bowl</h3>
-                        <p class="game-description">Manage your football team and lead them to victory in this retro-style sports game.</p>
-                        <a href="/play/retro-bowl" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 6 -->
-                <div class="game-card" data-game="minecraft" data-category="adventure strategy">
-                    <img src="https://ug17.github.io/images/minecraft.jpg" alt="Minecraft Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Minecraft</h3>
-                        <p class="game-description">Build, explore and survive in this block-based sandbox adventure game.</p>
-                        <a href="/play/minecraft" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
                 <!-- Game 7 -->
-                <div class="game-card" data-game="stickman-ghost-online-game" data-category="action adventure">
+                <div class="game-card" data-game="Stickman Ghost Online" data-category="action adventure">
                     <img src="https://tikmob.github.io/game/images/1.jpg" alt="Stickman Ghost Online" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Stickman Ghost Online</h3>
@@ -557,7 +467,7 @@
                 </div>
 
                 <!-- Game 8 -->
-                <div class="game-card" data-game="among-us-online-edition" data-category="action arcade">
+                <div class="game-card" data-game="Among-Us-Online" data-category="action arcade">
                     <img src="https://tikmob.github.io/game/images/2.jpg" alt="Among Us Online" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Among Us Online</h3>
@@ -567,7 +477,7 @@
                 </div>
 
                 <!-- Game 9 -->
-                <div class="game-card" data-game="prado-car-parking-game" data-category="racing adventure">
+                <div class="game-card" data-game="Prado Car Parking Game" data-category="Adventure Racing">
                     <img src="https://tikmob.github.io/game/images/5.jpg" alt="Prado Car Parking Game" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Prado Car Parking Game</h3>
@@ -577,7 +487,7 @@
                 </div>
 
                 <!-- Game 10 -->
-                <div class="game-card" data-game="sniper-simulator-game" data-category="action puzzle">
+                <div class="game-card" data-game="Sniper Simulator" data-category="puzzle">
                     <img src="https://tikmob.github.io/game/images/3.jpg" alt="Sniper Simulator" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Sniper Simulator</h3>
@@ -587,7 +497,7 @@
                 </div>
 
                 <!-- Game 11 -->
-                <div class="game-card" data-game="super-mario-run-game" data-category="adventure strategy">
+                <div class="game-card" data-game="Super Mario Run" data-category="strategy">
                     <img src="https://tikmob.github.io/game/images/4.jpg" alt="Super Mario Run" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Super Mario Run</h3>
@@ -597,7 +507,7 @@
                 </div>
 
                 <!-- Game 12 -->
-                <div class="game-card" data-game="paper-io" data-category="strategy arcade">
+                <div class="game-card" data-game="paper-io" data-category="Adventure Racing">
                     <img src="https://tikmob.github.io/game/images/2.jpg" alt="Paper.io Game" class="game-image">
                     <div class="game-info">
                         <h3 class="game-title">Paper.io</h3>
@@ -683,146 +593,7 @@
     <!-- Cloaker Button -->
     <button class="cloaker-btn" id="cloakerBtn">Cloak Site</button>
 
-    <!-- Reset Stats Button -->
-    <button class="reset-stats-btn" id="resetStatsBtn">Reset Stats</button>
-
     <script>
-        // نظام تتبع الزيارات للألعاب
-        const TRACKING_KEY = 'game_popularity';
-
-        // دالة لتسجيل زيارة لعبة
-        function trackGameVisit(gameId) {
-            let popularity = JSON.parse(localStorage.getItem(TRACKING_KEY)) || {};
-            
-            if (!popularity[gameId]) {
-                popularity[gameId] = {
-                    visits: 0,
-                    lastPlayed: null,
-                    title: ''
-                };
-            }
-            
-            popularity[gameId].visits += 1;
-            popularity[gameId].lastPlayed = new Date().toISOString();
-            
-            // حفظ بيانات اللعبة إذا كانت مفقودة
-            const gameCard = document.querySelector(`[data-game="${gameId}"]`);
-            if (gameCard && !popularity[gameId].title) {
-                popularity[gameId].title = gameCard.querySelector('.game-title').textContent;
-            }
-            
-            localStorage.setItem(TRACKING_KEY, JSON.stringify(popularity));
-            
-            // تحديث عرض الألعاب الشعبية
-            displayPopularGames();
-        }
-
-        // دالة للحصول على الألعاب الشعبية
-        function getPopularGames(limit = 6) {
-            const popularity = JSON.parse(localStorage.getItem(TRACKING_KEY)) || {};
-            
-            // تحويل إلى مصفوفة وترتيب حسب عدد الزيارات
-            const gamesArray = Object.entries(popularity)
-                .map(([id, data]) => ({
-                    id,
-                    visits: data.visits,
-                    lastPlayed: data.lastPlayed,
-                    title: data.title
-                }))
-                .sort((a, b) => b.visits - a.visits)
-                .slice(0, limit);
-            
-            return gamesArray;
-        }
-
-        // دالة لعرض الألعاب الشعبية
-        function displayPopularGames() {
-            const popularGamesGrid = document.getElementById('popularGamesGrid');
-            const popularGames = getPopularGames(6);
-            
-            if (popularGames.length === 0) {
-                // إذا لم توجد بيانات، عرض الألعاب الافتراضية
-                displayDefaultPopularGames();
-                return;
-            }
-            
-            let gamesHTML = '';
-            
-            popularGames.forEach(game => {
-                // البحث عن البطاقة الأصلية للعبة
-                const originalCard = document.querySelector(`[data-game="${game.id}"]`);
-                
-                if (originalCard) {
-                    gamesHTML += originalCard.outerHTML;
-                } else {
-                    // إذا لم توجد البطاقة الأصلية، إنشاء بطاقة أساسية
-                    gamesHTML += `
-                        <div class="game-card" data-game="${game.id}">
-                            <img src="/images/default-game.jpg" alt="${game.title}" class="game-image">
-                            <div class="game-info">
-                                <h3 class="game-title">${game.title}</h3>
-                                <p class="game-description">Popular game with ${game.visits} visits</p>
-                                <a href="/play/${game.id}" class="play-btn">Play Now</a>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-            
-            popularGamesGrid.innerHTML = gamesHTML;
-            attachGameCardListeners();
-        }
-
-        // دالة لعرض الألعاب الافتراضية
-        function displayDefaultPopularGames() {
-            const popularGamesGrid = document.getElementById('popularGamesGrid');
-            const defaultGames = [
-                'subway-surfers',
-                'geometry-dash', 
-                'cookie-clicker',
-                'slope',
-                'retro-bowl',
-                'minecraft'
-            ];
-            
-            let gamesHTML = '';
-            
-            defaultGames.forEach(gameId => {
-                const originalCard = document.querySelector(`[data-game="${gameId}"]`);
-                if (originalCard) {
-                    gamesHTML += originalCard.outerHTML;
-                }
-            });
-            
-            popularGamesGrid.innerHTML = gamesHTML;
-            attachGameCardListeners();
-        }
-
-        // إعادة إرفاق مستمعات الأحداث للبطاقات الجديدة
-        function attachGameCardListeners() {
-            document.querySelectorAll('#popularGamesGrid .game-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (!e.target.classList.contains('play-btn')) {
-                        const gameId = this.getAttribute('data-game');
-                        trackGameVisit(gameId);
-                        const playBtn = this.querySelector('.play-btn');
-                        if (playBtn) {
-                            window.location.href = playBtn.getAttribute('href');
-                        }
-                    }
-                });
-                
-                // تتبع النقر على زر Play
-                const playBtn = card.querySelector('.play-btn');
-                if (playBtn) {
-                    playBtn.addEventListener('click', function() {
-                        const gameId = card.getAttribute('data-game');
-                        trackGameVisit(gameId);
-                    });
-                }
-            });
-        }
-
         // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
@@ -832,23 +603,8 @@
         document.querySelectorAll('.game-card').forEach(card => {
             card.addEventListener('click', function(e) {
                 if (!e.target.classList.contains('play-btn')) {
-                    const gameId = this.getAttribute('data-game');
-                    trackGameVisit(gameId);
-                    const playBtn = this.querySelector('.play-btn');
-                    if (playBtn) {
-                        window.location.href = playBtn.getAttribute('href');
-                    }
-                }
-            });
-        });
-
-        // تتبع النقر على أزرار Play
-        document.querySelectorAll('.play-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const gameCard = this.closest('.game-card');
-                if (gameCard) {
-                    const gameId = gameCard.getAttribute('data-game');
-                    trackGameVisit(gameId);
+                    const game = this.getAttribute('data-game');
+                    window.location.href = `/play/${game}`;
                 }
             });
         });
@@ -944,24 +700,6 @@
             }
         });
 
-        // Reset Stats Button
-        document.getElementById('resetStatsBtn').addEventListener('click', function() {
-            if (confirm('Are you sure you want to reset all game statistics?')) {
-                localStorage.removeItem(TRACKING_KEY);
-                displayPopularGames();
-                alert('Statistics reset successfully!');
-            }
-        });
-
-        // تهيئة النظام عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            // عرض الألعاب الشعبية
-            displayPopularGames();
-            
-            // تحديث الألعاب الشعبية كل 30 ثانية (اختياري)
-            setInterval(displayPopularGames, 30000);
-        });
-
         // SEO Enhancement - Structured Data
         const structuredData = {
             "@context": "https://schema.org",
@@ -980,6 +718,45 @@
         script.type = 'application/ld+json';
         script.text = JSON.stringify(structuredData);
         document.head.appendChild(script);
+    </script>
+    <script>
+        // 1) نُحَكّم سلوك النقر داخل البطاقات بحيث:
+        //    - إذا نقر المستخدم على زر .play-btn: يتم الانتقال لِـ href الخاص به (الافتراضي).
+        //    - إذا نقر المستخدم في أي مكان آخر من البطاقة: نأخُذ href من زر .play-btn وننتقل إليه.
+        //    - هذا يمنع أي استخدام خاطئ لـ data-game أو روابط مختلفة.
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.game-card').forEach(card => {
+                const playBtn = card.querySelector('a.play-btn');
+
+                // إذا لم يوجد زر لعب داخل البطاقة فلا نفعل شيئاً
+                if (!playBtn) return;
+
+                // منع أي متصرف افتراضي سابق (إذا كان هناك مستمع قديم يقرأ data-game بصورة خاطئة،
+                // فهذا السطر لن يزيله لكنه يوفر سلوكاً صحيحاً فوقه)
+                card.addEventListener('click', function (e) {
+                    // لو النقر على زر الـ play نفسه دعه يتصرف افتراضياً
+                    if (e.target.closest('a.play-btn')) {
+                        // نمنع تكرار التنقل لو كان هناك مستمع آخر بالخطأ:
+                        // ولكن عادة نترك الافتراضي ليعمل (أو يمكنك وضع e.stopPropagation() هنا لو أردت).
+                        return;
+                    }
+                    // خلاف ذلك — انتقل للرابط الصحيح المستخرج من الزر
+                    const href = playBtn.getAttribute('href');
+                    if (href) {
+                        // استخدام assign بدل setting location.href للحفاظ على السجل الطبيعي
+                        window.location.assign(href);
+                    }
+                });
+
+                // خيار ثانوي: إذا أردت أن تتجنّب أي تداخل مع مستمعات أخرى على الزر،
+                // أضف stopPropagation على الزر نفسه:
+                playBtn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // يمنع وصول الحدث لمستمع .game-card
+                    // الافتراضي لعنصر الـ <a> سيأخذ المستخدم للرابط
+                });
+            });
+        });
     </script>
 </body>
 </html>
