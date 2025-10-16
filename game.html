@@ -10,8 +10,8 @@
   <meta property="og:title" content="FreePlayHub - Play Free Online HTML5 Games Instantly">
   <meta property="og:description" content="Enjoy free browser games without downloads or ads. Play instantly on PC, mobile, or tablet!">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg ">
-  <meta property="og:url" content="https://tikmob.github.io/game ">
+  <meta property="og:image" content="https://tikmob.github.io/game/thumbnail.jpg">
+  <meta property="og:url" content="https://tikmob.github.io/game">
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -48,7 +48,7 @@
     .zoom-btn{position:absolute;right:12px;bottom:12px;z-index:9999;background:rgba(0,0,0,.6);color:#fff;border:none;width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;backdrop-filter:blur(4px);transition:transform .15s ease,background .15s ease;box-shadow:0 6px 18px rgba(0,0,0,.45)}
     .zoom-btn:hover{transform:translateY(-3px);background:rgba(0,0,0,.8)}
     .game-frame.fullscreen-css{position:fixed;top:0;left:0;width:100vw!important;height:100vh!important;max-width:100%!important;border-radius:0!important;margin:0!important;padding:0!important;z-index:2147483647;background:#000}
-    .game-frame.fullscreen-css #game-{display:block!important;width:100%!important;height:100%!important}
+    .game-frame.fullscreen-css #game-iframe{display:block!important;width:100%!important;height:100%!important}
     .zoom-btn.exit{background:rgba(255,0,0,.85);top:10px;right:10px;bottom:auto;opacity:.35;transition:opacity .3s ease}
     .game-frame.fullscreen-css.show-controls .zoom-btn.exit{opacity:.9}
     @media (max-height:500px){.game-frame{height:400px}}
@@ -59,14 +59,14 @@
 
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org ",
+    "@context":"https://schema.org",
     "@type":"WebSite",
     "name":"FreePlayHub",
-    "url":"https://tikmob.github.io/game ",
+    "url":"https://tikmob.github.io/game",
     "description":"Play free online HTML5 browser games instantly without download or ads.",
     "potentialAction":{
       "@type":"SearchAction",
-      "target":"https://tikmob.github.io/game/search?q= {search_term_string}",
+      "target":"https://tikmob.github.io/game/search?q={search_term_string}",
       "query-input":"required name=search_term_string"
     }
   }
@@ -77,8 +77,8 @@
   <header class="game-header">
     <div class="container">
       <div class="header-content">
-        <a href="https://tikmob.github.io/game " class="logo"><span>🎮</span><span>FreePlayHub</span></a>
-        <a href="https://tikmob.github.io/game " class="back-btn">← Back to All Games</a>
+        <a href="https://tikmob.github.io/game" class="logo"><span>🎮</span><span>FreePlayHub</span></a>
+        <a href="https://tikmob.github.io/game" class="back-btn">← Back to All Games</a>
       </div>
     </div>
   </header>
@@ -93,9 +93,9 @@
             <button onclick="document.getElementById('ad-banner').style.display='none'" style="background:#ff4444;color:#fff;border:none;padding:3px 7px;border-radius:3px;cursor:pointer;font-size:11px;line-height:1">✕</button>
           </div>
           <div style="margin-top:6px;text-align:center">
-            <a href="https://google.com " target="_blank" rel="noopener noreferrer" style="display: block; text-align: center;">
-  <img src="https://tikmob.github.io/game/images/ads.png " alt="Ad" style="width:100%;max-width:800px;height:auto;display:block;margin:0 auto">
-</a>
+            <a href="https://google.com" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center;">
+              <img src="https://tikmob.github.io/game/images/ads.png" alt="Ad" style="width:100%;max-width:800px;height:auto;display:block;margin:0 auto">
+            </a>
           </div>
         </div>
 
@@ -106,22 +106,13 @@
         </div>
 
         <!-- اللعبة -->
-        <!-- اللعبة -->
-<iframe 
-  id="game-iframe" 
-  src="" 
-  allow="autoplay;fullscreen" 
-  scrolling="no" 
-  title="Free HTML5 Game - FreePlayHub">
-</iframe>
-
-<button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
-</div>
-
+        <iframe id="game-iframe" src="" allow="autoplay;fullscreen" scrolling="no" title="Free HTML5 Game - FreePlayHub"></iframe>
+        <button id="zoom-btn" class="zoom-btn" aria-label="Toggle fullscreen">⤢</button>
+      </div>
 
       <div class="game-info">
-        <h2 class="game-title">Loading...</h2>
-        <p class="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
+        <h2 class="game-title" id="game-title">Loading...</h2>
+        <p class="game-description" id="game-description">Enjoy playing the best HTML5 games online! Just load and have fun with your favorite titles directly on FreePlayHub.</p>
         <div class="features">
           <div class="feature-item"><h3>🚀 Instant Play</h3><p>No downloads or installations required. Play directly in your browser on any device.</p></div>
           <div class="feature-item"><h3>🎯 Free & Accessible</h3><p>All games are completely free to play with no registration required.</p></div>
@@ -145,179 +136,246 @@
   </main>
 
   <script>
-  
+    // تحسين LCP
+    window.addEventListener("load",()=>{
+      const iframe = document.getElementById('game-iframe');
+      if(iframe.src) {
+        iframe.src = iframe.src;
+      }
+    });
 
-    
+    // دالة لاستخراج معاملات URL
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // دالة لتحميل وتحميل بيانات اللعبة
+    async function loadGameData() {
+      const gameId = getUrlParameter('game');
+      if (!gameId) {
+        // إذا لم يتم تحديد لعبة، نستخدم الافتراضي
+        document.getElementById('game-title').textContent = 'Free HTML5 Game';
+        document.title = 'Free Online HTML5 Game | FreePlayHub';
+        return;
+      }
+
+      try {
+        // تحميل ملف JSON للألعاب
+        const response = await fetch('games.json');
+        const games = await response.json();
+        
+        // البحث عن اللعبة المطلوبة
+        const game = games.find(g => g.id === gameId);
+        
+        if (game) {
+          // تحديث البيانات بناءً على اللعبة المحددة
+          document.getElementById('game-title').textContent = game.title;
+          document.getElementById('game-description').textContent = game.description;
+          document.title = `${game.title} - Free Online HTML5 Game | FreePlayHub`;
+          
+          const iframe = document.getElementById('game-iframe');
+          iframe.src = game.iframe;
+          
+          // تحديث شاشة التحميل
+          const loading = document.getElementById('loading');
+          loading.querySelector('div:last-child').textContent = `Loading ${game.title}...`;
+          
+          // تحديث وصف الصفحة للسيو
+          updateMetaDescription(game);
+        } else {
+          // إذا لم يتم العثور على اللعبة
+          document.getElementById('game-title').textContent = 'Game Not Found';
+          document.getElementById('game-description').textContent = 'The requested game could not be found. Please check the URL or return to the main page.';
+          document.title = 'Game Not Found | FreePlayHub';
+        }
+      } catch (error) {
+        console.error('Error loading game data:', error);
+        document.getElementById('game-title').textContent = 'Error Loading Game';
+        document.getElementById('game-description').textContent = 'There was an error loading the game data. Please try again later.';
+        document.title = 'Error | FreePlayHub';
+      }
+    }
+
+    // دالة لتحديث وصف الصفحة للسيو
+    function updateMetaDescription(game) {
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      
+      if (metaDescription && game) {
+        metaDescription.content = `Play ${game.title} for free on FreePlayHub - ${game.description}`;
+      }
+      
+      if (ogDescription && game) {
+        ogDescription.content = `Play ${game.title} - ${game.description}`;
+      }
+    }
+
+    // تحميل بيانات اللعبة عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', loadGameData);
+
+    // تحميل اللعبة
+    (function(){
+      const iframe = document.getElementById('game-iframe');
+      const loading = document.getElementById('loading');
+      
+      iframe.onload = function() {
+        loading.style.display = 'none';
+        iframe.style.display = 'block';
+      };
+      
+      const fallback = setTimeout(() => {
+        if (loading.style.display !== 'none') {
+          const gameTitle = document.getElementById('game-title').textContent;
+          loading.innerHTML = `<div style="text-align:center;color:#fff;padding:18px"><div class="loading-spinner" style="margin:0 auto 12px;width:40px;height:40px;border:5px solid rgba(255,255,255,.25);border-top-color:#3CF7DC;border-radius:50%;animation:spin 1s linear infinite"></div><div>Game is taking longer than expected.</div><div style="margin-top:10px"><a href="${iframe.src}" target="_blank" rel="noopener" style="color:#3CF7DC;text-decoration:underline">Open ${gameTitle} in a new tab</a></div></div>`;
+        }
+      }, 10000);
+      
+      iframe.addEventListener('load', () => clearTimeout(fallback));
+    })();
 
     // زر التكبير
     (function(){
-      const zoomBtn=document.getElementById('zoom-btn'),gameFrame=document.querySelector('.game-frame'),iframe=document.getElementById('game-iframe'),header=document.querySelector('.game-header'),adBanner=document.getElementById('ad-banner');
-      let isExpanded=false,usingBrowserFS=false;
+      const zoomBtn = document.getElementById('zoom-btn');
+      const gameFrame = document.querySelector('.game-frame');
+      const iframe = document.getElementById('game-iframe');
+      const header = document.querySelector('.game-header');
+      const adBanner = document.getElementById('ad-banner');
+      let isExpanded = false;
+      let usingBrowserFS = false;
 
-      function enterCssFullscreen(){
+      function enterCssFullscreen() {
         gameFrame.classList.add('fullscreen-css');
-        if(header)header.style.display='none';
-        document.documentElement.style.overflow='hidden';
-        document.body.style.overflow='hidden';
-        isExpanded=true;zoomBtn.classList.add('exit');zoomBtn.textContent='✕';
-        adBanner.style.display='block';
+        if (header) header.style.display = 'none';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        isExpanded = true;
+        zoomBtn.classList.add('exit');
+        zoomBtn.textContent = '✕';
+        adBanner.style.display = 'block';
       }
-      function exitCssFullscreen(){
+      
+      function exitCssFullscreen() {
         gameFrame.classList.remove('fullscreen-css');
-        if(header)header.style.display='';
-        document.documentElement.style.overflow='';
-        document.body.style.overflow='';
-        isExpanded=false;zoomBtn.classList.remove('exit');zoomBtn.textContent='⤢';
-        adBanner.style.display='none';
+        if (header) header.style.display = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        isExpanded = false;
+        zoomBtn.classList.remove('exit');
+        zoomBtn.textContent = '⤢';
+        adBanner.style.display = 'none';
       }
 
-      async function enterBrowserFullscreen(){
-        const el=gameFrame;
-        if(!el)return false;
-        const req=el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen;
-        if(!req)return false;
-        try{
+      async function enterBrowserFullscreen() {
+        const el = gameFrame;
+        if (!el) return false;
+        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+        if (!req) return false;
+        try {
           await req.call(el);
-          usingBrowserFS=true;isExpanded=true;zoomBtn.classList.add('exit');zoomBtn.textContent='✕';
-          if(header)header.style.display='none';
-          adBanner.style.display='block';
+          usingBrowserFS = true;
+          isExpanded = true;
+          zoomBtn.classList.add('exit');
+          zoomBtn.textContent = '✕';
+          if (header) header.style.display = 'none';
+          adBanner.style.display = 'block';
           return true;
-        }catch{return false}
+        } catch {
+          return false;
+        }
       }
-      async function exitBrowserFullscreen(){
-        const exit=document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen;
-        if(!exit)return false;
-        try{
+      
+      async function exitBrowserFullscreen() {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+        if (!exit) return false;
+        try {
           await exit.call(document);
-          usingBrowserFS=false;isExpanded=false;zoomBtn.classList.remove('exit');zoomBtn.textContent='⤢';
-          if(header)header.style.display='';
-          adBanner.style.display='none';
+          usingBrowserFS = false;
+          isExpanded = false;
+          zoomBtn.classList.remove('exit');
+          zoomBtn.textContent = '⤢';
+          if (header) header.style.display = '';
+          adBanner.style.display = 'none';
           return true;
-        }catch{return false}
-      }
-
-      async function toggleExpand(){
-        if(!isExpanded){
-          const ok=await enterBrowserFullscreen();
-          if(!ok)enterCssFullscreen();
-        }else{
-          if(usingBrowserFS)await exitBrowserFullscreen();
-          if(gameFrame.classList.contains('fullscreen-css'))exitCssFullscreen();
+        } catch {
+          return false;
         }
       }
 
-      function onFullscreenChange(){
-        const fsEl=document.fullscreenElement||document.webkitFullscreenElement||document.msFullscreenElement;
-        if(!fsEl){
-          usingBrowserFS=false;
-          if(!gameFrame.classList.contains('fullscreen-css')){
-            if(header)header.style.display='';
-            isExpanded=false;zoomBtn.classList.remove('exit');zoomBtn.textContent='⤢';
-            adBanner.style.display='none';
+      async function toggleExpand() {
+        if (!isExpanded) {
+          const ok = await enterBrowserFullscreen();
+          if (!ok) enterCssFullscreen();
+        } else {
+          if (usingBrowserFS) await exitBrowserFullscreen();
+          if (gameFrame.classList.contains('fullscreen-css')) exitCssFullscreen();
+        }
+      }
+
+      function onFullscreenChange() {
+        const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        if (!fsEl) {
+          usingBrowserFS = false;
+          if (!gameFrame.classList.contains('fullscreen-css')) {
+            if (header) header.style.display = '';
+            isExpanded = false;
+            zoomBtn.classList.remove('exit');
+            zoomBtn.textContent = '⤢';
+            adBanner.style.display = 'none';
           }
-        }else{
-          usingBrowserFS=true;isExpanded=true;
-          if(header)header.style.display='none';
-          zoomBtn.classList.add('exit');zoomBtn.textContent='✕';
-          adBanner.style.display='block';
+        } else {
+          usingBrowserFS = true;
+          isExpanded = true;
+          if (header) header.style.display = 'none';
+          zoomBtn.classList.add('exit');
+          zoomBtn.textContent = '✕';
+          adBanner.style.display = 'block';
         }
       }
 
-      zoomBtn.addEventListener('click',toggleExpand);
-      document.addEventListener('fullscreenchange',onFullscreenChange);
-      document.addEventListener('webkitfullscreenchange',onFullscreenChange);
-      document.addEventListener('msfullscreenchange',onFullscreenChange);
+      zoomBtn.addEventListener('click', toggleExpand);
+      document.addEventListener('fullscreenchange', onFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+      document.addEventListener('msfullscreenchange', onFullscreenChange);
 
-      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&gameFrame.classList.contains('fullscreen-css'))exitCssFullscreen()});
-
-      // معالجة تدوير الجهاز
-      window.addEventListener('orientationchange',()=>{
-        if(gameFrame.classList.contains('fullscreen-css')){
-          // نُخرج overflow مؤقتاً لإعادة الحساب الصحيح
-          document.documentElement.style.overflow='';
-          document.body.style.overflow='';
-          setTimeout(()=>{
-            // نعيد منع التمرير بعد حساب الارتفاع الجديد
-            document.documentElement.style.overflow='hidden';
-            document.body.style.overflow='hidden';
-            iframe.style.width='100%';
-            iframe.style.height='100%';
-          },300);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && gameFrame.classList.contains('fullscreen-css')) {
+          exitCssFullscreen();
         }
       });
 
-      zoomBtn.addEventListener('touchstart',e=>e.stopPropagation());
+      // معالجة تدوير الجهاز
+      window.addEventListener('orientationchange', () => {
+        if (gameFrame.classList.contains('fullscreen-css')) {
+          // نُخرج overflow مؤقتاً لإعادة الحساب الصحيح
+          document.documentElement.style.overflow = '';
+          document.body.style.overflow = '';
+          setTimeout(() => {
+            // نعيد منع التمرير بعد حساب الارتفاع الجديد
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+          }, 300);
+        }
+      });
+
+      zoomBtn.addEventListener('touchstart', e => e.stopPropagation());
       let hideTimeout;
-      ['mousemove','touchstart'].forEach(evt=>{
-        gameFrame.addEventListener(evt,()=>{
-          if(gameFrame.classList.contains('fullscreen-css')){
+      ['mousemove', 'touchstart'].forEach(evt => {
+        gameFrame.addEventListener(evt, () => {
+          if (gameFrame.classList.contains('fullscreen-css')) {
             gameFrame.classList.add('show-controls');
             clearTimeout(hideTimeout);
-            hideTimeout=setTimeout(()=>gameFrame.classList.remove('show-controls'),2500);
+            hideTimeout = setTimeout(() => gameFrame.classList.remove('show-controls'), 2500);
           }
         });
       });
     })();
 
-    window.scrollTo(0,0);
-    </script>
-<script>
-document.addEventListener("DOMContentLoaded", async function () {
-  const params = new URLSearchParams(window.location.search);
-  const gameId = params.get("game");
-
-  const loading = document.getElementById("loading");
-  const iframe = document.getElementById("game-iframe");
-
-  if (!gameId) {
-    document.title = "FreePlayHub - Play Free Online Games";
-    document.querySelector('.game-title').textContent = "Choose a game to play!";
-    loading.style.display = "none";
-    iframe.style.display = "none";
-    return;
-  }
-
-  try {
-    const response = await fetch("games.json");
-    const games = await response.json();
-    const game = games.find(g => g.id === gameId);
-
-    if (!game) {
-      document.querySelector(".game-title").textContent = "Game not found!";
-      loading.style.display = "none";
-      iframe.style.display = "none";
-      return;
-    }
-
-    // تحديث العنوان والوصف
-    document.title = `${game.title} - FreePlayHub`;
-    document.querySelector(".game-title").textContent = game.title;
-    document.querySelector(".game-description").textContent = game.description;
-
-    // تحميل اللعبة
-    iframe.style.display = "none";
-    loading.style.display = "flex";
-    iframe.src = game.iframe;
-
-    iframe.onload = () => {
-      // عند تحميل اللعبة فعليًا، أخفِ شاشة التحميل وأظهر الإطار
-      loading.style.display = "none";
-      iframe.style.display = "block";
-    };
-
-    // تحديث الميتا
-    document.querySelector('meta[name="description"]').setAttribute("content", game.description);
-    document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
-    document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
-    document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
-  } catch (error) {
-    console.error("Error loading game:", error);
-    loading.textContent = "Error loading game data.";
-  }
-});
-</script>
-
-
-
+    window.scrollTo(0, 0);
+  </script>
 </body>
-</html> 
+</html>
