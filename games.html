@@ -274,42 +274,41 @@
 
     window.scrollTo(0,0);
   </script>
-  <script>
+  <main id="game-container"></main>
+
+<script>
 async function loadGame() {
   const params = new URLSearchParams(window.location.search);
-  const gameId = params.get('game');
-  if (!gameId) {
-    document.title = "FreePlayHub - Play Free Online Games";
-    document.querySelector('.game-title').textContent = "Choose a game to play!";
+  const gameName = params.get("game");
+
+  if (!gameName) {
+    document.getElementById("game-container").innerHTML = "<h2>Select a game from the list.</h2>";
     return;
   }
 
-  const response = await fetch('games.json');
-  const games = await response.json();
-  const game = games.find(g => g.id === gameId);
+  try {
+    const response = await fetch("games.json");
+    const games = await response.json();
+    const game = games.find(g => g.name.toLowerCase() === gameName.toLowerCase());
 
-  if (!game) {
-    document.querySelector('.game-title').textContent = "Game not found!";
-    return;
+    if (!game) {
+      document.getElementById("game-container").innerHTML = "<h2>Game not found.</h2>";
+      return;
+    }
+
+    document.getElementById("game-container").innerHTML = `
+      <h1>${game.title}</h1>
+      <iframe src="${game.url}" width="100%" height="600" style="border:none;" allowfullscreen></iframe>
+    `;
+  } catch (err) {
+    console.error(err);
+    document.getElementById("game-container").innerHTML = "<h2>Error loading game data.</h2>";
   }
-
-  // تحديث العنوان والوصف
-  document.title = `${game.title} - FreePlayHub`;
-  document.querySelector('.game-title').textContent = game.title;
-  document.querySelector('.game-description').textContent = game.description;
-
-  // ✅ تحديث iframe الصحيح
-  const iframe = document.getElementById('game-iframe');
-  iframe.src = game.iframe;
-
-  // تحديث meta tags
-  document.querySelector('meta[name="description"]').setAttribute("content", game.description);
-  document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
-  document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
-  document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
 }
+
 loadGame();
 </script>
+
 
 
 </body>
