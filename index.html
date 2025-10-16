@@ -826,31 +826,5 @@
             });
         });
     </script>
-    <script>
-async function loadGame() {
-  const params = new URLSearchParams(window.location.search);
-  const gameId = params.get('name');
-  if (!gameId) return;
-
-  const res = await fetch('data/games.json');
-  const games = await res.json();
-  const game = games.find(g => g.id === gameId);
-  if (!game) return;
-
-  // ملء المحتوى
-  document.title = `${game.title} - Free Online Game | FreePlayHub`;
-  document.querySelector('.game-title').textContent = game.title;
-  document.querySelector('.game-description').textContent = game.description;
-  document.getElementById('game-iframe').src = game.iframe;
-
-  // تحديث meta tags
-  document.querySelector('meta[name="description"]').setAttribute("content", game.description);
-  document.querySelector('meta[property="og:title"]').setAttribute("content", game.title);
-  document.querySelector('meta[property="og:description"]').setAttribute("content", game.description);
-  document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
-}
-loadGame();
-</script>
-
 </body>
 </html>
