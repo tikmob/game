@@ -97,6 +97,19 @@
       justify-content: center;
       color: white;
       font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .game-card:hover .game-card-image img {
+      transform: scale(1.05);
     }
     
     .game-card-content {
@@ -220,57 +233,8 @@
   </main>
 
   <script>
-    // بيانات الألعاب مباشرة في الصفحة لتجنب مشاكل CORS
-    const gamesData = [
-      {
-        "id": "subway-surfers",
-        "title": "Subway Surfers",
-        "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
-        "genre": "Running",
-        "thumbnail": "images/subway-surfers.jpg",
-        "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
-      },
-      {
-        "id": "fireboy-watergirl",
-        "title": "Fireboy and Watergirl",
-        "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
-        "genre": "Puzzle",
-        "thumbnail": "images/fireboy-watergirl.jpg",
-        "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
-      },
-      {
-        "id": "minecraft-classic",
-        "title": "Minecraft Classic",
-        "description": "Build and explore in this classic version of the popular sandbox game!",
-        "genre": "Sandbox",
-        "thumbnail": "images/minecraft-classic.jpg",
-        "iframe": "https://html5.gamemonetize.com/minecraft-classic/"
-      },
-      {
-        "id": "slope",
-        "title": "Slope",
-        "description": "Navigate a ball through a challenging 3D course with gravity and speed!",
-        "genre": "Racing",
-        "thumbnail": "images/slope.jpg",
-        "iframe": "https://html5.gamemonetize.com/slope-game/"
-      },
-      {
-        "id": "geometry-dash",
-        "title": "Geometry Dash",
-        "description": "Jump and fly your way through danger in this rhythm-based action platformer!",
-        "genre": "Platformer",
-        "thumbnail": "images/geometry-dash.jpg",
-        "iframe": "https://html5.gamemonetize.com/geometry-dash/"
-      },
-      {
-        "id": "stickman-hook",
-        "title": "Stickman Hook",
-        "description": "Swing like a spider with your rope through tricky stickman levels!",
-        "genre": "Physics",
-        "thumbnail": "images/stickman-hook.jpg",
-        "iframe": "https://html5.gamemonetize.com/stickman-hook/"
-      }
-    ];
+    // متغير عام لتخزين بيانات الألعاب
+    let gamesData = [];
 
     // دالة لاستخراج معاملات URL
     function getUrlParameter(name) {
@@ -280,8 +244,45 @@
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
+    // دالة لتحميل بيانات الألعاب من ملف JSON
+    async function loadGamesData() {
+      try {
+        const response = await fetch('games.json');
+        if (!response.ok) {
+          throw new Error('Failed to load games data');
+        }
+        gamesData = await response.json();
+        return gamesData;
+      } catch (error) {
+        console.error('Error loading games data:', error);
+        // استخدام بيانات افتراضية في حالة فشل التحميل
+        gamesData = [
+          {
+            "id": "subway-surfers",
+            "title": "Subway Surfers",
+            "description": "Run endlessly through the subway tracks, dodge obstacles, and collect coins in this popular running game!",
+            "genre": "Running",
+            "thumbnail": "images/subway-surfers.jpg",
+            "iframe": "https://html5.gamemonetize.co/qsd2h427rg6z6gza2xekqsdwgk1dwksa/"
+          },
+          {
+            "id": "fireboy-watergirl",
+            "title": "Fireboy and Watergirl",
+            "description": "Solve puzzles and cooperate with both characters to reach the exits safely in this fun adventure game!",
+            "genre": "Puzzle",
+            "thumbnail": "images/fireboy-watergirl.jpg",
+            "iframe": "https://html5.gamemonetize.co/xdcbce71p7nlxghsu51nly0ussa0li4s/"
+          }
+        ];
+        return gamesData;
+      }
+    }
+
     // دالة لتحميل وتحميل بيانات اللعبة
-    function loadGameData() {
+    async function loadGameData() {
+      // تحميل بيانات الألعاب أولاً
+      await loadGamesData();
+      
       const gameId = getUrlParameter('game');
       
       if (!gameId) {
@@ -315,10 +316,12 @@
       
       // استخدام لعبة افتراضية إذا لم يتم تحديد واحدة
       const defaultGame = gamesData[0];
-      loadGameIframe(defaultGame.iframe);
-      updateGameInfo(defaultGame);
-      // عرض الألعاب المقترحة (باستثناء اللعبة الحالية)
-      displaySuggestedGames(defaultGame.id);
+      if (defaultGame) {
+        loadGameIframe(defaultGame.iframe);
+        updateGameInfo(defaultGame);
+        // عرض الألعاب المقترحة (باستثناء اللعبة الحالية)
+        displaySuggestedGames(defaultGame.id);
+      }
     }
 
     // دالة لتحديث معلومات اللعبة
@@ -404,6 +407,11 @@
     function displaySuggestedGames(currentGameId = null) {
       const suggestedGamesGrid = document.getElementById('suggested-games-grid');
       
+      if (!gamesData || gamesData.length === 0) {
+        suggestedGamesGrid.innerHTML = '<p style="text-align:center;width:100%;">No games available</p>';
+        return;
+      }
+      
       // تصفية الألعاب (إزالة اللعبة الحالية)
       let availableGames = gamesData.filter(game => game.id !== currentGameId);
       
@@ -422,10 +430,15 @@
       let gamesHTML = '';
       
       selectedGames.forEach(game => {
+        // استخدام الصورة من ملف JSON أو صورة افتراضية
+        const imageHTML = game.thumbnail 
+          ? `<img src="${game.thumbnail}" alt="${game.title}" onerror="this.style.display='none'; this.parentNode.innerHTML='🎮 ${game.title}'; this.parentNode.style.fontSize='1.2rem'; this.parentNode.style.fontWeight='bold';">`
+          : `<div style="font-size:1.2rem;font-weight:bold;">🎮 ${game.title}</div>`;
+        
         gamesHTML += `
           <div class="game-card" onclick="window.location.href='?game=${game.id}'">
             <div class="game-card-image">
-              ${game.thumbnail ? `<img src="${game.thumbnail}" alt="${game.title}" style="width:100%;height:100%;object-fit:cover">` : '🎮'}
+              ${imageHTML}
             </div>
             <div class="game-card-content">
               <h3 class="game-card-title">${game.title}</h3>
