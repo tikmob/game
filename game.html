@@ -260,15 +260,19 @@
     })();
 
     window.scrollTo(0,0);
-  </script>
 <script>
 document.addEventListener("DOMContentLoaded", async function () {
   const params = new URLSearchParams(window.location.search);
   const gameId = params.get("game");
 
+  const loading = document.getElementById("loading");
+  const iframe = document.getElementById("game-iframe");
+
   if (!gameId) {
     document.title = "FreePlayHub - Play Free Online Games";
     document.querySelector('.game-title').textContent = "Choose a game to play!";
+    loading.style.display = "none";
+    iframe.style.display = "none";
     return;
   }
 
@@ -279,6 +283,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (!game) {
       document.querySelector(".game-title").textContent = "Game not found!";
+      loading.style.display = "none";
+      iframe.style.display = "none";
       return;
     }
 
@@ -288,8 +294,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector(".game-description").textContent = game.description;
 
     // تحديث iframe
-    const iframe = document.getElementById("game-iframe");
     iframe.src = game.iframe;
+
+    // عند تحميل اللعبة فعليًا، أخفِ شاشة التحميل وأظهر الإطار
+    iframe.onload = () => {
+      loading.style.display = "none";
+      iframe.style.display = "block";
+    };
 
     // تحديث الميتا
     document.querySelector('meta[name="description"]').setAttribute("content", game.description);
@@ -298,6 +309,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector('meta[property="og:image"]').setAttribute("content", game.thumbnail);
   } catch (error) {
     console.error("Error loading game:", error);
+    loading.textContent = "Error loading game data.";
   }
 });
 </script>
