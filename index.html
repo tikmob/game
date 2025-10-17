@@ -538,156 +538,26 @@
     <!-- Cloaker Button -->
     <button class="cloaker-btn" id="cloakerBtn">Cloak Site</button>
 
-    <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('active');
-        });
-
-        // Game Card Interactions
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (!e.target.classList.contains('play-btn')) {
-                    const game = this.getAttribute('data-game');
-                    window.location.href = `/play/${game}`;
-                }
-            });
-        });
-
-        // Category Filtering
-        document.querySelectorAll('.category').forEach(cat => {
-            cat.addEventListener('click', function() {
-                document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                const selectedCategory = this.getAttribute('data-category');
-                filterGames(selectedCategory);
-            });
-        });
-
-        // Search Functionality
-        document.getElementById('searchButton').addEventListener('click', function() {
-            performSearch();
-        });
-
-        // Allow pressing Enter to search
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-
-        // Game Filtering Function
-        function filterGames(category) {
-            const allGames = document.querySelectorAll('.game-card');
-            
-            allGames.forEach(game => {
-                if (category === 'all') {
-                    game.style.display = 'block';
-                } else {
-                    const gameCategories = game.getAttribute('data-category');
-                    if (gameCategories && gameCategories.includes(category)) {
-                        game.style.display = 'block';
-                    } else {
-                        game.style.display = 'none';
-                    }
-                }
-            });
-        }
-
-        // Search Function
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            if (!query) {
-                // If search is empty, show all games
-                document.querySelectorAll('.game-card').forEach(game => {
-                    game.style.display = 'block';
-                });
-                return;
-            }
-            
-            const allGames = document.querySelectorAll('.game-card');
-            let foundResults = false;
-            
-            allGames.forEach(game => {
-                const gameTitle = game.querySelector('.game-title').textContent.toLowerCase();
-                const gameDescription = game.querySelector('.game-description').textContent.toLowerCase();
-                
-                if (gameTitle.includes(query) || gameDescription.includes(query)) {
-                    game.style.display = 'block';
-                    foundResults = true;
-                } else {
-                    game.style.display = 'none';
-                }
-            });
-            
-            // If no results found, show a message
-            if (!foundResults) {
-                alert('No games found matching your search: ' + query);
-            }
-        }
-
-        // Cloaker Functionality
-        document.getElementById('cloakerBtn').addEventListener('click', function() {
-            const website = prompt("What would you like to cloak the website as?", "Google Classroom");
-            const favicon = prompt("Which website's icon do you want to use?", "classroom.google.com");
-            
-            if (website && favicon) {
-                document.title = website;
-                
-                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-                link.type = 'image/x-icon';
-                link.rel = 'shortcut icon';
-                link.href = `https://www.google.com/s2/favicons?domain=${favicon}`;
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                alert(`Site cloaked as ${website}`);
-            }
-        });
-
-        // SEO Enhancement - Structured Data
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "FreePlayHub Games",
-            "url": "https://ug17.github.io",
-            "description": "Play the best unblocked games online for free. Subway Surfers, Geometry Dash, Cookie Clicker and many more exciting games.",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://ug17.github.io/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
-        };
-
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.text = JSON.stringify(structuredData);
-        document.head.appendChild(script);
-    </script>
-<script>
+   script>
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("moreGamesGrid");
   const categoryContainer = document.querySelector(".categories");
 
-  // تحميل الألعاب من ملف JSON
   fetch("games.json")
     .then(response => response.json())
     .then(data => {
-      window.allGames = data; // نخزنها عالميًا لتسهيل الفلترة
+      window.allGames = data;
       displayGames(data);
     })
     .catch(error => console.error("Error loading games:", error));
 
-  // دالة لعرض الألعاب في الصفحة
   function displayGames(games) {
     grid.innerHTML = "";
     games.forEach(game => {
-      // تقصير الوصف
       const shortDesc = game.description.length > 120
         ? game.description.substring(0, 120) + "..."
         : game.description;
 
-      // توليد البطاقة
       const card = document.createElement("div");
       card.classList.add("game-card");
       card.setAttribute("data-game", game.title);
@@ -705,7 +575,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // عند الضغط على تصنيف
   categoryContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("category")) {
       document.querySelectorAll(".category").forEach(btn => btn.classList.remove("active"));
@@ -728,6 +597,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
 </body>
 </html>
