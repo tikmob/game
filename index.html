@@ -459,8 +459,14 @@
   ]
 }
 </script>
-<!-- Structured Data for Games Collection -->
-
+<script>
+// Service Worker لإنشاء Structured Data تلقائياً
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(registration => console.log('SW registered'))
+    .catch(error => console.log('SW registration failed'));
+}
+</script>
 </head>
 <body>
     <!-- Header -->
@@ -777,7 +783,6 @@ async function loadGames() {
       card.classList.add("game-card");
       card.dataset.genre = game.genre;
 
-      // تقصير الوصف
       const shortDesc = game.description.length > 120
         ? game.description.substring(0, 120) + "..."
         : game.description;
@@ -794,32 +799,18 @@ async function loadGames() {
       container.appendChild(card);
     });
 
-    // ✅ أضف هذا السطر هنا - بعد forEach مباشرة
+    // ✅ إنشاء Structured Data فور تحميل الألعاب
     generateGamesStructuredData(games);
-
-    // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
-    const categoryLinks = document.querySelectorAll(".category");
-    categoryLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        // إزالة التفعيل من الكل وإضافة على العنصر المختار
-        document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
-        link.classList.add("active");
-
-        const selected = link.dataset.category.toLowerCase();
-        document.querySelectorAll(".game-card").forEach(card => {
-          const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
-          card.style.display = (selected === "all" || categories.includes(selected)) ? "block" : "none";
-        });
-      });
-    });
+    setupCategoryFiltering();
 
   } catch (err) {
     console.error("Error loading games:", err);
   }
 }
 
-// ✅ أضف هذه الدالة كاملة بعد دالة loadGames مباشرة
 function generateGamesStructuredData(games) {
+    if (!games || games.length === 0) return;
+    
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList", 
@@ -834,20 +825,57 @@ function generateGamesStructuredData(games) {
                 "name": game.title,
                 "url": `https://tikmob.github.io/game/game.html?game=${game.id}`,
                 "genre": game.genre,
-                "description": game.description,
+                "description": game.description.substring(0, 200),
                 "playMode": "Browser"
             }
         }))
     };
     
-    // إضافة الـ script للصفحة
     const script = document.createElement('script');
     script.type = 'application/ld+json';
+    script.id = 'dynamic-structured-data';
     script.textContent = JSON.stringify(structuredData);
+    
+    // إزالة أي Structured Data قديم وإضافة الجديد
+    const oldScript = document.getElementById('dynamic-structured-data');
+    if (oldScript) oldScript.remove();
+    
     document.head.appendChild(script);
+    
+    // ✅ إشعار Google بتحديث Structured Data
+    if (window.google && window.google.scriptRunner) {
+        window.google.scriptRunner && window.google.scriptRunner.handleScripts();
+    }
 }
 
-document.addEventListener("DOMContentLoaded", loadGames);
+function setupCategoryFiltering() {
+    const categoryLinks = document.querySelectorAll(".category");
+    categoryLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
+            link.classList.add("active");
+
+            const selected = link.dataset.category.toLowerCase();
+            document.querySelectorAll(".game-card").forEach(card => {
+                const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
+                card.style.display = (selected === "all" || categories.includes(selected)) ? "block" : "none";
+            });
+        });
+    });
+}
+
+// ✅ تحميل سريع مع إشعار Google
+document.addEventListener("DOMContentLoaded", function() {
+    // تحميل الألعاب فوراً
+    loadGames();
+    
+    // محاولة إشعار Google بعد ثانية
+    setTimeout(() => {
+        if (window.google && window.google.scriptRunner) {
+            window.google.scriptRunner && window.google.scriptRunner.handleScripts();
+        }
+    }, 1000);
+});
 </script>
 
 </body>
