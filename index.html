@@ -851,6 +851,43 @@ async function loadGames() {
       container.appendChild(card);
     });
 
+    // ✅ أضف هذا السطر هنا - بعد forEach مباشرة
+    generateGamesStructuredData(games);
+
+  } catch (err) {
+    console.error("Error loading games:", err);
+  }
+}
+
+// ✅ أضف هذه الدالة كاملة بعد دالة loadGames مباشرة
+function generateGamesStructuredData(games) {
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList", 
+        "name": "FreePlayHub Games Collection",
+        "description": "Collection of the best unblocked games online",
+        "numberOfItems": games.length,
+        "itemListElement": games.map((game, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "VideoGame",
+                "name": game.title,
+                "url": `https://tikmob.github.io/game/game.html?game=${game.id}`,
+                "genre": game.genre,
+                "description": game.description,
+                "playMode": "Browser"
+            }
+        }))
+    };
+    
+    // إضافة الـ script للصفحة
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+}
+
     // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
 const categoryLinks = document.querySelectorAll(".category");
 categoryLinks.forEach(link => {
