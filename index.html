@@ -706,63 +706,55 @@
         });
     </script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById("moreGamesGrid");
-  const categoryContainer = document.querySelector(".categories");
+async function loadGames() {
+  try {
+    const response = await fetch("games.json");
+    const games = await response.json();
 
-  fetch("games.json")
-    .then(response => response.json())
-    .then(data => {
-      window.allGames = data;
-      displayGames(data);
-    })
-    .catch(error => console.error("Error loading games:", error));
+    const container = document.getElementById("moreGamesGrid");
+    container.innerHTML = "";
 
-  function displayGames(games) {
-    grid.innerHTML = "";
     games.forEach(game => {
+      const card = document.createElement("div");
+      card.classList.add("game-card");
+      card.dataset.genre = game.genre;
+
+      // تقصير الوصف
       const shortDesc = game.description.length > 120
         ? game.description.substring(0, 120) + "..."
         : game.description;
-
-      const card = document.createElement("div");
-      card.classList.add("game-card");
-      card.setAttribute("data-game", game.title);
-      card.setAttribute("data-category", Array.isArray(game.genre) ? game.genre.join(" ").toLowerCase() : game.genre.toLowerCase());
 
       card.innerHTML = `
         <img src="${game.thumbnail}" alt="${game.title}" class="game-image">
         <div class="game-info">
           <h3 class="game-title">${game.title}</h3>
           <p class="game-description">${shortDesc}</p>
-          <a href="game/game.html?game=${game.id}" class="play-btn">Play Now</a>
+          <a href="https://tikmob.github.io/game/game.html?game=${game.id}" class="play-btn">Play Now</a>
         </div>
       `;
-      grid.appendChild(card);
+
+      container.appendChild(card);
     });
+
+    // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
+    const categoryLinks = document.querySelectorAll(".category-link");
+    categoryLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const selected = link.dataset.category.toLowerCase();
+        document.querySelectorAll(".game-card").forEach(card => {
+          const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
+          card.style.display = categories.includes(selected) ? "block" : "none";
+        });
+      });
+    });
+
+  } catch (err) {
+    console.error("Error loading games:", err);
   }
+}
 
-  categoryContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("category")) {
-      document.querySelectorAll(".category").forEach(btn => btn.classList.remove("active"));
-      e.target.classList.add("active");
-
-      const category = e.target.dataset.category.toLowerCase();
-
-      const filtered = category === "all"
-        ? window.allGames
-        : window.allGames.filter(game => {
-            if (Array.isArray(game.genre)) {
-              return game.genre.some(g => g.toLowerCase().includes(category));
-            } else {
-              return game.genre.toLowerCase().includes(category);
-            }
-          });
-
-      displayGames(filtered);
-    }
-  });
-});
+document.addEventListener("DOMContentLoaded", loadGames);
 </script>
+
 </body>
 </html>
