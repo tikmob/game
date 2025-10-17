@@ -703,38 +703,59 @@
             });
         });
     </script>
-   <script>
+<script>
+  let allGames = []; // لتخزين كل الألعاب بعد تحميلها
+
+  // تحميل الألعاب من ملف JSON
   fetch('games.json')
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('moreGamesGrid');
-
-      data.forEach(game => {
-        // تقصير الوصف الطويل إلى 100 حرف فقط
-        let shortDesc = game.description.length > 100 
-          ? game.description.substring(0, 100) + "..." 
-          : game.description;
-
-        // بناء الرابط الذي يفتح صفحة اللعبة بنفس النظام الذي عندك
-        const gameUrl = `https://tikmob.github.io/game/game.html?game=${game.id}`;
-
-        // إنشاء البطاقة
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.setAttribute('data-game', game.title);
-        card.setAttribute('data-category', game.genre || '');
-        card.innerHTML = `
-          <img src="${game.thumbnail}" alt="${game.title}" class="game-image">
-          <div class="game-info">
-            <h3 class="game-title">${game.title}</h3>
-            <p class="game-description">${shortDesc}</p>
-            <a href="${gameUrl}" class="play-btn">Play Now</a>
-          </div>
-        `;
-        container.appendChild(card);
-      });
+      allGames = data;
+      renderGames(allGames); // عرض كل الألعاب أولاً
     })
     .catch(error => console.error('Error loading games:', error));
+
+  // دالة عرض الألعاب في الصفحة
+  function renderGames(games) {
+    const container = document.getElementById('moreGamesGrid');
+    container.innerHTML = ''; // تنظيف المحتوى قبل إعادة العرض
+
+    games.forEach(game => {
+      let shortDesc = game.description.length > 100 
+        ? game.description.substring(0, 100) + "..." 
+        : game.description;
+
+      const gameUrl = `https://tikmob.github.io/game/game.html?game=${game.id}`;
+
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.setAttribute('data-category', game.genre || '');
+      card.innerHTML = `
+        <img src="${game.thumbnail}" alt="${game.title}" class="game-image">
+        <div class="game-info">
+          <h3 class="game-title">${game.title}</h3>
+          <p class="game-description">${shortDesc}</p>
+          <a href="${gameUrl}" class="play-btn">Play Now</a>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // عند الضغط على أي زر تصنيف
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cat-btn')) {
+      const category = e.target.dataset.category;
+      if (category === 'all') {
+        renderGames(allGames);
+      } else {
+        const filtered = allGames.filter(game => 
+          game.genre && game.genre.toLowerCase().includes(category.toLowerCase())
+        );
+        renderGames(filtered);
+      }
+    }
+  });
 </script>
 </body>
 </html>
