@@ -46,5 +46,13 @@
     "genre": "Arcade",
     "thumbnail": "https://tikmob.github.io/game/images/6.jpg",
     "iframe": "https://html5.gamemonetize.co/3oeuck11kfyukgvc8zplpnkf3hyuwgr9/"
+  },
+  {
+    "id": "geometry-dash-beatbox",
+    "title": "Geometry Dash BeatBox",
+    "description": "Get ready for an adrenaline-pumping challenge in Geometry Dash, the ultimate rhythm-based action platform game! Jump, fly, and flip your way through dangerous paths filled with spikes and obstacles. With simple one-touch controls, it’s easy to play but nearly impossible to master.Test your reflexes across multiple music-synced levels, each featuring a unique soundtrack that keeps the action alive. Create and share your own levels using the built-in level editor, and unlock icons, colors, and skins to customize your character.Fly rockets, flip gravity, and perfect your timing in practice mode before taking on the toughest stages. Geometry Dash is more than a game — it’s a rhythmic adventure that will keep you hooked for hours!",
+    "genre": "Arcade",
+    "thumbnail": "https://tikmob.github.io/game/images/7.jpg",
+    "iframe": "https://html5.gamemonetize.co/awue2vxolgollll5aop6wlbdfgizj7e0/"
   }
 ]
