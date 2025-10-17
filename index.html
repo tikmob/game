@@ -737,16 +737,20 @@ async function loadGames() {
     });
 
     // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
-    const categoryLinks = document.querySelectorAll(".category-link");
-    categoryLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        const selected = link.dataset.category.toLowerCase();
-        document.querySelectorAll(".game-card").forEach(card => {
-          const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
-          card.style.display = categories.includes(selected) ? "block" : "none";
-        });
-      });
+const categoryLinks = document.querySelectorAll(".category");
+categoryLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    // إزالة التفعيل من الكل وإضافة على العنصر المختار
+    document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
+    link.classList.add("active");
+
+    const selected = link.dataset.category.toLowerCase();
+    document.querySelectorAll(".game-card").forEach(card => {
+      const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
+      card.style.display = (selected === "all" || categories.includes(selected)) ? "block" : "none";
     });
+  });
+});
 
   } catch (err) {
     console.error("Error loading games:", err);
