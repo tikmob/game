@@ -744,7 +744,7 @@
 
   // عند الضغط على أي زر تصنيف
   document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('cat-btn')) {
+    if (e.target.classList.contains('category')) {
       const category = e.target.dataset.category;
       if (category === 'all') {
         renderGames(allGames);
