@@ -460,89 +460,10 @@
 
         <!-- More Games -->
         <section>
-            <h2 class="section-title">Games</h2>
-            <div class="games-grid" id="moreGamesGrid">
-                <!-- Game 7 -->
-                <div class="game-card" data-game="Stickman Ghost Online" data-category="action adventure">
-                    <img src="https://tikmob.github.io/game/images/1.jpg" alt="Stickman Ghost Online" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Stickman Ghost Online</h3>
-                        <p class="game-description">Play Stickman Ghost Online for free and dive into an epic stickman action adventure! Take control of a brave stickman warrior</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=stickman-ghost-online-game" class="play-btn">Play Now</a>
-                    </div>
-                </div>
+  <h2 class="section-title">Games</h2>
+  <div class="games-grid" id="moreGamesGrid"></div>
+</section>
 
-                <!-- Game 8 -->
-                <div class="game-card" data-game="Among-Us-Online" data-category="action arcade">
-                    <img src="https://tikmob.github.io/game/images/2.jpg" alt="Among Us Online" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Among Us Online</h3>
-                        <p class="game-description">Welcome to Among Us Online Edition, a thrilling solo version inspired by the famous space sabotage game.</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=among-us-online-edition" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 9 -->
-                <div class="game-card" data-game="Prado Car Parking Game" data-category="Adventure Racing">
-                    <img src="https://tikmob.github.io/game/images/5.jpg" alt="Prado Car Parking Game" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Prado Car Parking Game</h3>
-                        <p class="game-description">Experience the next level of luxury driving with Prado Car Parking Simulator. Step into a world where precision meets performance</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=prado-car-parking-game" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 10 -->
-                <div class="game-card" data-game="Sniper Simulator" data-category="puzzle">
-                    <img src="https://tikmob.github.io/game/images/3.jpg" alt="Sniper Simulator" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Sniper Simulator</h3>
-                        <p class="game-description">Step into the world of precision shooting with Sniper Simulator</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=sniper-simulator-game" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 11 -->
-                <div class="game-card" data-game="Super Mario Run" data-category="strategy">
-                    <img src="https://tikmob.github.io/game/images/4.jpg" alt="Super Mario Run" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Super Mario Run</h3>
-                        <p class="game-description">Join Mario and his friends in this free running and adventure game! Help rescue the princess as you run</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=super-mario-run-game" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 12 -->
-                <div class="game-card" data-game="worms-zone-a-slithery-snake" data-category="Arcade">
-                    <img src="https://tikmob.github.io/game/images/6.jpg" alt="Worms Zone a Slithery Snake" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Worms Zone a Slithery Snake</h3>
-                        <p class="game-description">Enter the world of Worms Zone, a fun and fast-paced snake evolution game with a dynamic storyline. Start as a tiny worm and eat everything in your path to grow into a massive anaconda</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=worms-zone-a-slithery-snake" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                 <!-- Game 13 -->
-                <div class="game-card" data-game="geometry-dash-beatbox" data-category="Arcade">
-                    <img src="https://tikmob.github.io/game/images/7.jpg" alt="Geometry Dash BeatBox" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Geometry Dash BeatBox</h3>
-                        <p class="game-description">Get ready for an adrenaline-pumping challenge in Geometry Dash, the ultimate rhythm-based action platform game!</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=geometry-dash-beatbox" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-
-                <!-- Game 14 -->
-                <div class="game-card" data-game="getting-over-it-unblocked" data-category="Action Adventure">
-                    <img src="https://tikmob.github.io/game/images/8.jpg" alt="Getting Over It Unblocked" class="game-image">
-                    <div class="game-info">
-                        <h3 class="game-title">Getting Over It Unblocked</h3>
-                        <p class="game-description">Embark on the most challenging climbing adventure with Getting Over It Unblocked! Take control of a man trapped inside a pot</p>
-                        <a href="https://tikmob.github.io/game/game.html?game=getting-over-it-unblocked" class="play-btn">Play Now</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Features -->
         <section>
@@ -784,5 +705,35 @@
             });
         });
     </script>
+    <script>
+  fetch('games.json')
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById('moreGamesGrid');
+
+      data.forEach(game => {
+        // تقصير الوصف الطويل إلى 100 حرف فقط
+        let shortDesc = game.description.length > 100 
+          ? game.description.substring(0, 100) + "..." 
+          : game.description;
+
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.setAttribute('data-game', game.title);
+        card.setAttribute('data-category', game.category || '');
+        card.innerHTML = `
+          <img src="${game.image}" alt="${game.title}" class="game-image">
+          <div class="game-info">
+            <h3 class="game-title">${game.title}</h3>
+            <p class="game-description">${shortDesc}</p>
+            <a href="${game.url}" class="play-btn">Play Now</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    })
+    .catch(error => console.error('Error loading games:', error));
+</script>
+
 </body>
 </html>
