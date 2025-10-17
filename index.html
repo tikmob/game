@@ -18,20 +18,6 @@
     <link rel="canonical" href="https://ug17.github.io">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <!-- Structured Data for Website -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "FreePlayHub - Best Unblocked Games Online",
-  "url": "https://ug17.github.io",
-  "description": "Play the best unblocked games for free. Subway Surfers, Geometry Dash, Cookie Clicker and many more exciting games.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://ug17.github.io/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
 
 <!-- Structured Data for Organization -->
 <script type="application/ld+json">
@@ -854,6 +840,22 @@ async function loadGames() {
     // ✅ أضف هذا السطر هنا - بعد forEach مباشرة
     generateGamesStructuredData(games);
 
+    // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
+    const categoryLinks = document.querySelectorAll(".category");
+    categoryLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        // إزالة التفعيل من الكل وإضافة على العنصر المختار
+        document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
+        link.classList.add("active");
+
+        const selected = link.dataset.category.toLowerCase();
+        document.querySelectorAll(".game-card").forEach(card => {
+          const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
+          card.style.display = (selected === "all" || categories.includes(selected)) ? "block" : "none";
+        });
+      });
+    });
+
   } catch (err) {
     console.error("Error loading games:", err);
   }
@@ -886,27 +888,6 @@ function generateGamesStructuredData(games) {
     script.type = 'application/ld+json';
     script.textContent = JSON.stringify(structuredData);
     document.head.appendChild(script);
-}
-
-    // تصفية حسب التصنيف (يدعم أكثر من تصنيف مفصول بفاصلة)
-const categoryLinks = document.querySelectorAll(".category");
-categoryLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    // إزالة التفعيل من الكل وإضافة على العنصر المختار
-    document.querySelectorAll(".category").forEach(c => c.classList.remove("active"));
-    link.classList.add("active");
-
-    const selected = link.dataset.category.toLowerCase();
-    document.querySelectorAll(".game-card").forEach(card => {
-      const categories = card.dataset.genre.toLowerCase().split(",").map(c => c.trim());
-      card.style.display = (selected === "all" || categories.includes(selected)) ? "block" : "none";
-    });
-  });
-});
-
-  } catch (err) {
-    console.error("Error loading games:", err);
-  }
 }
 
 document.addEventListener("DOMContentLoaded", loadGames);
