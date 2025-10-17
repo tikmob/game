@@ -705,7 +705,7 @@
             });
         });
     </script>
-    <script>
+   <script>
   fetch('games.json')
     .then(response => response.json())
     .then(data => {
@@ -717,16 +717,20 @@
           ? game.description.substring(0, 100) + "..." 
           : game.description;
 
+        // بناء الرابط الذي يفتح صفحة اللعبة بنفس النظام الذي عندك
+        const gameUrl = `https://tikmob.github.io/game/game.html?game=${game.id}`;
+
+        // إنشاء البطاقة
         const card = document.createElement('div');
         card.className = 'game-card';
         card.setAttribute('data-game', game.title);
-        card.setAttribute('data-category', game.category || '');
+        card.setAttribute('data-category', game.genre || '');
         card.innerHTML = `
-          <img src="${game.image}" alt="${game.title}" class="game-image">
+          <img src="${game.thumbnail}" alt="${game.title}" class="game-image">
           <div class="game-info">
             <h3 class="game-title">${game.title}</h3>
             <p class="game-description">${shortDesc}</p>
-            <a href="${game.url}" class="play-btn">Play Now</a>
+            <a href="${gameUrl}" class="play-btn">Play Now</a>
           </div>
         `;
         container.appendChild(card);
@@ -734,6 +738,5 @@
     })
     .catch(error => console.error('Error loading games:', error));
 </script>
-
 </body>
 </html>
