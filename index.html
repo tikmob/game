@@ -388,18 +388,43 @@
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
+  .hero h1 {
+    font-size: 2rem;
+  }
 
-            .games-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+  /* عرض لعبتين في الصف الواحد */
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
 
-            .feature-card {
-                padding: 20px;
-            }
-        }
+  .game-card {
+    border-radius: 10px;
+  }
+
+  .game-image {
+    height: 100px; /* كانت 180px */
+    object-fit: cover;
+  }
+
+  .game-info {
+    padding: 10px;
+  }
+
+  .game-title {
+    font-size: 0.9rem;
+  }
+
+  .game-description {
+    font-size: 0.8rem;
+  }
+
+  .play-btn {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
+
     </style>
 </head>
 <body>
