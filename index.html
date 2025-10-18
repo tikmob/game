@@ -640,6 +640,53 @@ if ('serviceWorker' in navigator) {
         </section>
     </main>
 
+    <!-- في الـ HTML -->
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <h3>What are unblocked games?</h3>
+        <p>Unblocked games are online games that can be played even in restricted environments like schools or workplaces.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Are these games free to play?</h3>
+        <p>Yes, all games on FreePlayHub are completely free to play without any registration required.</p>
+    </div>
+</section>
+
+<!-- الـ Structured Data للأسئلة الشائعة -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are unblocked games?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unblocked games are online games that can be played even in restricted environments like schools or workplaces where gaming websites are typically blocked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are these games free to play?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all games on FreePlayHub are completely free to play without any registration or download required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to install anything?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, all games run directly in your web browser without any installation needed."
+      }
+    }
+  ]
+}
+</script>
+
     <!-- Footer -->
     <footer>
         <div class="container">
